@@ -1,20 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "annoyancefix",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "AnnoyanceFix-StationAPI",
+  "description": "Port of the AnnoyanceFix mod for Babric",
   "authors": [
-    "Me!"
+    "Telvarost",
+    "2zqa"
   ],
   "contact": {
-    "homepage": "https://glass-launcher.net/",
-    "sources": "https://github.com/calmilamsy/BIN-fabric-example-mod"
+    "homepage": "https://github.com/telvarost/AnnoyanceFix-Babric/",
+    "sources": "https://github.com/telvarost/AnnoyanceFix-Babric/"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/examplemod/icon.png",
+  "icon": "assets/annoyancefix/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -35,7 +36,7 @@
     ]
   },
   "mixins": [
-    "examplemod.mixins.json"
+    "annoyancefix.mixins.json"
   ],
 
   "depends": {
