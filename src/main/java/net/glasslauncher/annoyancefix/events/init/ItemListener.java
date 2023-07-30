@@ -1,4 +1,4 @@
-package net.glasslauncher.example.events.init;
+package net.glasslauncher.annoyancefix.events.init;
 
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.item.ItemBase;

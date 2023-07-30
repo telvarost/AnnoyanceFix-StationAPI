@@ -1,4 +1,4 @@
-package net.glasslauncher.example.custom;
+package net.glasslauncher.annoyancefix.custom;
 
 import net.minecraft.block.BlockBase;
 import net.modificationstation.stationapi.api.client.gui.screen.menu.AchievementPage;
