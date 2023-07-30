@@ -1,17 +1,25 @@
-# Fabric Example Mod with StationAPI and BIN Mappings for beta 1.7.3 server + client
+# AnnoyanceFix-StationAPI for Minecraft beta 1.7.3
 
-## Setup
+_Now using StationAPI!_
 
-[See the StationAPI wiki.](https://github.com/ModificationStation/StationAPI/wiki)
+![babric](https://github.com/telvarost/AnnoyanceFix-Babric/assets/25235249/a6590bc1-2b73-4b82-951e-5e1e2bb418e4)
 
-## Common Issues
+**If you're looking for the modloader version, see this repository:** https://github.com/2zqa/AnnoyanceFix
 
-**I get "Invalid source release: 17" as an error!**  
-Use Java 17. Open up `File > Project Structure` and change your SDK to Java 17.  
-If you still get the issue, you may need to go into `File > Settings > Build, Execution, Deployment > Build Tools > Gradle` and change the Java that Gradle uses too.
+Mod review of the modloader edition v1.4 by Modification Station/The Zyga (thanks!): https://www.youtube.com/watch?v=m8lX9jv9lhI
 
-[Here for more issues.](https://github.com/calmilamsy/BIN-fabric-example-mod#common-issues)
+The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
 
-## License
+List coming soon
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## Installation using Prism Launcher
+
+Coming soon
+
+## Feedback
+
+Got any suggestions on what should be add next? Feel free to share it by [creating an issue](https://github.com/telvarost/AnnoyanceFix-StationAPI/issues/new). Know how to code and want to do it yourself? Then look below on how to get started.
+
+## Contributing
+
+Thanks for considering contributing! To get started, please get in contact with us. Instructions are coming soon.
