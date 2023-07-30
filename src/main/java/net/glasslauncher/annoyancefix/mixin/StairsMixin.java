@@ -43,7 +43,7 @@ public abstract class StairsMixin extends BlockBase {
     }
 
     @Inject(at = @At("HEAD"), method = "beforeDestroyedByExplosion", cancellable = true)
-    public void anf_method_1625(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
+    public void beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
         if (!arg.isServerSide) {
             int var7 = this.getDropCount(arg.rand);
 
