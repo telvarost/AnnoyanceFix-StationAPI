@@ -4,7 +4,8 @@
   "package": "net.glasslauncher.annoyancefix.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "FenceMixin"
+    "FenceMixin",
+    "BoatMixin"
   ],
   "server": [
   ],
