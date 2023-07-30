@@ -7,7 +7,8 @@
     "FenceMixin",
     "BoatMixin",
     "StairsMixin",
-    "HatchetMixin"
+    "HatchetMixin",
+    "PickaxeMixin"
   ],
   "server": [
   ],
