@@ -19,12 +19,12 @@
 
   "environment": "*",
   "entrypoints": {
-    "station:event_bus": [
+    "stationapi:event_bus": [
       "net.glasslauncher.annoyancefix.events.init.RecipeListener"
     ],
-    "station:event_bus_client": [
+    "stationapi:event_bus_client": [
     ],
-    "station:event_bus_server": [
+    "stationapi:event_bus_server": [
     ]
   },
   "mixins": [
