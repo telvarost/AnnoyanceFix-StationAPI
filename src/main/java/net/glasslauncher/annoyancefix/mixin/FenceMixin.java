@@ -3,7 +3,6 @@ package net.glasslauncher.annoyancefix.mixin;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Fence;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Block;
 import net.minecraft.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,4 +25,3 @@ public abstract class FenceMixin extends BlockBase {
         cir.setReturnValue(true);
     }
 }
-
