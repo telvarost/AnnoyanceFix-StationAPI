@@ -1,4 +1,4 @@
-package net.glasslauncher.annoyancefix.events.init;
+package net.glasslauncher.annoyancefix.events;
 
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.container.slot.ItemUsedInCraftingEvent;
