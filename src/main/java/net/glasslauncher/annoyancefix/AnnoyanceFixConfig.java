@@ -1,5 +1,8 @@
 package net.glasslauncher.annoyancefix;
 
+import net.mine_diver.unsafeevents.listener.EventListener;
+import net.modificationstation.stationapi.api.event.mod.InitEvent;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,6 +10,28 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class AnnoyanceFixConfig {
+
+    public static boolean enableBoatFixes = false;
+    public static boolean enableArmourCombining = false;
+
+    @EventListener
+    void onInit(InitEvent event) {
+        ReadConfigFile();
+    }
+
+    public static void ReadConfigFile() {
+        String configSettingsString;
+        String configFile = "AnnoyanceFixConfig.json";
+
+        CreateFile(configFile);
+        configSettingsString = ReadFile(configFile);
+
+        if (0 < configSettingsString.length())
+        {
+            char setting1 = configSettingsString.charAt(0);
+            enableBoatFixes = (setting1 == 'Y') ? true : false;
+        }
+    }
 
     public static void CreateFile (String filename) {
         try {

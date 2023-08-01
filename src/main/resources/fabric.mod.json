@@ -18,6 +18,11 @@
   "icon": "assets/annoyancefix/icon.png",
 
   "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+      "net.glasslauncher.annoyancefix.AnnoyanceFixConfig"
+    ]
+  },
   "mixins": [
     "annoyancefix.mixins.json"
   ],
