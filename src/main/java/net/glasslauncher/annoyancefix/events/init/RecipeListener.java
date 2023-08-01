@@ -35,6 +35,11 @@ public class RecipeListener {
             CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.diamondChestplate.id, 1, ItemBase.diamondChestplate.getDurability()), new ItemInstance(ItemBase.diamondChestplate.id, 1, -1), new ItemInstance(ItemBase.diamondChestplate.id, 1, -1));
             CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.diamondLeggings.id, 1, ItemBase.diamondLeggings.getDurability()), new ItemInstance(ItemBase.diamondLeggings.id, 1, -1), new ItemInstance(ItemBase.diamondLeggings.id, 1, -1));
             CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.diamondBoots.id, 1, ItemBase.diamondBoots.getDurability()), new ItemInstance(ItemBase.diamondBoots.id, 1, -1), new ItemInstance(ItemBase.diamondBoots.id, 1, -1));
+
+            CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.goldHelmet.id, 1, ItemBase.goldHelmet.getDurability()), new ItemInstance(ItemBase.goldHelmet.id, 1, -1), new ItemInstance(ItemBase.goldHelmet.id, 1, -1));
+            CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.goldChestplate.id, 1, ItemBase.goldChestplate.getDurability()), new ItemInstance(ItemBase.goldChestplate.id, 1, -1), new ItemInstance(ItemBase.goldChestplate.id, 1, -1));
+            CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.goldLeggings.id, 1, ItemBase.goldLeggings.getDurability()), new ItemInstance(ItemBase.goldLeggings.id, 1, -1), new ItemInstance(ItemBase.goldLeggings.id, 1, -1));
+            CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.goldBoots.id, 1, ItemBase.goldBoots.getDurability()), new ItemInstance(ItemBase.goldBoots.id, 1, -1), new ItemInstance(ItemBase.goldBoots.id, 1, -1));
         }
     }
 }
