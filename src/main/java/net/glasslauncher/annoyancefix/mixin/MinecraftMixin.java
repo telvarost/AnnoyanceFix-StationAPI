@@ -44,9 +44,14 @@ public class MinecraftMixin {
     @Shadow public Level level;
     @Shadow public AbstractClientPlayer player;
 
-    // method_2103 is the pick block method
+    /**
+     * Adds functionality for picking blocks that are not in the hotbar.
+     * It also adds pick block functionality to boats, minecarts and paintings.
+     * Injected at the head of method_2103, which is the pick block method.
+     * @param ci the callback info
+     */
     @Inject(at = @At("HEAD"), method = "method_2103", cancellable = true)
-    public void method_2103(CallbackInfo ci) {
+    public void pickBlock(CallbackInfo ci) {
         int itemID = 0;
 
         if (this.hitResult != null) {
