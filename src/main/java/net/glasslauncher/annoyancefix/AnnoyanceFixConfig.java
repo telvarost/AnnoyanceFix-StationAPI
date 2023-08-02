@@ -7,7 +7,6 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import static java.lang.Boolean.TRUE;
 
@@ -20,20 +19,22 @@ public class AnnoyanceFixConfig {
     void onInit(InitEvent event) {
         try
         {
-            ReadConfigFile();
+            LoadConfigFile();
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("File not found.");
+            System.out.println("AnnoyanceFix config file not found.");
             e.printStackTrace();
         }
     }
 
-    public static void ReadConfigFile() throws FileNotFoundException {
+    public static void LoadConfigFile() throws FileNotFoundException {
         String configFile = "AnnoyanceFixConfig.yaml";
 
+        /** - Write default config file, if config file does not exist */
         if (CreateFile(configFile))
         {
+            /** - Config file defaults */
             Map<String, Object> dataMap = new HashMap<>();
             dataMap.put("enableBoatFixes", TRUE);
 
@@ -43,10 +44,12 @@ public class AnnoyanceFixConfig {
             writer.close();
         }
 
+        /** - Read out config file */
         InputStream inputStream = new FileInputStream(new File(configFile));
-
         Yaml yaml = new Yaml();
         Map<String, Object> data = yaml.load(inputStream);
+
+        /** - Apply config file to application */
         enableBoatFixes = (boolean)data.getOrDefault("enableBoatFixes", TRUE);
     }
 
@@ -55,48 +58,9 @@ public class AnnoyanceFixConfig {
             File myObj = new File(filename);
             return myObj.createNewFile();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Failed to create file: " + filename);
             e.printStackTrace();
             return false;
         }
-    }
-
-    public static void DeleteFile (String filename) {
-        File myObj = new File(filename);
-        if (myObj.delete()) {
-            System.out.println("Deleted the file: " + myObj.getName());
-        } else {
-            System.out.println("Failed to delete the file.");
-        }
-    }
-
-    public static void WriteToFile (String filename, String data) {
-        try {
-            FileWriter myWriter = new FileWriter(filename);
-            myWriter.write(data);
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
-    public static String ReadFile (String filename) {
-        String data = "";
-
-        try {
-            File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                data += myReader.nextLine();
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
-        return data;
     }
 }
