@@ -2,12 +2,14 @@ package net.glasslauncher.annoyancefix;
 
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.mod.InitEvent;
+import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+
+import static java.lang.Boolean.TRUE;
 
 public class AnnoyanceFixConfig {
 
@@ -16,34 +18,46 @@ public class AnnoyanceFixConfig {
 
     @EventListener
     void onInit(InitEvent event) {
-        ReadConfigFile();
-    }
-
-    public static void ReadConfigFile() {
-        String configSettingsString;
-        String configFile = "AnnoyanceFixConfig.json";
-
-        CreateFile(configFile);
-        configSettingsString = ReadFile(configFile);
-
-        if (0 < configSettingsString.length())
+        try
         {
-            char setting1 = configSettingsString.charAt(0);
-            enableBoatFixes = (setting1 == 'Y') ? true : false;
+            ReadConfigFile();
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("File not found.");
+            e.printStackTrace();
         }
     }
 
-    public static void CreateFile (String filename) {
+    public static void ReadConfigFile() throws FileNotFoundException {
+        String configFile = "AnnoyanceFixConfig.yaml";
+
+        if (CreateFile(configFile))
+        {
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("enableBoatFixes", TRUE);
+
+            PrintWriter writer = new PrintWriter(new File(configFile));
+            Yaml yaml = new Yaml();
+            yaml.dump(dataMap, writer);
+            writer.close();
+        }
+
+        InputStream inputStream = new FileInputStream(new File(configFile));
+
+        Yaml yaml = new Yaml();
+        Map<String, Object> data = yaml.load(inputStream);
+        enableBoatFixes = (boolean)data.getOrDefault("enableBoatFixes", TRUE);
+    }
+
+    public static boolean CreateFile (String filename) {
         try {
             File myObj = new File(filename);
-            if (myObj.createNewFile()) {
-                System.out.println("File created: " + myObj.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
+            return myObj.createNewFile();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return false;
         }
     }
 
