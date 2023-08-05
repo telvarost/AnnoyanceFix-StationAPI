@@ -6,6 +6,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   tagged-release:
     name: "Tagged Release"
@@ -27,4 +30,4 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           files: |
-            build/libs/*.jar
+            build/libs/*.jarg
