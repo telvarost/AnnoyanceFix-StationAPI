@@ -20,8 +20,9 @@ public abstract class PlayerInventoryMixin {
     public PlayerBase player;
 
     /**
-     * Checks if the item is in the players inventory except the hotbar. If so, it moves it to the players hotbar in an
-     * empty spot, or swaps the items if not.
+     * Checks if the item is in the players inventory except the hotbar. If so, it moves it to the players currently
+     * selected hotbar slot. If the player is already holding an item, it moves it to the players hotbar in an
+     * empty spot. If no empty slot is available, it swaps the item with the currently selected one.
      *
      * @param itemID the ID of the item to select
      * @param unused unused variable needed to match original methods signature
@@ -32,16 +33,22 @@ public abstract class PlayerInventoryMixin {
         int slotWithItem = getSlotWithItem(itemID);
         PlayerInventory inventory = player.inventory;
 
-        // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar.
+        // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
         if (slotWithItem < 9) {
             return;
         }
 
-        // Player has item in the rest of its inventory somewhere
-        int emptyHotbarSlot = getEmptyHotbarSlot(inventory.main);
-        if (emptyHotbarSlot != -1) {
-            inventory.selectedHotbarSlot = emptyHotbarSlot;
-            inventory.main[emptyHotbarSlot] = inventory.main[slotWithItem];
+        // Player has item in the rest of its inventory somewhere; find slot to place item in
+        int slot;
+        if (player.getHeldItem() == null) {
+            slot = player.inventory.selectedHotbarSlot;
+        } else {
+            slot = getEmptyHotbarSlot(inventory.main);
+        }
+
+        if (slot != -1) {
+            inventory.selectedHotbarSlot = slot;
+            inventory.main[slot] = inventory.main[slotWithItem];
             inventory.main[slotWithItem] = null;
             ci.cancel();
             return;
