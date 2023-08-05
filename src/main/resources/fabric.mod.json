@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "AnnoyanceFix",
-  "description": "Fixes annoyances and backports useful features",
+  "description": "Fixes annoyances and backports useful features.",
   "authors": [
     "Telvarost",
     "2zqa"
