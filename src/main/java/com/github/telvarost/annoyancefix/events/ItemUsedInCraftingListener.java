@@ -8,8 +8,7 @@ public class ItemUsedInCraftingListener {
 
     @EventListener
     public void combineDurability(ItemUsedInCraftingEvent event) {
-        if (  (Config.ConfigFields.armorFixesEnabled)
-           && (null != event.itemUsed)
+        if (  (null != event.itemUsed)
            && (true == event.itemUsed.hasDurability())
            && (null != event.itemCrafted)
            && (true == event.itemCrafted.hasDurability())

@@ -10,9 +10,6 @@ public class Config {
 
     public static class ConfigFields {
 
-        @ConfigName("Armor Fixes Enabled (Restart Required)")
-        public static Boolean armorFixesEnabled = true;
-
         @ConfigName("Boat Fixes Enabled")
         public static Boolean boatFixesEnabled = true;
 
