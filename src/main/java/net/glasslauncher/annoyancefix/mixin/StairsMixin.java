@@ -24,7 +24,7 @@ class StairsMixin extends BlockBase {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void annoyancefix_onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
+    private void annoyancefix_onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
         ci.cancel();
     }
 
@@ -33,7 +33,7 @@ class StairsMixin extends BlockBase {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void annoyancefix_onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
+    private void annoyancefix_onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
         ci.cancel();
     }
 
@@ -44,7 +44,7 @@ class StairsMixin extends BlockBase {
                     target = "Lnet/minecraft/block/BlockBase;getDropId(ILjava/util/Random;)I"
             )
     )
-    public int annoyancefix_getDropId(BlockBase instance, int meta, Random random) {
+    private int annoyancefix_getDropId(BlockBase instance, int meta, Random random) {
         return id;
     }
 
@@ -53,7 +53,7 @@ class StairsMixin extends BlockBase {
             at = @At("HEAD"),
             cancellable = true
     )
-    public void annoyancefix_beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
+    private void annoyancefix_beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
         super.beforeDestroyedByExplosion(arg, i, j, k, l, f);
         ci.cancel();
     }
