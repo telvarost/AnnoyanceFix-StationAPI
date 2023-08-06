@@ -28,16 +28,6 @@ public abstract class BookshelfMixin extends BlockBase {
         super(i, j, arg);
     }
 
-    @Override
-    public void onBlockRemoved(Level level, int i, int j, int k) {
-        return;
-    }
-
-    @Override
-    public void onDestroyedByExplosion(Level level, int i, int j, int k) {
-        return;
-    }
-
     @Inject(at = @At("HEAD"), method = "getDropCount", cancellable = true)
     public void getDropCount(Random random, CallbackInfoReturnable<Integer> cir) {
         cir.setReturnValue(3);
@@ -46,24 +36,6 @@ public abstract class BookshelfMixin extends BlockBase {
     @Override
     public int getDropId(int i, Random random) {
         return ItemBase.book.id;
-    }
-
-    @Override
-    public void beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f) {
-        if (!arg.isServerSide) {
-            int var7 = this.getDropCount(arg.rand);
-
-            for(int var8 = 0; var8 < var7; ++var8) {
-                if (!(arg.rand.nextFloat() > f)) {
-                    int var9 = this.getDropId(l, arg.rand);
-                    if (var9 > 0) {
-                        this.drop(arg, i, j, k, new ItemInstance(var9, 1, this.droppedMeta(l)));
-                    }
-                }
-            }
-        }
-
-        return;
     }
 }
 
