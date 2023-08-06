@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.events;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.container.slot.ItemUsedInCraftingEvent;
 
@@ -7,7 +8,8 @@ public class ItemUsedInCraftingListener {
 
     @EventListener
     public void combineDurability(ItemUsedInCraftingEvent event) {
-        if (  (null != event.itemUsed)
+        if (  (Config.ConfigFields.armorFixesEnabled)
+           && (null != event.itemUsed)
            && (true == event.itemUsed.hasDurability())
            && (null != event.itemCrafted)
            && (true == event.itemCrafted.hasDurability())
