@@ -1,4 +1,4 @@
-package net.glasslauncher.annoyancefix.events.init;
+package com.github.telvarost.annoyancefix.events.init;
 
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;

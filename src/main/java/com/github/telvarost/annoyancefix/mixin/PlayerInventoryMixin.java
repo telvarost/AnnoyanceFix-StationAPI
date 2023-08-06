@@ -1,4 +1,4 @@
-package net.glasslauncher.annoyancefix.mixin;
+package com.github.telvarost.annoyancefix.mixin;
 
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.entity.player.PlayerInventory;

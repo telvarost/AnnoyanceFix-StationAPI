@@ -1,4 +1,4 @@
-package net.glasslauncher.annoyancefix.mixin;
+package com.github.telvarost.annoyancefix.mixin;
 
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
