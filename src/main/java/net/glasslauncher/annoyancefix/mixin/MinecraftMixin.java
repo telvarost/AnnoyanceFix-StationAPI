@@ -1,5 +1,7 @@
 package net.glasslauncher.annoyancefix.mixin;
 
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.block.BlockBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Boat;
@@ -11,74 +13,72 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.level.Level;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.HitType;
+import net.modificationstation.stationapi.api.util.Util;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Map;
-
-import static java.util.Map.entry;
-
-@Mixin(value = Minecraft.class)
-public class MinecraftMixin {
-
+@Mixin(Minecraft.class)
+class MinecraftMixin {
     @Unique
-    private final Map<Integer, Integer> pickBlockLookupMap = Map.ofEntries(
-            entry(BlockBase.REDSTONE_DUST.id, ItemBase.redstoneDust.id),
-            entry(BlockBase.REDSTONE_REPEATER.id, ItemBase.redstoneRepeater.id),
-            entry(BlockBase.REDSTONE_REPEATER_LIT.id, ItemBase.redstoneRepeater.id),
-            entry(BlockBase.WOOD_DOOR.id, ItemBase.woodDoor.id),
-            entry(BlockBase.IRON_DOOR.id, ItemBase.ironDoor.id),
-            entry(BlockBase.STANDING_SIGN.id, ItemBase.sign.id),
-            entry(BlockBase.WALL_SIGN.id, ItemBase.sign.id),
-            entry(BlockBase.CROPS.id, ItemBase.seeds.id),
-            entry(BlockBase.BED.id, ItemBase.bed.id),
-            entry(BlockBase.CAKE.id, ItemBase.cake.id)
-    );
+    private final Int2IntMap annoyancefix_pickBlockLookupMap = Util.make(new Int2IntOpenHashMap(), map -> {
+        map.put(BlockBase.REDSTONE_DUST.id, ItemBase.redstoneDust.id);
+        map.put(BlockBase.REDSTONE_REPEATER.id, ItemBase.redstoneRepeater.id);
+        map.put(BlockBase.REDSTONE_REPEATER_LIT.id, ItemBase.redstoneRepeater.id);
+        map.put(BlockBase.WOOD_DOOR.id, ItemBase.woodDoor.id);
+        map.put(BlockBase.IRON_DOOR.id, ItemBase.ironDoor.id);
+        map.put(BlockBase.STANDING_SIGN.id, ItemBase.sign.id);
+        map.put(BlockBase.WALL_SIGN.id, ItemBase.sign.id);
+        map.put(BlockBase.CROPS.id, ItemBase.seeds.id);
+        map.put(BlockBase.BED.id, ItemBase.bed.id);
+        map.put(BlockBase.CAKE.id, ItemBase.cake.id);
+    });
 
 
     @Shadow public HitResult hitResult;
     @Shadow public Level level;
-    @Shadow public AbstractClientPlayer player;
 
     /**
      * Adds functionality for picking blocks that are not in the hotbar.
      * It also adds pick block functionality to boats, minecarts and paintings.
      * Injected at the head of method_2103, which is the pick block method.
      *
-     * @param ci the callback info
+     * @return the selected id
      */
-    @Inject(at = @At("HEAD"), method = "method_2103", cancellable = true)
-    public void pickBlock(CallbackInfo ci) {
-        if (this.hitResult == null) {
-            return;
-        }
-
+    @ModifyVariable(
+            method = "method_2103",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/client/Minecraft;player:Lnet/minecraft/entity/player/AbstractClientPlayer;",
+                    opcode = Opcodes.GETFIELD
+            ),
+            index = 1
+    )
+    private int annoyancefix_pickBlock(int vanillaItemId) {
         int itemID = 0;
         // field_790 means "Entity"
         if (this.hitResult.type == HitType.field_790) {
-            itemID = getItemIDFromEntity(hitResult.field_1989);
+            itemID = annoyancefix_getItemIDFromEntity(hitResult.field_1989);
         }
 
         // field_789 means "Tile"
         if (this.hitResult.type == HitType.field_789) {
             int tileDamage = this.level.getTileMeta(hitResult.x, hitResult.y, hitResult.z);
             int tileID = this.level.getTileId(hitResult.x, hitResult.y, hitResult.z);
-            itemID = getItemIDFromTileID(tileID, tileDamage);
+            itemID = annoyancefix_getItemIDFromTileID(tileID, tileDamage);
         }
 
         if (itemID == 0) {
             // No item found, let vanilla minecraft handle it
-            return;
+            return vanillaItemId;
         }
-
-        this.player.inventory.setSelectedItemWithID(itemID, false);
-        // Successfully selected an item, don't call original method anymore
-        ci.cancel();
-}
+        // Successfully selected an item, return the new id
+        return itemID;
+    }
 
     /**
      * Returns a corresponding item ID for a given tile.
@@ -88,7 +88,7 @@ public class MinecraftMixin {
      * @return the corresponding item ID
      */
     @Unique
-    private int getItemIDFromTileID(int tileID, int tileDamage) {
+    private int annoyancefix_getItemIDFromTileID(int tileID, int tileDamage) {
         // Special cases
         if (tileID == BlockBase.PISTON_HEAD.id) {
             // 0-5 damage = normal piston
@@ -100,10 +100,10 @@ public class MinecraftMixin {
             }
         }
 
-        if (!pickBlockLookupMap.containsKey(tileID)) {
+        if (!annoyancefix_pickBlockLookupMap.containsKey(tileID)) {
             return 0;
         }
-        return pickBlockLookupMap.get(tileID);
+        return annoyancefix_pickBlockLookupMap.get(tileID);
     }
 
     /**
@@ -114,7 +114,7 @@ public class MinecraftMixin {
      * @return the corresponding item ID
      */
     @Unique
-    private int getItemIDFromEntity(EntityBase entity) {
+    private int annoyancefix_getItemIDFromEntity(EntityBase entity) {
         if (entity instanceof Painting) {
             return ItemBase.painting.id;
         }
