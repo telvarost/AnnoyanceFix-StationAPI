@@ -1,7 +1,7 @@
-package net.glasslauncher.annoyancefix.mixin;
+package com.github.telvarost.annoyancefix.mixin;
 
 
-import net.glasslauncher.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Bookshelf;
 import net.minecraft.block.material.Material;

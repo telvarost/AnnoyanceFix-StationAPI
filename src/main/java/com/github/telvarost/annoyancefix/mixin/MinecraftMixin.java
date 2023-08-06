@@ -1,8 +1,8 @@
-package net.glasslauncher.annoyancefix.mixin;
+package com.github.telvarost.annoyancefix.mixin;
 
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
-import net.glasslauncher.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Boat;

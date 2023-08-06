@@ -1,6 +1,6 @@
-package net.glasslauncher.annoyancefix.mixin;
+package com.github.telvarost.annoyancefix.mixin;
 
-import net.glasslauncher.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.entity.Boat;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.player.PlayerBase;

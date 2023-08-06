@@ -1,4 +1,4 @@
-package net.glasslauncher.annoyancefix;
+package com.github.telvarost.annoyancefix;
 
 import net.glasslauncher.mods.api.gcapi.api.ConfigName;
 import net.glasslauncher.mods.api.gcapi.api.GConfig;

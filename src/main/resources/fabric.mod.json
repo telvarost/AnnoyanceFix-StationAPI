@@ -21,15 +21,15 @@
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
-      "net.glasslauncher.annoyancefix.events.init.RecipeListener",
-      "net.glasslauncher.annoyancefix.events.ItemUsedInCraftingListener"
+      "com.github.telvarost.annoyancefix.events.init.RecipeListener",
+      "com.github.telvarost.annoyancefix.events.ItemUsedInCraftingListener"
     ],
     "stationapi:event_bus_client": [
     ],
     "stationapi:event_bus_server": [
     ],
     "gcapi": [
-      "net.glasslauncher.annoyancefix.Config"
+      "com.github.telvarost.annoyancefix.Config"
     ]
   },
   "mixins": [
