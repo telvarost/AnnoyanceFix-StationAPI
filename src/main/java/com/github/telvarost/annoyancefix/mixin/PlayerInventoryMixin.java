@@ -31,7 +31,7 @@ class PlayerInventoryMixin {
             at = @At("RETURN"),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void annoyancefix_setSelectedItemWithID(
+    private void annoyanceFix_setSelectedItemWithID(
             int itemID, boolean unused, CallbackInfo ci,
             int slotWithItem
     ) {
@@ -48,7 +48,7 @@ class PlayerInventoryMixin {
             if (player.getHeldItem() == null) {
                 slot = player.inventory.selectedHotbarSlot;
             } else {
-                slot = annoyancefix_getEmptyHotbarSlot(inventory.main);
+                slot = annoyanceFix_getEmptyHotbarSlot(inventory.main);
             }
 
             if (slot != -1) {
@@ -72,7 +72,7 @@ class PlayerInventoryMixin {
      * @return the index of the first empty slot, or -1 if there is no empty slot
      */
     @Unique
-    private int annoyancefix_getEmptyHotbarSlot(ItemInstance[] mainInventory) {
+    private int annoyanceFix_getEmptyHotbarSlot(ItemInstance[] mainInventory) {
         for (int i = 0; i < 9; i++) {
             if (mainInventory[i] == null) {
                 return i;

@@ -22,7 +22,7 @@ class BookshelfMixin extends BlockBase {
             method = "getDropCount",
             constant = @Constant(intValue = 0)
     )
-    private int annoyancefix_getDropCount(int constant) {
+    private int annoyanceFix_getDropCount(int constant) {
         if (Config.ConfigFields.bookshelfFixesEnabled) {
             return 3;
         }

@@ -29,7 +29,7 @@ class HatchetMixin extends ToolBase {
                     shift = At.Shift.AFTER
             )
     )
-    private static void annoyancefix_appendExtraBlocks(CallbackInfo ci) {
+    private static void annoyanceFix_appendExtraBlocks(CallbackInfo ci) {
         effectiveBlocks = ObjectArrays.concat(effectiveBlocks, new BlockBase[]
                 { BlockBase.WORKBENCH
                 , BlockBase.NOTEBLOCK
