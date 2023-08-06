@@ -19,6 +19,16 @@
   "icon": "assets/annoyancefix/icon.png",
 
   "environment": "*",
+  "entrypoints": {
+    "stationapi:event_bus": [
+      "net.glasslauncher.annoyancefix.events.init.RecipeListener",
+      "net.glasslauncher.annoyancefix.events.ItemUsedInCraftingListener"
+    ],
+    "stationapi:event_bus_client": [
+    ],
+    "stationapi:event_bus_server": [
+    ]
+  },
   "mixins": [
     "annoyancefix.mixins.json"
   ],
