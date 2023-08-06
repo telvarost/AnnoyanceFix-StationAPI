@@ -8,7 +8,6 @@ import net.minecraft.entity.Boat;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.Minecart;
 import net.minecraft.entity.Painting;
-import net.minecraft.entity.player.AbstractClientPlayer;
 import net.minecraft.item.ItemBase;
 import net.minecraft.level.Level;
 import net.minecraft.util.hit.HitResult;
@@ -20,7 +19,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 class MinecraftMixin {
