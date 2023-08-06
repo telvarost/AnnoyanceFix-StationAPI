@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Fence.class)
-abstract class FenceMixin extends BlockBase {
+class FenceMixin extends BlockBase {
     public FenceMixin(int i, Material arg) {
         super(i, arg);
     }
