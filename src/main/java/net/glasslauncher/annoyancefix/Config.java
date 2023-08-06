@@ -1,6 +1,5 @@
 package net.glasslauncher.annoyancefix;
 
-import net.glasslauncher.annoyancefix.mixin.HatchetMixin;
 import net.glasslauncher.mods.api.gcapi.api.ConfigName;
 import net.glasslauncher.mods.api.gcapi.api.GConfig;
 

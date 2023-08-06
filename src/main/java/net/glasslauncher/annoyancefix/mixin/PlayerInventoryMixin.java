@@ -10,13 +10,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = PlayerInventory.class)
-public abstract class PlayerInventoryMixin {
-
-    @Shadow
-    protected abstract int getSlotWithItem(int i);
-
+class PlayerInventoryMixin {
     @Shadow
     public PlayerBase player;
 
@@ -29,30 +26,35 @@ public abstract class PlayerInventoryMixin {
      * @param unused unused variable needed to match original methods signature
      * @param ci the callback info
      */
-    @Inject(at = @At("HEAD"), method = "setSelectedItemWithID", cancellable = true)
-    public void setSelectedItemWithID(int itemID, boolean unused, CallbackInfo ci) {
+    @Inject(
+            method = "setSelectedItemWithID",
+            at = @At("RETURN"),
+            locals = LocalCapture.CAPTURE_FAILHARD
+    )
+    private void annoyancefix_setSelectedItemWithID(
+            int itemID, boolean unused, CallbackInfo ci,
+            int slotWithItem
+    ) {
         if (Config.ConfigFields.pickBlockFixesEnabled) {
-            int slotWithItem = getSlotWithItem(itemID);
-            PlayerInventory inventory = player.inventory;
-
             // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
             if (slotWithItem < 9) {
                 return;
             }
+
+            PlayerInventory inventory = player.inventory;
 
             // Player has item in the rest of its inventory somewhere; find slot to place item in
             int slot;
             if (player.getHeldItem() == null) {
                 slot = player.inventory.selectedHotbarSlot;
             } else {
-                slot = getEmptyHotbarSlot(inventory.main);
+                slot = annoyancefix_getEmptyHotbarSlot(inventory.main);
             }
 
             if (slot != -1) {
                 inventory.selectedHotbarSlot = slot;
                 inventory.main[slot] = inventory.main[slotWithItem];
                 inventory.main[slotWithItem] = null;
-                ci.cancel();
                 return;
             }
 
@@ -60,8 +62,6 @@ public abstract class PlayerInventoryMixin {
             ItemInstance tempItem = player.getHeldItem();
             inventory.main[inventory.selectedHotbarSlot] = inventory.main[slotWithItem];
             inventory.main[slotWithItem] = tempItem;
-
-            ci.cancel();
         }
     }
 
@@ -72,7 +72,7 @@ public abstract class PlayerInventoryMixin {
      * @return the index of the first empty slot, or -1 if there is no empty slot
      */
     @Unique
-    private int getEmptyHotbarSlot(ItemInstance[] mainInventory) {
+    private int annoyancefix_getEmptyHotbarSlot(ItemInstance[] mainInventory) {
         for (int i = 0; i < 9; i++) {
             if (mainInventory[i] == null) {
                 return i;

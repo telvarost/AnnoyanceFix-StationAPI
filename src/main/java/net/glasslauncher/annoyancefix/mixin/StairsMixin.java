@@ -5,10 +5,8 @@ import net.glasslauncher.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Stairs;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemInstance;
 import net.minecraft.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -16,54 +14,49 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
-@Mixin(value = Stairs.class)
-public abstract class StairsMixin extends BlockBase {
-
-    protected StairsMixin(int i, Material arg) {
+@Mixin(Stairs.class)
+class StairsMixin extends BlockBase {
+    public StairsMixin(int i, Material arg) {
         super(i, arg);
     }
 
-    protected StairsMixin(int i, int j, Material arg) {
-        super(i, j, arg);
-    }
-
-    @Inject(at = @At("HEAD"), method = "onBlockRemoved", cancellable = true)
-    public void onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
+    @Inject(
+            method = "onBlockRemoved",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void annoyancefix_onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
         if (Config.ConfigFields.stairFixesEnabled) {
             ci.cancel();
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "onDestroyedByExplosion", cancellable = true)
-    public void onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
+    @Inject(
+            method = "onDestroyedByExplosion",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void annoyancefix_onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
         if (Config.ConfigFields.stairFixesEnabled) {
             ci.cancel();
         }
     }
 
     @Inject(at = @At("HEAD"), method = "getDropId", cancellable = true)
-    public void getDropId(int i, Random random, CallbackInfoReturnable<Integer> cir) {
+    public void annoyancefix_getDropId(int i, Random random, CallbackInfoReturnable<Integer> cir) {
         if (Config.ConfigFields.stairFixesEnabled) {
-            cir.setReturnValue(this.id);
+            cir.setReturnValue(id);
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "beforeDestroyedByExplosion", cancellable = true)
-    public void beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
+    @Inject(
+            method = "beforeDestroyedByExplosion",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void annoyancefix_beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
         if (Config.ConfigFields.stairFixesEnabled) {
-            if (!arg.isServerSide) {
-                int var7 = this.getDropCount(arg.rand);
-
-                for (int var8 = 0; var8 < var7; ++var8) {
-                    if (!(arg.rand.nextFloat() > f)) {
-                        int var9 = this.getDropId(l, arg.rand);
-                        if (var9 > 0) {
-                            this.drop(arg, i, j, k, new ItemInstance(var9, 1, this.droppedMeta(l)));
-                        }
-                    }
-                }
-            }
-
+            super.beforeDestroyedByExplosion(arg, i, j, k, l, f);
             ci.cancel();
         }
     }
