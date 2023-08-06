@@ -9,6 +9,7 @@
     "StairsMixin",
     "HatchetMixin",
     "PickaxeMixin",
+    "BookshelfMixin",
     "MinecraftMixin",
     "PlayerInventoryMixin"
   ],
