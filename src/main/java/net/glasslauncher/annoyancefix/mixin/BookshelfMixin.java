@@ -1,6 +1,7 @@
 package net.glasslauncher.annoyancefix.mixin;
 
 
+import net.glasslauncher.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Bookshelf;
 import net.minecraft.block.material.Material;
@@ -25,12 +26,20 @@ public abstract class BookshelfMixin extends BlockBase {
 
     @Inject(at = @At("HEAD"), method = "getDropCount", cancellable = true)
     public void getDropCount(Random random, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(3);
+        if (Config.ConfigFields.bookshelfFixesEnabled) {
+            cir.setReturnValue(3);
+        }
     }
 
     @Override
     public int getDropId(int i, Random random) {
-        return ItemBase.book.id;
+        if (Config.ConfigFields.bookshelfFixesEnabled) {
+            return ItemBase.book.id;
+        }
+        else
+        {
+            return this.id;
+        }
     }
 }
 

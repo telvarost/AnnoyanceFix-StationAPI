@@ -10,7 +10,8 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(Hatchet.class)
 public abstract class HatchetMixin extends ToolBase
 {
-    @Shadow private static BlockBase[] effectiveBlocks = new BlockBase[]
+    @Shadow
+    private static BlockBase[] effectiveBlocks = new BlockBase[]
             { BlockBase.WOOD
             , BlockBase.BOOKSHELF
             , BlockBase.LOG

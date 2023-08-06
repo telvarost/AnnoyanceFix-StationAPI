@@ -1,6 +1,6 @@
 package net.glasslauncher.annoyancefix.mixin;
 
-import net.glasslauncher.annoyancefix.AnnoyanceFixConfig;
+import net.glasslauncher.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Boat;
@@ -37,7 +37,7 @@ public abstract class BoatMixin extends EntityBase {
 
     @Inject(at = @At("HEAD"), method = "damage", cancellable = true)
     public void damage(EntityBase arg, int i, CallbackInfoReturnable<Boolean> cir) {
-        if (AnnoyanceFixConfig.enableBoatFixes) {
+        if (Config.ConfigFields.boatFixesEnabled) {
             if (!this.level.isServerSide && !this.removed) {
                 this.field_340 = -this.field_340;
                 this.field_339 = 10;
@@ -62,7 +62,7 @@ public abstract class BoatMixin extends EntityBase {
 
     @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
     public void tick(CallbackInfo ci) {
-        if (AnnoyanceFixConfig.enableBoatFixes) {
+        if (Config.ConfigFields.boatFixesEnabled) {
             super.tick();
             if (this.field_339 > 0) {
                 --this.field_339;
@@ -264,7 +264,7 @@ public abstract class BoatMixin extends EntityBase {
 
     @Inject(at = @At("HEAD"), method = "interact", cancellable = true)
     public void interact(PlayerBase arg, CallbackInfoReturnable<Boolean> cir) {
-        if (AnnoyanceFixConfig.enableBoatFixes) {
+        if (Config.ConfigFields.boatFixesEnabled) {
             if (this.passenger != null && this.passenger instanceof PlayerBase && this.passenger != arg) {
                 cir.setReturnValue(true);
             } else {

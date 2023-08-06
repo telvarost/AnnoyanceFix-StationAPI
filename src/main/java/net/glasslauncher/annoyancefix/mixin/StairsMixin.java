@@ -1,6 +1,7 @@
 package net.glasslauncher.annoyancefix.mixin;
 
 
+import net.glasslauncher.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Stairs;
 import net.minecraft.block.material.Material;
@@ -17,7 +18,6 @@ import java.util.Random;
 
 @Mixin(value = Stairs.class)
 public abstract class StairsMixin extends BlockBase {
-    @Shadow private BlockBase template;
 
     protected StairsMixin(int i, Material arg) {
         super(i, arg);
@@ -29,35 +29,43 @@ public abstract class StairsMixin extends BlockBase {
 
     @Inject(at = @At("HEAD"), method = "onBlockRemoved", cancellable = true)
     public void onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
-        ci.cancel();
+        if (Config.ConfigFields.stairFixesEnabled) {
+            ci.cancel();
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "onDestroyedByExplosion", cancellable = true)
     public void onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
-        ci.cancel();
+        if (Config.ConfigFields.stairFixesEnabled) {
+            ci.cancel();
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "getDropId", cancellable = true)
     public void getDropId(int i, Random random, CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(this.id);
+        if (Config.ConfigFields.stairFixesEnabled) {
+            cir.setReturnValue(this.id);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "beforeDestroyedByExplosion", cancellable = true)
     public void beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
-        if (!arg.isServerSide) {
-            int var7 = this.getDropCount(arg.rand);
+        if (Config.ConfigFields.stairFixesEnabled) {
+            if (!arg.isServerSide) {
+                int var7 = this.getDropCount(arg.rand);
 
-            for(int var8 = 0; var8 < var7; ++var8) {
-                if (!(arg.rand.nextFloat() > f)) {
-                    int var9 = this.getDropId(l, arg.rand);
-                    if (var9 > 0) {
-                        this.drop(arg, i, j, k, new ItemInstance(var9, 1, this.droppedMeta(l)));
+                for (int var8 = 0; var8 < var7; ++var8) {
+                    if (!(arg.rand.nextFloat() > f)) {
+                        int var9 = this.getDropId(l, arg.rand);
+                        if (var9 > 0) {
+                            this.drop(arg, i, j, k, new ItemInstance(var9, 1, this.droppedMeta(l)));
+                        }
                     }
                 }
             }
-        }
 
-        ci.cancel();
+            ci.cancel();
+        }
     }
 }
 

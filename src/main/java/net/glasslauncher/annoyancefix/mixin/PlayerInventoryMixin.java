@@ -1,5 +1,6 @@
 package net.glasslauncher.annoyancefix.mixin;
 
+import net.glasslauncher.annoyancefix.Config;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemInstance;
@@ -30,36 +31,38 @@ public abstract class PlayerInventoryMixin {
      */
     @Inject(at = @At("HEAD"), method = "setSelectedItemWithID", cancellable = true)
     public void setSelectedItemWithID(int itemID, boolean unused, CallbackInfo ci) {
-        int slotWithItem = getSlotWithItem(itemID);
-        PlayerInventory inventory = player.inventory;
+        if (Config.ConfigFields.pickBlockFixesEnabled) {
+            int slotWithItem = getSlotWithItem(itemID);
+            PlayerInventory inventory = player.inventory;
 
-        // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
-        if (slotWithItem < 9) {
-            return;
-        }
+            // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
+            if (slotWithItem < 9) {
+                return;
+            }
 
-        // Player has item in the rest of its inventory somewhere; find slot to place item in
-        int slot;
-        if (player.getHeldItem() == null) {
-            slot = player.inventory.selectedHotbarSlot;
-        } else {
-            slot = getEmptyHotbarSlot(inventory.main);
-        }
+            // Player has item in the rest of its inventory somewhere; find slot to place item in
+            int slot;
+            if (player.getHeldItem() == null) {
+                slot = player.inventory.selectedHotbarSlot;
+            } else {
+                slot = getEmptyHotbarSlot(inventory.main);
+            }
 
-        if (slot != -1) {
-            inventory.selectedHotbarSlot = slot;
-            inventory.main[slot] = inventory.main[slotWithItem];
-            inventory.main[slotWithItem] = null;
+            if (slot != -1) {
+                inventory.selectedHotbarSlot = slot;
+                inventory.main[slot] = inventory.main[slotWithItem];
+                inventory.main[slotWithItem] = null;
+                ci.cancel();
+                return;
+            }
+
+            // No room in hotbar, swap item with currently held item
+            ItemInstance tempItem = player.getHeldItem();
+            inventory.main[inventory.selectedHotbarSlot] = inventory.main[slotWithItem];
+            inventory.main[slotWithItem] = tempItem;
+
             ci.cancel();
-            return;
         }
-
-        // No room in hotbar, swap item with currently held item
-        ItemInstance tempItem = player.getHeldItem();
-        inventory.main[inventory.selectedHotbarSlot] = inventory.main[slotWithItem];
-        inventory.main[slotWithItem] = tempItem;
-
-        ci.cancel();
     }
 
     /**

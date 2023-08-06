@@ -1,5 +1,6 @@
 package net.glasslauncher.annoyancefix.mixin;
 
+import net.glasslauncher.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Fence;
 import net.minecraft.block.material.Material;
@@ -22,6 +23,8 @@ public abstract class FenceMixin extends BlockBase {
 
     @Inject(at = @At("RETURN"), method = "canPlaceAt", cancellable = true)
     public void canPlaceAt(Level arg, int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(true);
+        if (Config.ConfigFields.fenceFixesEnabled) {
+            cir.setReturnValue(true);
+        }
     }
 }

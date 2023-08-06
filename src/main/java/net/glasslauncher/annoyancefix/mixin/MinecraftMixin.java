@@ -1,5 +1,6 @@
 package net.glasslauncher.annoyancefix.mixin;
 
+import net.glasslauncher.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Boat;
@@ -53,32 +54,34 @@ public class MinecraftMixin {
      */
     @Inject(at = @At("HEAD"), method = "method_2103", cancellable = true)
     public void pickBlock(CallbackInfo ci) {
-        if (this.hitResult == null) {
-            return;
-        }
+        if (Config.ConfigFields.pickBlockFixesEnabled) {
+            if (this.hitResult == null) {
+                return;
+            }
 
-        int itemID = 0;
-        // field_790 means "Entity"
-        if (this.hitResult.type == HitType.field_790) {
-            itemID = getItemIDFromEntity(hitResult.field_1989);
-        }
+            int itemID = 0;
+            // field_790 means "Entity"
+            if (this.hitResult.type == HitType.field_790) {
+                itemID = getItemIDFromEntity(hitResult.field_1989);
+            }
 
-        // field_789 means "Tile"
-        if (this.hitResult.type == HitType.field_789) {
-            int tileDamage = this.level.getTileMeta(hitResult.x, hitResult.y, hitResult.z);
-            int tileID = this.level.getTileId(hitResult.x, hitResult.y, hitResult.z);
-            itemID = getItemIDFromTileID(tileID, tileDamage);
-        }
+            // field_789 means "Tile"
+            if (this.hitResult.type == HitType.field_789) {
+                int tileDamage = this.level.getTileMeta(hitResult.x, hitResult.y, hitResult.z);
+                int tileID = this.level.getTileId(hitResult.x, hitResult.y, hitResult.z);
+                itemID = getItemIDFromTileID(tileID, tileDamage);
+            }
 
-        if (itemID == 0) {
-            // No item found, let vanilla minecraft handle it
-            return;
-        }
+            if (itemID == 0) {
+                // No item found, let vanilla minecraft handle it
+                return;
+            }
 
-        this.player.inventory.setSelectedItemWithID(itemID, false);
-        // Successfully selected an item, don't call original method anymore
-        ci.cancel();
-}
+            this.player.inventory.setSelectedItemWithID(itemID, false);
+            // Successfully selected an item, don't call original method anymore
+            ci.cancel();
+        }
+    }
 
     /**
      * Returns a corresponding item ID for a given tile.
