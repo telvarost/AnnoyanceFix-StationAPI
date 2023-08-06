@@ -9,7 +9,9 @@
     "StairsMixin",
     "HatchetMixin",
     "PickaxeMixin",
-    "BookshelfMixin"
+    "BookshelfMixin",
+    "MinecraftMixin",
+    "PlayerInventoryMixin"
   ],
   "server": [
   ],

@@ -3,15 +3,16 @@
   "id": "annoyancefix",
   "version": "${version}",
 
-  "name": "AnnoyanceFix-StationAPI",
-  "description": "Port of the AnnoyanceFix mod for Babric",
+  "name": "AnnoyanceFix",
+  "description": "Fixes annoyances and backports useful features.",
   "authors": [
     "Telvarost",
     "2zqa"
   ],
   "contact": {
-    "homepage": "https://github.com/telvarost/AnnoyanceFix-Babric/",
-    "sources": "https://github.com/telvarost/AnnoyanceFix-Babric/"
+    "issues": "https://github.com/telvarost/AnnoyanceFix-StationAPI/issues",
+    "homepage": "https://github.com/telvarost/AnnoyanceFix-StationAPI/",
+    "sources": "https://github.com/telvarost/AnnoyanceFix-StationAPI/"
   },
 
   "license": "CC0-1.0",
