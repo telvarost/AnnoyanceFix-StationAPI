@@ -76,10 +76,10 @@ class FlowingFluidMixin extends Fluid {
                     }
                 }
 
-//                if (this.material == Material.LAVA && var6 < 8 && var10 < 8 && var10 > var6 && random.nextInt(4) != 0) {
-//                    var10 = var6;
-//                    var8 = false;
-//                }
+                if (this.material == Material.LAVA && var6 < 8 && var10 < 8 && var10 > var6 && random.nextInt(4) != 0) {
+                    //var10 = var6;
+                    var8 = false;
+                }
 
                 if (var10 != var6) {
                     var6 = var10;
