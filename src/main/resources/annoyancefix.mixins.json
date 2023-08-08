@@ -4,6 +4,7 @@
   "package": "com.github.telvarost.annoyancefix.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "invoker.FlowingFluidInvoker",
     "FenceMixin",
     "BoatMixin",
     "StairsMixin",
