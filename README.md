@@ -1,7 +1,5 @@
 # AnnoyanceFix StationAPI Edition for Minecraft Beta 1.7.3
 
-_Now using StationAPI!_
-
 ![babric](https://github.com/telvarost/AnnoyanceFix-Babric/assets/25235249/a6590bc1-2b73-4b82-951e-5e1e2bb418e4)
 
 **If you're looking for the ModLoader edition, see this repository:** https://github.com/2zqa/AnnoyanceFix
