@@ -58,31 +58,29 @@ class MinecraftMixin {
             index = 1
     )
     private int annoyanceFix_pickBlock(int vanillaItemId) {
-        if (Config.ConfigFields.pickBlockFixesEnabled) {
-            int itemID = 0;
-            // field_790 means "Entity"
-            if (this.hitResult.type == HitType.field_790) {
-                itemID = annoyanceFix_getItemIDFromEntity(hitResult.field_1989);
-            }
-
-            // field_789 means "Tile"
-            if (this.hitResult.type == HitType.field_789) {
-                int tileDamage = this.level.getTileMeta(hitResult.x, hitResult.y, hitResult.z);
-                int tileID = this.level.getTileId(hitResult.x, hitResult.y, hitResult.z);
-                itemID = annoyanceFix_getItemIDFromTileID(tileID, tileDamage);
-            }
-
-            if (itemID == 0) {
-                // No item found, let vanilla minecraft handle it
-                return vanillaItemId;
-            }
-            // Successfully selected an item, return the new id
-            return itemID;
-        }
-        else
-        {
+        if (!Config.ConfigFields.pickBlockFixesEnabled) {
             return vanillaItemId;
         }
+
+        int itemID = 0;
+        // field_790 means "Entity"
+        if (this.hitResult.type == HitType.field_790) {
+            itemID = annoyanceFix_getItemIDFromEntity(hitResult.field_1989);
+        }
+
+        // field_789 means "Tile"
+        if (this.hitResult.type == HitType.field_789) {
+            int tileDamage = this.level.getTileMeta(hitResult.x, hitResult.y, hitResult.z);
+            int tileID = this.level.getTileId(hitResult.x, hitResult.y, hitResult.z);
+            itemID = annoyanceFix_getItemIDFromTileID(tileID, tileDamage);
+        }
+
+        if (itemID == 0) {
+            // No item found, let vanilla minecraft handle it
+            return vanillaItemId;
+        }
+        // Successfully selected an item, return the new id
+        return itemID;
     }
 
     /**

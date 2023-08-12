@@ -89,11 +89,14 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private void annoyanceFix_compensateForFloatingPointErrors(PlayerBase player, CallbackInfoReturnable<Boolean> cir) {
-        if (Config.ConfigFields.boatFixesEnabled) {
-            // If player is not riding anything after interacting with the boat, it must have unmounted
-            if (player.vehicle == null)
-                // Compensate for floating point errors
-                player.setPosition(player.x, player.y + 0.01, player.z);
+        if (!Config.ConfigFields.boatFixesEnabled) {
+            return;
+        }
+
+        // If player is not riding anything after interacting with the boat, it must have unmounted
+        if (player.vehicle == null) {
+            // Compensate for floating point errors
+            player.setPosition(player.x, player.y + 0.01, player.z);
         }
     }
 }
