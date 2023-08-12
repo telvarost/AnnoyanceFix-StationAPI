@@ -25,9 +25,7 @@ class BookshelfMixin extends BlockBase {
     private int annoyanceFix_getDropCount(int constant) {
         if (Config.ConfigFields.bookshelfFixesEnabled) {
             return 3;
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
@@ -36,9 +34,7 @@ class BookshelfMixin extends BlockBase {
     public int getDropId(int i, Random random) {
         if (Config.ConfigFields.bookshelfFixesEnabled) {
             return ItemBase.book.id;
-        }
-        else
-        {
+        } else {
             return this.id;
         }
     }
