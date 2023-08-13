@@ -10,9 +10,6 @@ public class Config {
 
     public static class ConfigFields {
 
-        @ConfigName("5% Buff Repairs Enabled")
-        public static Boolean fivePercentBuffRepairsEnabled = true;
-
         @ConfigName("Boat Fixes Enabled")
         public static Boolean boatFixesEnabled = true;
 
@@ -27,5 +24,8 @@ public class Config {
 
         @ConfigName("Stair Fixes Enabled")
         public static Boolean stairFixesEnabled = true;
+
+        @ConfigName("Traditional 5% Repair Buff Enabled")
+        public static Boolean traditionalFivePercentRepairBuffEnabled = true;
     }
 }
