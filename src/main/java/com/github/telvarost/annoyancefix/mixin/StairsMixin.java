@@ -1,6 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Stairs;
 import net.minecraft.block.material.Material;
@@ -8,8 +9,8 @@ import net.minecraft.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Random;
 
@@ -24,8 +25,10 @@ class StairsMixin extends BlockBase {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void annoyancefix_onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
-        ci.cancel();
+    private void annoyanceFix_onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
+        if (Config.ConfigFields.stairFixesEnabled) {
+            ci.cancel();
+        }
     }
 
     @Inject(
@@ -33,19 +36,17 @@ class StairsMixin extends BlockBase {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void annoyancefix_onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
-        ci.cancel();
+    private void annoyanceFix_onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
+        if (Config.ConfigFields.stairFixesEnabled) {
+            ci.cancel();
+        }
     }
 
-    @Redirect(
-            method = "getDropId",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/block/BlockBase;getDropId(ILjava/util/Random;)I"
-            )
-    )
-    private int annoyancefix_getDropId(BlockBase instance, int meta, Random random) {
-        return id;
+    @Inject(at = @At("HEAD"), method = "getDropId", cancellable = true)
+    public void annoyanceFix_getDropId(int i, Random random, CallbackInfoReturnable<Integer> cir) {
+        if (Config.ConfigFields.stairFixesEnabled) {
+            cir.setReturnValue(id);
+        }
     }
 
     @Inject(
@@ -53,9 +54,11 @@ class StairsMixin extends BlockBase {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void annoyancefix_beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
-        super.beforeDestroyedByExplosion(arg, i, j, k, l, f);
-        ci.cancel();
+    private void annoyanceFix_beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
+        if (Config.ConfigFields.stairFixesEnabled) {
+            super.beforeDestroyedByExplosion(arg, i, j, k, l, f);
+            ci.cancel();
+        }
     }
 }
 

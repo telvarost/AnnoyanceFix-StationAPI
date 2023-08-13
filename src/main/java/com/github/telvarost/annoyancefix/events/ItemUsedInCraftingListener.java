@@ -20,8 +20,7 @@ public class ItemUsedInCraftingListener {
             newDurability = newDurability + durabilityToAdd;
 
             /** - Only calculate damage if new durability is below max durability */
-            if (event.itemCrafted.getDurability() > newDurability)
-            {
+            if (event.itemCrafted.getDurability() > newDurability) {
                 /** - Max durability - new durability = damage to apply to max durability */
                 damageToSet = event.itemCrafted.getDurability() - newDurability;
             }

@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.block.BlockBase;
@@ -23,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(Minecraft.class)
 class MinecraftMixin {
     @Unique
-    private final Int2IntMap annoyancefix_pickBlockLookupMap = Util.make(new Int2IntOpenHashMap(), map -> {
+    private final Int2IntMap annoyanceFix_pickBlockLookupMap = Util.make(new Int2IntOpenHashMap(), map -> {
         map.put(BlockBase.REDSTONE_DUST.id, ItemBase.redstoneDust.id);
         map.put(BlockBase.REDSTONE_REPEATER.id, ItemBase.redstoneRepeater.id);
         map.put(BlockBase.REDSTONE_REPEATER_LIT.id, ItemBase.redstoneRepeater.id);
@@ -56,18 +57,22 @@ class MinecraftMixin {
             ),
             index = 1
     )
-    private int annoyancefix_pickBlock(int vanillaItemId) {
+    private int annoyanceFix_pickBlock(int vanillaItemId) {
+        if (!Config.ConfigFields.pickBlockFixesEnabled) {
+            return vanillaItemId;
+        }
+
         int itemID = 0;
         // field_790 means "Entity"
         if (this.hitResult.type == HitType.field_790) {
-            itemID = annoyancefix_getItemIDFromEntity(hitResult.field_1989);
+            itemID = annoyanceFix_getItemIDFromEntity(hitResult.field_1989);
         }
 
         // field_789 means "Tile"
         if (this.hitResult.type == HitType.field_789) {
             int tileDamage = this.level.getTileMeta(hitResult.x, hitResult.y, hitResult.z);
             int tileID = this.level.getTileId(hitResult.x, hitResult.y, hitResult.z);
-            itemID = annoyancefix_getItemIDFromTileID(tileID, tileDamage);
+            itemID = annoyanceFix_getItemIDFromTileID(tileID, tileDamage);
         }
 
         if (itemID == 0) {
@@ -86,7 +91,7 @@ class MinecraftMixin {
      * @return the corresponding item ID
      */
     @Unique
-    private int annoyancefix_getItemIDFromTileID(int tileID, int tileDamage) {
+    private int annoyanceFix_getItemIDFromTileID(int tileID, int tileDamage) {
         // Special cases
         if (tileID == BlockBase.PISTON_HEAD.id) {
             // 0-5 damage = normal piston
@@ -98,10 +103,10 @@ class MinecraftMixin {
             }
         }
 
-        if (!annoyancefix_pickBlockLookupMap.containsKey(tileID)) {
+        if (!annoyanceFix_pickBlockLookupMap.containsKey(tileID)) {
             return 0;
         }
-        return annoyancefix_pickBlockLookupMap.get(tileID);
+        return annoyanceFix_pickBlockLookupMap.get(tileID);
     }
 
     /**
@@ -112,7 +117,7 @@ class MinecraftMixin {
      * @return the corresponding item ID
      */
     @Unique
-    private int annoyancefix_getItemIDFromEntity(EntityBase entity) {
+    private int annoyanceFix_getItemIDFromEntity(EntityBase entity) {
         if (entity instanceof Painting) {
             return ItemBase.painting.id;
         }

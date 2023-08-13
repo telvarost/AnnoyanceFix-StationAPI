@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Fence;
 import net.minecraft.block.material.Material;
@@ -20,7 +21,9 @@ class FenceMixin extends BlockBase {
             at = @At("RETURN"),
             cancellable = true
     )
-    private void annoyancefix_canPlaceAt(Level arg, int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(true);
+    private void annoyanceFix_canPlaceAt(Level arg, int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
+        if (Config.ConfigFields.fenceFixesEnabled) {
+            cir.setReturnValue(true);
+        }
     }
 }
