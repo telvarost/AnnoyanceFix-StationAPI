@@ -72,7 +72,6 @@ public class RecipeListener {
             CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.goldSword         .id, 1, ItemBase.goldSword          .getDurability()), new ItemInstance(ItemBase.goldSword          .id, 1, -1), new ItemInstance(ItemBase.goldSword         .id, 1, -1));
 
             /** - Misc. Tool Repair */
-            CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.bow               .id, 1, ItemBase.bow                .getDurability()), new ItemInstance(ItemBase.bow                .id, 1, -1), new ItemInstance(ItemBase.bow               .id, 1, -1));
             CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.fishingRod        .id, 1, ItemBase.fishingRod         .getDurability()), new ItemInstance(ItemBase.fishingRod         .id, 1, -1), new ItemInstance(ItemBase.fishingRod        .id, 1, -1));
             CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.flintAndSteel     .id, 1, ItemBase.flintAndSteel      .getDurability()), new ItemInstance(ItemBase.flintAndSteel      .id, 1, -1), new ItemInstance(ItemBase.flintAndSteel     .id, 1, -1));
             CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.shears            .id, 1, ItemBase.shears             .getDurability()), new ItemInstance(ItemBase.shears             .id, 1, -1), new ItemInstance(ItemBase.shears            .id, 1, -1));
