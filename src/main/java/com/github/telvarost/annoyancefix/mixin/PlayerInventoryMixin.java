@@ -31,38 +31,37 @@ class PlayerInventoryMixin {
             at = @At("RETURN"),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void annoyanceFix_setSelectedItemWithID(
-            int itemID, boolean unused, CallbackInfo ci,
-            int slotWithItem
-    ) {
-        if (Config.ConfigFields.pickBlockFixesEnabled) {
-            // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
-            if (slotWithItem < 9) {
-                return;
-            }
-
-            PlayerInventory inventory = player.inventory;
-
-            // Player has item in the rest of its inventory somewhere; find slot to place item in
-            int slot;
-            if (player.getHeldItem() == null) {
-                slot = player.inventory.selectedHotbarSlot;
-            } else {
-                slot = annoyanceFix_getEmptyHotbarSlot(inventory.main);
-            }
-
-            if (slot != -1) {
-                inventory.selectedHotbarSlot = slot;
-                inventory.main[slot] = inventory.main[slotWithItem];
-                inventory.main[slotWithItem] = null;
-                return;
-            }
-
-            // No room in hotbar, swap item with currently held item
-            ItemInstance tempItem = player.getHeldItem();
-            inventory.main[inventory.selectedHotbarSlot] = inventory.main[slotWithItem];
-            inventory.main[slotWithItem] = tempItem;
+    private void annoyanceFix_setSelectedItemWithID(int itemID, boolean unused, CallbackInfo ci, int slotWithItem) {
+        if (!Config.ConfigFields.pickBlockFixesEnabled) {
+            return;
         }
+
+        // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
+        if (slotWithItem < 9) {
+            return;
+        }
+
+        PlayerInventory inventory = player.inventory;
+
+        // Player has item in the rest of its inventory somewhere; find slot to place item in
+        int slot;
+        if (player.getHeldItem() == null) {
+            slot = player.inventory.selectedHotbarSlot;
+        } else {
+            slot = annoyanceFix_getEmptyHotbarSlot(inventory.main);
+        }
+
+        if (slot != -1) {
+            inventory.selectedHotbarSlot = slot;
+            inventory.main[slot] = inventory.main[slotWithItem];
+            inventory.main[slotWithItem] = null;
+            return;
+        }
+
+        // No room in hotbar, swap item with currently held item
+        ItemInstance tempItem = player.getHeldItem();
+        inventory.main[inventory.selectedHotbarSlot] = inventory.main[slotWithItem];
+        inventory.main[slotWithItem] = tempItem;
     }
 
     /**
