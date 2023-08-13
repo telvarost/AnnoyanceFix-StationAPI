@@ -24,8 +24,5 @@ public class Config {
 
         @ConfigName("Stair Fixes Enabled")
         public static Boolean stairFixesEnabled = true;
-
-        @ConfigName("Traditional 5% Repair Buff Enabled")
-        public static Boolean traditionalFivePercentRepairBuffEnabled = true;
     }
 }

@@ -30,9 +30,7 @@ public class ItemUsedInCraftingListener {
             int damageToSet = 0;
 
             /** - If this is the first item's durability being added, add a 5% repair buff */
-            if (  (Config.ConfigFields.traditionalFivePercentRepairBuffEnabled)
-               && (craftedItemMaxDurability == event.itemCrafted.getDamage())
-               )
+            if (craftedItemMaxDurability == event.itemCrafted.getDamage())
             {
                 durabilityToAdd = durabilityToAdd + (int)floor((double)craftedItemMaxDurability / 20);
             }
