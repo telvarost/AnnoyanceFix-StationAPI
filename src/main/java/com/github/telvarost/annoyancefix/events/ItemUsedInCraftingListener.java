@@ -1,6 +1,5 @@
 package com.github.telvarost.annoyancefix.events;
 
-import com.github.telvarost.annoyancefix.Config;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.container.slot.ItemUsedInCraftingEvent;
 
@@ -40,8 +39,7 @@ public class ItemUsedInCraftingListener {
             newDurability = newDurability + durabilityToAdd;
 
             /** - Only calculate damage if new durability is below max durability */
-            if (craftedItemMaxDurability > newDurability)
-            {
+            if (craftedItemMaxDurability > newDurability) {
                 /** - Max durability - new durability = damage to apply to max durability */
                 damageToSet = craftedItemMaxDurability - newDurability;
             }
