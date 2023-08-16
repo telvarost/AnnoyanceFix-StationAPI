@@ -10,6 +10,9 @@ public class Config {
 
     public static class ConfigFields {
 
+        @ConfigName("Axes Effective Against Slabs Enabled")
+        public static Boolean axesEffectiveAgainstSlabsEnabled = true;
+
         @ConfigName("Boat Fixes Enabled")
         public static Boolean boatFixesEnabled = true;
 
