@@ -7,6 +7,7 @@
     "FenceMixin",
     "BoatMixin",
     "StairsMixin",
+    "ToolBaseMixin",
     "HatchetMixin",
     "PickaxeMixin",
     "BookshelfMixin",
