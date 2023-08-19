@@ -16,6 +16,9 @@ public class Config {
         @ConfigName("Bookshelf Fixes Enabled")
         public static Boolean bookshelfFixesEnabled = true;
 
+        @ConfigName("Cobweb Fixes Enabled")
+        public static Boolean cobwebFixesEnabled = true;
+
         @ConfigName("Fence Fixes Enabled")
         public static Boolean fenceFixesEnabled = true;
 

@@ -6,6 +6,7 @@
   "mixins": [
     "FenceMixin",
     "BoatMixin",
+    "CobwebMixin",
     "StairsMixin",
     "ToolBaseMixin",
     "HatchetMixin",

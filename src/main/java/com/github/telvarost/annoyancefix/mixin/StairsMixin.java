@@ -16,6 +16,7 @@ import java.util.Random;
 
 @Mixin(Stairs.class)
 class StairsMixin extends BlockBase {
+
     public StairsMixin(int i, Material arg) {
         super(i, arg);
     }

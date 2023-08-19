@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(value = PlayerInventory.class)
 class PlayerInventoryMixin {
+
     @Shadow
     public PlayerBase player;
 
