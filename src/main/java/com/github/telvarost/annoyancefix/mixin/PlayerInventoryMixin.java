@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemInstance;
@@ -30,10 +31,11 @@ class PlayerInventoryMixin {
             at = @At("RETURN"),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void annoyancefix_setSelectedItemWithID(
-            int itemID, boolean unused, CallbackInfo ci,
-            int slotWithItem
-    ) {
+    private void annoyanceFix_setSelectedItemWithID(int itemID, boolean unused, CallbackInfo ci, int slotWithItem) {
+        if (!Config.ConfigFields.pickBlockFixesEnabled) {
+            return;
+        }
+
         // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
         if (slotWithItem < 9) {
             return;
@@ -46,7 +48,7 @@ class PlayerInventoryMixin {
         if (player.getHeldItem() == null) {
             slot = player.inventory.selectedHotbarSlot;
         } else {
-            slot = annoyancefix_getEmptyHotbarSlot(inventory.main);
+            slot = annoyanceFix_getEmptyHotbarSlot(inventory.main);
         }
 
         if (slot != -1) {
@@ -69,7 +71,7 @@ class PlayerInventoryMixin {
      * @return the index of the first empty slot, or -1 if there is no empty slot
      */
     @Unique
-    private int annoyancefix_getEmptyHotbarSlot(ItemInstance[] mainInventory) {
+    private int annoyanceFix_getEmptyHotbarSlot(ItemInstance[] mainInventory) {
         for (int i = 0; i < 9; i++) {
             if (mainInventory[i] == null) {
                 return i;

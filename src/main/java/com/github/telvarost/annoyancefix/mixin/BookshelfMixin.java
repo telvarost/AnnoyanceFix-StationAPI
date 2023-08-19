@@ -1,6 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Bookshelf;
 import net.minecraft.block.material.Material;
@@ -21,13 +22,21 @@ class BookshelfMixin extends BlockBase {
             method = "getDropCount",
             constant = @Constant(intValue = 0)
     )
-    private int annoyancefix_getDropCount(int constant) {
-        return 3;
+    private int annoyanceFix_getDropCount(int constant) {
+        if (Config.ConfigFields.bookshelfFixesEnabled) {
+            return 3;
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public int getDropId(int i, Random random) {
-        return ItemBase.book.id;
+        if (Config.ConfigFields.bookshelfFixesEnabled) {
+            return ItemBase.book.id;
+        } else {
+            return this.id;
+        }
     }
 }
 
