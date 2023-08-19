@@ -12,7 +12,8 @@
     "PickaxeMixin",
     "BookshelfMixin",
     "MinecraftMixin",
-    "PlayerInventoryMixin"
+    "PlayerInventoryMixin",
+    "FlowingFluidMixin"
   ],
   "server": [
   ],

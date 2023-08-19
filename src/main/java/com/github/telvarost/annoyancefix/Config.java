@@ -22,6 +22,9 @@ public class Config {
         @ConfigName("Fence Fixes Enabled")
         public static Boolean fenceFixesEnabled = true;
 
+        @ConfigName("Lava Fixes Enabled")
+        public static Boolean lavaFixesEnabled = true;
+
         @ConfigName("Pick Block Fixes Enabled")
         public static Boolean pickBlockFixesEnabled = true;
 

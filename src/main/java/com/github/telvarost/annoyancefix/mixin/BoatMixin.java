@@ -8,7 +8,6 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.level.Level;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -24,12 +23,9 @@ abstract class BoatMixin extends EntityBase {
             constant = @Constant(intValue = 3)
     )
     private int annoyanceFix_skipPlanksDrop(int constant) {
-        if (Config.ConfigFields.boatFixesEnabled)
-        {
+        if (Config.ConfigFields.boatFixesEnabled) {
             return 0;
-        }
-        else
-        {
+        } else {
             return 3;
         }
     }
@@ -39,12 +35,9 @@ abstract class BoatMixin extends EntityBase {
             constant = @Constant(intValue = 2)
     )
     private int annoyanceFix_skipSticksDrop(int constant) {
-        if (Config.ConfigFields.boatFixesEnabled)
-        {
+        if (Config.ConfigFields.boatFixesEnabled) {
             return 0;
-        }
-        else
-        {
+        } else {
             return 2;
         }
     }
@@ -73,9 +66,7 @@ abstract class BoatMixin extends EntityBase {
     private boolean annoyanceFix_stopBoatBreaking(Boat instance) {
         if (Config.ConfigFields.boatFixesEnabled) {
             return false;
-        }
-        else
-        {
+        } else {
             return this.field_1624;
         }
     }
@@ -89,11 +80,14 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private void annoyanceFix_compensateForFloatingPointErrors(PlayerBase player, CallbackInfoReturnable<Boolean> cir) {
-        if (Config.ConfigFields.boatFixesEnabled) {
-            // If player is not riding anything after interacting with the boat, it must have unmounted
-            if (player.vehicle == null)
-                // Compensate for floating point errors
-                player.setPosition(player.x, player.y + 0.01, player.z);
+        if (!Config.ConfigFields.boatFixesEnabled) {
+            return;
+        }
+
+        // If player is not riding anything after interacting with the boat, it must have unmounted
+        if (player.vehicle == null) {
+            // Compensate for floating point errors
+            player.setPosition(player.x, player.y + 0.01, player.z);
         }
     }
 }
