@@ -14,7 +14,8 @@
     "MinecraftMixin",
     "MultiPlayerClientInteractionManagerMixin",
     "SinglePlayerClientInteractionManagerMixin",
-    "PlayerInventoryMixin"
+    "PlayerInventoryMixin",
+    "FlowingFluidMixin"
   ],
   "server": [
   ],
