@@ -37,7 +37,7 @@ public class ToolBaseMixin extends ItemBase {
             cancellable = true
     )
     public void annoyanceFix_getStrengthOnBlock(ItemInstance arg, BlockBase arg2, CallbackInfoReturnable<Float> cir) {
-        if (  (!Config.ConfigFields.axesEffectiveAgainstSlabsEnabled)
+        if (  (!Config.ConfigFields.woodenSlabFixesEnabled)
            || (!ModData.ModDataFields.isBlockMetaDataValue2)
         ) {
             return;

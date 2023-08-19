@@ -37,7 +37,7 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
             cancellable = true
     )
     public void annoyanceFix_clickBlock(int i, int j, int k, int l, CallbackInfo ci) {
-        if (!Config.ConfigFields.axesEffectiveAgainstSlabsEnabled) {
+        if (!Config.ConfigFields.woodenSlabFixesEnabled) {
             return;
         }
 

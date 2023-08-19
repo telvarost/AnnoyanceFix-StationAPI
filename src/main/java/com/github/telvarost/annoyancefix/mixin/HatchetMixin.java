@@ -25,7 +25,7 @@ class HatchetMixin extends ToolBase {
 
     @Override
     public boolean isEffectiveOn(BlockBase arg) {
-        if (  (Config.ConfigFields.axesEffectiveAgainstSlabsEnabled)
+        if (  (Config.ConfigFields.woodenSlabFixesEnabled)
            && (ModData.ModDataFields.isBlockMetaDataValue2)
            && (arg.material == Material.STONE)
            )
