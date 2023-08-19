@@ -7,10 +7,13 @@
     "FenceMixin",
     "BoatMixin",
     "StairsMixin",
+    "ToolBaseMixin",
     "HatchetMixin",
     "PickaxeMixin",
     "BookshelfMixin",
     "MinecraftMixin",
+    "MultiPlayerClientInteractionManagerMixin",
+    "SinglePlayerClientInteractionManagerMixin",
     "PlayerInventoryMixin",
     "FlowingFluidMixin"
   ],

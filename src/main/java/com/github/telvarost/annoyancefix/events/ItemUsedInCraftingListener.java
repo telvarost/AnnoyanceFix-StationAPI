@@ -1,6 +1,5 @@
 package com.github.telvarost.annoyancefix.events;
 
-import com.github.telvarost.annoyancefix.Config;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.container.slot.ItemUsedInCraftingEvent;
 
