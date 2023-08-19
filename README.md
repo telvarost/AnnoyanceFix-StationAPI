@@ -9,7 +9,7 @@ Mod review of the Modloader edition v1.4 by Modification Station/The Zyga (thank
 The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
 
 - Pickaxes are also effective against: furnaces, cobblestone stairs, bricks, redstone ore, iron doors, rails, dispensers, stone pressure plates and monster spawners
-- Axes are also effective against: crafting tables, wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes and noteblocks
+- Axes are also effective against: crafting tables, wooden slabs, wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes and noteblocks
 - Fences are placeable like normal
 - Stairs drop themselves
 - Boats drop themselves
@@ -18,7 +18,9 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Never fall through boats anymore when getting out
 - Pick block (middle mouse button click) works for blocks that are in the player's inventory, but not in their hotbar
 - Pick block also works on: paintings, minecarts (all three types), wooden doors, iron doors, signs, crops, redstone repeaters, redstone wire, beds, piston heads and cake
-- Repair armor
+- Repair armor and tools
+- Flowing lava now disappears when lava source block is removed
+- Also: most fixes are toggleable!
 
 To use pick block: Look at something and click your scroll wheel. If it's in your inventory, it will automatically be selected.
 
