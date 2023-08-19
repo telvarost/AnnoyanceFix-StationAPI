@@ -23,21 +23,9 @@ class FlowingFluidMixin extends Fluid {
      * 				var8 = false;
      *          }
      *
-     * This is to allow the following code to run which updates the flowing lava blocks
-     * thereby allowing them to fade away when the lava source block is removed:
-     *
-     * 			if(var10 != var6) {
-     * 			    var6 = var10;
-     * 			    if(var10 < 0) {
-     * 				    var1.setBlockWithNotify(var2, var3, var4, 0);
-     *              } else {
-     * 				    var1.setBlockMetadataWithNotify(var2, var3, var4, var10);
-     * 				    var1.scheduleBlockUpdate(var2, var3, var4, this.blockID, this.tickRate());
-     * 				    var1.notifyBlocksOfNeighborChange(var2, var3, var4, this.blockID);
-     *              }
-     *          } else if(var8) {
-     * 			    this.func_30003_j(var1, var2, var3, var4);
-     *          }
+     * This is to allow the if statement "if(var10 != var6)" code to run which updates the flowing lava blocks
+     * thereby allowing them to fade away when the lava source block is removed.
+     * The exact meaning behind what var10 and var6 were intended to be is unknown.
      *
      * @param instance - instance of the flowing fluid block
      * @return - replaces the material to allow block updates on the flowing fluid when fix is active
