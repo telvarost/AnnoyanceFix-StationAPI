@@ -28,7 +28,7 @@ To use pick block: Look at something and click your scroll wheel. If it's in you
 
 1. Download an instance of Babric for Prism Launcher: https://github.com/babric/prism-instance
 2. Install JAVA 17 and disable compatibility checks on the babric instance: https://adoptium.net/temurin/releases/
-3. Add StationAPI to the mod folder for the instance: https://jenkins.glass-launcher.net/view/all/job/StationAPI/lastSuccessfulBuild/
+3. Add StationAPI to the mod folder for the instance: https://maven.glass-launcher.net/snapshots/net/modificationstation/StationAPI/36cfa60/StationAPI-36cfa60.jar
 4. Add GlassConfigAPI to the mod folder for the instance: https://github.com/calmilamsy/glass-config-api/releases
 5. Add this mod to the mod folder for the instance: https://github.com/telvarost/AnnoyanceFix-StationAPI/releases
 6. Run and enjoy! 👍
