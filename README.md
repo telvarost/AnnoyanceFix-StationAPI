@@ -26,7 +26,7 @@ To use pick block: Look at something and click your scroll wheel. If it's in you
 
 ## Installation using Prism Launcher
 
-1. Download an instance of babric for PrismMC/MultiMC: https://github.com/babric/prism-instance
+1. Download an instance of Babric for Prism Launcher: https://github.com/babric/prism-instance
 2. Install JAVA 17 and disable compatibility checks on the babric instance: https://adoptium.net/temurin/releases/
 3. Add StationAPI as a mod in the mod folder for the instance: https://jenkins.glass-launcher.net/view/all/job/StationAPI/lastSuccessfulBuild/
 4. Add this mod to the mod folder for the instance:
@@ -38,4 +38,6 @@ Got any suggestions on what should be added next? Feel free to share it by [crea
 
 ## Contributing
 
-Thanks for considering contributing! To get started, please get in contact with us. Instructions are coming soon.
+Thanks for considering contributing! To get started fork this repository, make your changes, and create a PR. 
+
+If you are new to StationAPI consider watching the following videos on Babric/StationAPI Minecraft modding: https://www.youtube.com/watch?v=9-sVGjnGJ5s&list=PLa2JWzyvH63wGcj5-i0P12VkJG7PDyo9T
