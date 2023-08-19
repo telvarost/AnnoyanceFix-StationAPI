@@ -33,8 +33,7 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
      */
     @Inject(
             method = "method_1707",
-            at = @At("HEAD"),
-            cancellable = true
+            at = @At("HEAD")
     )
     public void annoyanceFix_clickBlock(int i, int j, int k, int l, CallbackInfo ci) {
         if (!Config.ConfigFields.woodenSlabFixesEnabled) {
