@@ -1,7 +1,10 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.ModData;
 import com.google.common.collect.ObjectArrays;
 import net.minecraft.block.BlockBase;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.tool.Hatchet;
 import net.minecraft.item.tool.ToolBase;
 import net.minecraft.item.tool.ToolMaterial;
@@ -18,6 +21,21 @@ class HatchetMixin extends ToolBase {
 
     public HatchetMixin(int i, int j, ToolMaterial arg, BlockBase[] args) {
         super(i, j, arg, args);
+    }
+
+    @Override
+    public boolean isEffectiveOn(BlockBase arg) {
+        if (  (Config.ConfigFields.woodenSlabFixesEnabled)
+           && (ModData.ModDataFields.isBlockMetaDataValue2)
+           && (arg.material == Material.STONE)
+           )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     @Inject(
