@@ -26,21 +26,19 @@ class CobwebMixin extends BlockBase {
 
     @Inject(at = @At("HEAD"), method = "getDropId", cancellable = true)
     public void annoyanceFix_getDropId(int i, Random random, CallbackInfoReturnable<Integer> cir) {
-        if (Config.ConfigFields.cobwebFixesEnabled) {
-            PlayerBase player = PlayerHelper.getPlayerFromGame();
-            if (null != player) {
-                PlayerInventory playerInventory = player.inventory;
-                if (null != player.inventory) {
-                    ItemInstance itemInstance = playerInventory.getHeldItem();
-                    if (null != itemInstance)
-                    {
-                        if (ItemBase.shears.id == itemInstance.itemId)
-                        {
-                            cir.setReturnValue(id);
-                        }
-                    }
-                }
-            }
+        if (!Config.ConfigFields.cobwebFixesEnabled) {
+            return;
+        }
+
+        PlayerBase player = PlayerHelper.getPlayerFromGame();
+
+        if (  (null != player)
+           && (null != player.inventory)
+           && (null != player.inventory.getHeldItem())
+           && (ItemBase.shears.id == player.inventory.getHeldItem().itemId)
+           )
+        {
+            cir.setReturnValue(id);
         }
     }
 }
