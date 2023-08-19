@@ -1,14 +1,12 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.ModData;
 import net.minecraft.block.BlockBase;
-import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolBase;
 import net.minecraft.item.tool.ToolMaterial;
-import net.minecraft.level.BlockView;
-import net.modificationstation.stationapi.api.entity.player.PlayerHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,7 +37,9 @@ public class ToolBaseMixin extends ItemBase {
             cancellable = true
     )
     public void annoyanceFix_getStrengthOnBlock(ItemInstance arg, BlockBase arg2, CallbackInfoReturnable<Float> cir) {
-        if (!Config.ConfigFields.axesEffectiveAgainstSlabsEnabled) {
+        if (  (!Config.ConfigFields.axesEffectiveAgainstSlabsEnabled)
+           || (!ModData.ModDataFields.isBlockMetaDataValue2)
+        ) {
             return;
         }
 

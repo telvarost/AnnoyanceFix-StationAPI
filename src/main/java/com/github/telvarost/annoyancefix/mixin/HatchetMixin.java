@@ -1,6 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.ModData;
 import com.google.common.collect.ObjectArrays;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.material.Material;
@@ -25,6 +26,7 @@ class HatchetMixin extends ToolBase {
     @Override
     public boolean isEffectiveOn(BlockBase arg) {
         if (  (Config.ConfigFields.axesEffectiveAgainstSlabsEnabled)
+           && (ModData.ModDataFields.isBlockMetaDataValue2)
            && (arg.material == Material.STONE)
            )
         {

@@ -12,6 +12,8 @@
     "PickaxeMixin",
     "BookshelfMixin",
     "MinecraftMixin",
+    "MultiPlayerClientInteractionManagerMixin",
+    "SinglePlayerClientInteractionManagerMixin",
     "PlayerInventoryMixin"
   ],
   "server": [
