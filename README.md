@@ -4,6 +4,8 @@
 
 **If you're looking for the ModLoader edition, see this repository:** https://github.com/2zqa/AnnoyanceFix
 
+**If you're looking for skin fixes and inventory fixes:** https://modrinth.com/mod/mojangfix/versions
+
 Mod review of the Modloader edition v1.4 by Modification Station/The Zyga (thanks!): https://www.youtube.com/watch?v=m8lX9jv9lhI
 
 The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
