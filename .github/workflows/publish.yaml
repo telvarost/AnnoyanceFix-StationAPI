@@ -48,7 +48,7 @@ jobs:
 
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           modrinth-game-versions: b1.7.3
-          modrinth-id: 2xKBcwU0
+          modrinth-id: ${{ env.MODRINTH_ID }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
           github-files: |
