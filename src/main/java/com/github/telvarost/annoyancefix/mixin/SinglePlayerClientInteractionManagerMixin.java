@@ -61,13 +61,14 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
     )
     private int annoyanceFix_breakIfWoodenSlab(
             int value,
-            @Local(index = 5) int blockId, @Local(index = 6) int meta
+            @Local(index = 5) int blockId,
+            @Local(index = 6) int meta
     ) {
         if (  (Config.ConfigFields.woodenSlabFixesEnabled)
-                && (2 == meta)
-                && (  (BlockBase.STONE_SLAB.id != blockId)
-                || (BlockBase.DOUBLE_STONE_SLAB.id != blockId)
-        )
+           && (2 == meta)
+           && (  (BlockBase.STONE_SLAB.id != blockId)
+              || (BlockBase.DOUBLE_STONE_SLAB.id != blockId)
+              )
         ) {
             return 1;
         }
