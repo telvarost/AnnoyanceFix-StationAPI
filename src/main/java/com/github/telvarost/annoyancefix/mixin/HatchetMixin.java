@@ -23,21 +23,6 @@ class HatchetMixin extends ToolBase {
         super(i, j, arg, args);
     }
 
-    @Override
-    public boolean isEffectiveOn(BlockBase arg) {
-        if (  (Config.ConfigFields.woodenSlabFixesEnabled)
-           && (ModData.ModDataFields.isBlockMetaDataValue2)
-           && (arg.material == Material.STONE)
-           )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     @Inject(
             method = "<clinit>",
             at = @At(

@@ -22,6 +22,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Pick block also works on: paintings, minecarts (all three types), wooden doors, iron doors, signs, crops, redstone repeaters, redstone wire, beds, piston heads and cake
 - Repair armor and tools
 - Flowing lava now disappears when lava source block is removed
+- Chickens now use modern bounding box size
 - Also: most fixes are toggleable!
 
 To use pick block: Look at something and click your scroll wheel. If it's in your inventory, it will automatically be selected.
