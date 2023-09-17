@@ -27,12 +27,11 @@ public class ItemBaseMixin {
         }
 
         boolean isStoneSlab = par1.id == BlockBase.STONE_SLAB.id || par1.id == BlockBase.DOUBLE_STONE_SLAB.id;
-        if (!isStoneSlab || !ModData.ModDataFields.isBlockMetaDataValue2) {
+        if (!isStoneSlab) {
             return;
         }
 
         cir.setReturnValue(true);
-
     }
 
 }
