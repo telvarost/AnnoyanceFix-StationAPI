@@ -6,6 +6,7 @@
   "mixins": [
     "BoatMixin",
     "BookshelfMixin",
+    "ChickenMixin",
     "CobwebMixin",
     "FenceMixin",
     "FlowingFluidMixin",
