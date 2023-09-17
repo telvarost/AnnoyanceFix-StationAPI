@@ -26,8 +26,8 @@ public class ItemBaseMixin {
             return;
         }
 
-        boolean isStoneSlab = par1.id == BlockBase.STONE_SLAB.id || par1.id == BlockBase.DOUBLE_STONE_SLAB.id;
-        if (!isStoneSlab) {
+        boolean isSlab = par1.id == BlockBase.STONE_SLAB.id || par1.id == BlockBase.DOUBLE_STONE_SLAB.id;
+        if (!isSlab) {
             return;
         }
 
