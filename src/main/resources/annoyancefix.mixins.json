@@ -4,19 +4,20 @@
   "package": "com.github.telvarost.annoyancefix.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "FenceMixin",
     "BoatMixin",
-    "CobwebMixin",
-    "StairsMixin",
-    "ToolBaseMixin",
-    "HatchetMixin",
-    "PickaxeMixin",
     "BookshelfMixin",
+    "CobwebMixin",
+    "FenceMixin",
+    "FlowingFluidMixin",
+    "HatchetMixin",
+    "ItemBaseMixin",
     "MinecraftMixin",
     "MultiPlayerClientInteractionManagerMixin",
-    "SinglePlayerClientInteractionManagerMixin",
+    "PickaxeMixin",
     "PlayerInventoryMixin",
-    "FlowingFluidMixin"
+    "SinglePlayerClientInteractionManagerMixin",
+    "StairsMixin",
+    "ToolBaseMixin"
   ],
   "server": [
   ],
