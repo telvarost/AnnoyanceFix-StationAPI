@@ -2,14 +2,17 @@ package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModData;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockBase;
 import net.minecraft.client.BaseClientInteractionManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.SinglePlayerClientInteractionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
@@ -48,6 +51,29 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
         }
         else {
             ModData.ModDataFields.isBlockMetaDataValue2 = false;
+        }
+    }
+
+    @ModifyVariable(
+            method = "method_1716",
+            index = 9,
+            at = @At("STORE")
+    )
+    private int annoyanceFix_breakIfWoodenSlab(
+            int value,
+            @Local(index = 5) int blockId, @Local(index = 6) int meta
+    ) {
+        if (  (Config.ConfigFields.woodenSlabFixesEnabled)
+                && (2 == meta)
+                && (  (BlockBase.STONE_SLAB.id != blockId)
+                || (BlockBase.DOUBLE_STONE_SLAB.id != blockId)
+        )
+        ) {
+            return 1;
+        }
+        else
+        {
+            return value;
         }
     }
 }

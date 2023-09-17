@@ -20,19 +20,19 @@ public class PlayerBaseMixin extends Living implements StationFlatteningPlayerEn
         super(arg);
     }
 
-    @Override
-    public boolean canHarvest(BlockState state) {
-        if (  (Config.ConfigFields.woodenSlabFixesEnabled)
-           && (ModData.ModDataFields.isBlockMetaDataValue2)
-           && (  (BlockBase.STONE_SLAB.id != state.getBlock().id)
-              || (BlockBase.DOUBLE_STONE_SLAB.id != state.getBlock().id)
-              )
-        ) {
-            return true;
-        }
-        else
-        {
-            return inventory.canHarvest(state);
-        }
-    }
+//    @Override
+//    public boolean canHarvest(BlockState state) {
+//        if (  (Config.ConfigFields.woodenSlabFixesEnabled)
+//           && (ModData.ModDataFields.isBlockMetaDataValue2)
+//           && (  (BlockBase.STONE_SLAB.id != state.getBlock().id)
+//              || (BlockBase.DOUBLE_STONE_SLAB.id != state.getBlock().id)
+//              )
+//        ) {
+//            return true;
+//        }
+//        else
+//        {
+//            return inventory.canHarvest(state);
+//        }
+//    }
 }
