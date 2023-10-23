@@ -8,6 +8,7 @@ import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.util.maths.Box;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -29,6 +30,7 @@ class FenceMixin extends BlockBase {
         }
     }
 
+    @Unique
     private Box annoyanceFix_customFenceBox(Level level, int x, int y, int z) {
         int fenceId = BlockBase.FENCE.id;
         boolean posX = level.getTileId(x + 1, y, z) == fenceId;
@@ -39,6 +41,7 @@ class FenceMixin extends BlockBase {
         return Box.create(negX ? 0 : 0.375F, 0.F, negZ ? 0.F : 0.375F, posX ? 1.F : 0.625F, 1.F, posZ ? 1.F : 0.625F);
     }
 
+    @Unique
     private Box annoyanceFix_customFenceBox(Level level, int x, int y, int z, boolean collider) {
         Box box = annoyanceFix_customFenceBox(level, x, y, z);
 
@@ -58,16 +61,17 @@ class FenceMixin extends BlockBase {
 
     @Inject(method = "getCollisionShape", at = @At("RETURN"), cancellable = true)
     public void annoyanceFix_getCollisionShape(Level level, int x, int y, int z, CallbackInfoReturnable<Box> cir) {
-        if (Config.ConfigFields.fenceFixesEnabled) {
+        if (Config.ConfigFields.fenceShapeFixesEnabled) {
             cir.setReturnValue(annoyanceFix_customFenceBox(level, x, y, z, true));
         }
     }
 
+    @Unique
     private static Level level;
 
     @Override
     public Box getOutlineShape(Level level, int x, int y, int z) {
-        if (Config.ConfigFields.fenceFixesEnabled) {
+        if (Config.ConfigFields.fenceShapeFixesEnabled) {
             FenceMixin.level = level;
             return annoyanceFix_customFenceBox(level, x, y, z, false);
         }
@@ -78,7 +82,7 @@ class FenceMixin extends BlockBase {
 
     @Override
     public void updateBoundingBox(BlockView blockView, int x, int y, int z) {
-        if (Config.ConfigFields.fenceFixesEnabled) {
+        if (Config.ConfigFields.fenceShapeFixesEnabled) {
             if (level == null)
                 return;
             Box box = annoyanceFix_customFenceBox(level, x, y, z);

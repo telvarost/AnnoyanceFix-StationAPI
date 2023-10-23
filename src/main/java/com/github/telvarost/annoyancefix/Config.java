@@ -19,8 +19,11 @@ public class Config {
         @ConfigName("Cobweb Fixes Enabled")
         public static Boolean cobwebFixesEnabled = true;
 
-        @ConfigName("Fence Fixes Enabled")
+        @ConfigName("Fence Placement Fixes Enabled")
         public static Boolean fenceFixesEnabled = true;
+
+        @ConfigName("Fence Shape Fixes Enabled")
+        public static Boolean fenceShapeFixesEnabled = true;
 
         @ConfigName("Lava Fixes Enabled")
         public static Boolean lavaFixesEnabled = true;
