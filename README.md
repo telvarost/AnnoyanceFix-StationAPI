@@ -15,6 +15,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Fences are placeable like normal
 - Stairs drop themselves
 - Boats drop themselves
+- Pigs drop their saddles if they have a saddle equipped
 - Bookshelves drop three books
 - Boats don't break due to high velocity
 - Never fall through boats anymore when getting out
