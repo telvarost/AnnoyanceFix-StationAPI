@@ -15,6 +15,7 @@
     "MinecraftMixin",
     "MultiPlayerClientInteractionManagerMixin",
     "PickaxeMixin",
+    "PigMixin",
     "PlayerInventoryMixin",
     "SinglePlayerClientInteractionManagerMixin",
     "StairsMixin",
