@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.entity.animal.AnimalBase;
 import net.minecraft.entity.animal.Pig;
 import net.minecraft.item.ItemBase;
@@ -32,7 +33,9 @@ public abstract class PigMixin extends AnimalBase {
                 this.dropItem(var1, 1);
             }
 
-            if (this.isSaddled())
+            if (  (Config.ConfigFields.pigFixesEnabled)
+               && (this.isSaddled())
+               )
             {
                 this.dropItem(ItemBase.saddle.id, 1);
             }
