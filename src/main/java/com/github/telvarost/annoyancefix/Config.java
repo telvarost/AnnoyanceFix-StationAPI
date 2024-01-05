@@ -25,6 +25,9 @@ public class Config {
         @ConfigName("Fence Shape Fixes Enabled")
         public static Boolean fenceShapeFixesEnabled = true;
 
+        @ConfigName("Flint and Steel Fixes Enabled")
+        public static Boolean flintAndSteelFixesEnabled = true;
+
         @ConfigName("Lava Fixes Enabled")
         public static Boolean lavaFixesEnabled = true;
 

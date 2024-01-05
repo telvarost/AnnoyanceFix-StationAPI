@@ -21,6 +21,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Pick block (middle mouse button click) works for blocks that are in the player's inventory, but not in their hotbar
 - Pick block also works on: paintings, minecarts (all three types), wooden doors, iron doors, signs, crops, redstone repeaters, redstone wire, beds, piston heads and cake
 - Repair armor and tools
+- Flint and steel does not lose durability if fire fails to ignite
 - Flowing lava now disappears when lava source block is removed
 - Also: most fixes are toggleable!
 
