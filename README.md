@@ -13,6 +13,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Pickaxes are also effective against: furnaces, cobblestone stairs, bricks, redstone ore, iron doors, rails, dispensers, stone pressure plates and monster spawners
 - Axes are also effective against: crafting tables, wooden slabs, wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes and noteblocks
 - Fences are placeable like normal
+- Pressure plates can be placed on fences
 - Stairs drop themselves
 - Boats drop themselves
 - Bookshelves drop three books
