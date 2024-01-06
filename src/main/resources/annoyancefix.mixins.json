@@ -16,6 +16,7 @@
     "MultiPlayerClientInteractionManagerMixin",
     "PickaxeMixin",
     "PlayerInventoryMixin",
+    "PressurePlateMixin",
     "SinglePlayerClientInteractionManagerMixin",
     "StairsMixin",
     "ToolBaseMixin"
