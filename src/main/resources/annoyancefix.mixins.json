@@ -18,6 +18,7 @@
     "PlayerInventoryMixin",
     "SinglePlayerClientInteractionManagerMixin",
     "StairsMixin",
+    "SugarCaneMixin",
     "ToolBaseMixin"
   ],
   "server": [
