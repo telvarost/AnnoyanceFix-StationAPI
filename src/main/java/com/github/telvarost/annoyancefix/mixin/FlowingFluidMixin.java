@@ -4,6 +4,7 @@ import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.FlowingFluid;
 import net.minecraft.block.Fluid;
 import net.minecraft.block.material.Material;
+import net.minecraft.level.Level;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,6 +45,21 @@ class FlowingFluidMixin extends Fluid {
             return Material.WATER;
         } else {
             return instance.material;
+        }
+    }
+
+    @Redirect(
+            method = "onScheduledTick",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/level/Level;getTileMeta(III)I"
+            )
+    )
+    private int annoyanceFix_allowWaterSpringPropagation(Level arg, int i, int j, int k) {
+        if (Config.ConfigFields.waterFixesEnabled) {
+            return arg.getTileMeta(i, j - 1, k);
+        } else {
+            return arg.getTileMeta(i, j, k);
         }
     }
 }
