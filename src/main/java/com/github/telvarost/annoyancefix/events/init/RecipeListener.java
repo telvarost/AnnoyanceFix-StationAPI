@@ -1,10 +1,12 @@
 package com.github.telvarost.annoyancefix.events.init;
 
 import net.mine_diver.unsafeevents.listener.EventListener;
+import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.modificationstation.stationapi.api.event.recipe.RecipeRegisterEvent;
 import net.modificationstation.stationapi.api.recipe.CraftingRegistry;
+import net.modificationstation.stationapi.api.recipe.FuelRegistry;
 import net.modificationstation.stationapi.api.util.Identifier;
 
 public class RecipeListener {
@@ -12,6 +14,28 @@ public class RecipeListener {
     @EventListener
     public void registerRecipes(RecipeRegisterEvent event) {
         Identifier type = event.recipeId;
+
+        if (type == RecipeRegisterEvent.Vanilla.SMELTING.type()) {
+            /** - 60 second fuel duration */
+            FuelRegistry.addFuelItem(ItemBase.boat            , 1200);
+
+            /** - 15 second fuel duration */
+            FuelRegistry.addFuelItem(ItemBase.bow             , 300);
+            FuelRegistry.addFuelItem(ItemBase.fishingRod      , 300);
+            FuelRegistry.addFuelItem(BlockBase.LADDER.asItem(), 300);
+
+            /** - 10 second fuel duration */
+            FuelRegistry.addFuelItem(ItemBase.woodAxe         , 200);
+            FuelRegistry.addFuelItem(ItemBase.woodHoe         , 200);
+            FuelRegistry.addFuelItem(ItemBase.woodPickaxe     , 200);
+            FuelRegistry.addFuelItem(ItemBase.woodShovel      , 200);
+            FuelRegistry.addFuelItem(ItemBase.woodSword       , 200);
+            FuelRegistry.addFuelItem(ItemBase.sign            , 200);
+            FuelRegistry.addFuelItem(ItemBase.woodDoor        , 200);
+
+            /** - 5 second fuel duration */
+            FuelRegistry.addFuelItem(ItemBase.bowl            , 100);
+        }
 
         if (type == RecipeRegisterEvent.Vanilla.CRAFTING_SHAPELESS.type()) {
             /** - Armour Repair */

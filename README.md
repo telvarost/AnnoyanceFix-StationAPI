@@ -20,6 +20,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Never fall through boats anymore when getting out
 - Pick block (middle mouse button click) works for blocks that are in the player's inventory, but not in their hotbar
 - Pick block also works on: paintings, minecarts (all three types), wooden doors, iron doors, signs, crops, redstone repeaters, redstone wire, beds, piston heads and cake
+- Add missing wooden items as fuel sources in furnace: wooden tools, wooden doors, boats, bowls, signs, and ladders
 - Repair armor and tools
 - Flowing lava now disappears when lava source block is removed
 - Also: most fixes are toggleable!
