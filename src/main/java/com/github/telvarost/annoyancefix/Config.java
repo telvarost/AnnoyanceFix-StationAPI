@@ -31,6 +31,9 @@ public class Config {
         @ConfigName("Pick Block Fixes Enabled")
         public static Boolean pickBlockFixesEnabled = true;
 
+        @ConfigName("Pig Fixes Enabled")
+        public static Boolean pigFixesEnabled = true;
+
         @ConfigName("Stair Fixes Enabled")
         public static Boolean stairFixesEnabled = true;
 
