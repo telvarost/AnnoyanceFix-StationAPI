@@ -34,7 +34,7 @@ public class Config {
         @ConfigName("Stair Fixes Enabled")
         public static Boolean stairFixesEnabled = true;
 
-        @ConfigName("Wooden Slab Fixes Enabled")
-        public static Boolean woodenSlabFixesEnabled = true;
+        @ConfigName("Wooden Slab Fixes Enabled (Experimental)")
+        public static Boolean woodenSlabFixesEnabled = false;
     }
 }

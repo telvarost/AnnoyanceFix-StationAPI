@@ -11,7 +11,7 @@ Mod review of the Modloader edition v1.4 by Modification Station/The Zyga (thank
 The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
 
 - Pickaxes are also effective against: furnaces, cobblestone stairs, bricks, redstone ore, iron doors, rails, dispensers, stone pressure plates and monster spawners
-- Axes are also effective against: crafting tables, wooden slabs, wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes and noteblocks
+- Axes are also effective against: crafting tables, wooden slabs (experimental), wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes and noteblocks
 - Fences are placeable like normal
 - Stairs drop themselves
 - Boats drop themselves
