@@ -12,7 +12,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 
 - Pickaxes are also effective against: furnaces, cobblestone stairs, bricks, redstone ore, iron doors, rails, dispensers, stone pressure plates and monster spawners
 - Axes are also effective against: crafting tables, wooden slabs (experimental), wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes and noteblocks
-- Fences are placeable like normal
+- Fences are placeable like normal and bounding box was minimized when appropriate
 - Stairs drop themselves
 - Boats drop themselves
 - Bookshelves drop three books
@@ -23,6 +23,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Add missing wooden items as fuel sources in furnace: wooden tools, wooden doors, boats, bowls, signs, and ladders
 - Repair armor and tools
 - Flowing lava now disappears when lava source block is removed
+- Chicken bounding box was increased to modern Minecraft bounding box size
 - Water spring propagation has been fixed: https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1283147-water-spring-propagation-fix
 - Also: most fixes are toggleable!
 
