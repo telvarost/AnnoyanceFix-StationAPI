@@ -37,7 +37,7 @@ public class Config {
         @ConfigName("Water Fixes Enabled")
         public static Boolean waterFixesEnabled = true;
 
-        @ConfigName("Wooden Slab Fixes Enabled")
-        public static Boolean woodenSlabFixesEnabled = true;
+        @ConfigName("Wooden Slab Fixes Enabled (Experimental)")
+        public static Boolean woodenSlabFixesEnabled = false;
     }
 }
