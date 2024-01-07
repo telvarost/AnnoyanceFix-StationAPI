@@ -23,6 +23,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Pick block also works on: paintings, minecarts (all three types), wooden doors, iron doors, signs, crops, redstone repeaters, redstone wire, beds, piston heads and cake
 - Add missing wooden items as fuel sources in furnace: wooden tools, wooden doors, boats, bowls, signs, and ladders
 - Repair armor and tools
+- Flint and steel does not lose durability if fire fails to ignite
 - Flowing lava now disappears when lava source block is removed
 - Chicken bounding box was increased to modern Minecraft bounding box size
 - Water spring propagation has been fixed: https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1283147-water-spring-propagation-fix

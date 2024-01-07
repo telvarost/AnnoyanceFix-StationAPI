@@ -9,6 +9,7 @@
     "ChickenMixin",
     "CobwebMixin",
     "FenceMixin",
+    "FlintAndSteelMixin",
     "FlowingFluidMixin",
     "HatchetMixin",
     "ItemBaseMixin",
