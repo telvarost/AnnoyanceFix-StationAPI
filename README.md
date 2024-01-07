@@ -23,6 +23,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Add missing wooden items as fuel sources in furnace: wooden tools, wooden doors, boats, bowls, signs, and ladders
 - Repair armor and tools
 - Flowing lava now disappears when lava source block is removed
+- Water spring propagation has been fixed: https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1283147-water-spring-propagation-fix
 - Also: most fixes are toggleable!
 
 To use pick block: Look at something and click your scroll wheel. If it's in your inventory, it will automatically be selected.
