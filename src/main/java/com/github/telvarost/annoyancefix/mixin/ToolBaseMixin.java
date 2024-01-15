@@ -42,11 +42,6 @@ public class ToolBaseMixin extends ItemBase {
             return;
         }
 
-        if (ModHelper.BlockTypeEnum.BLOCK_IS_NOT_A_SLAB == ModHelper.ModHelperFields.blockType)
-        {
-            return;
-        }
-
         if (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN == ModHelper.ModHelperFields.blockType) {
             boolean isEffective = false;
 
