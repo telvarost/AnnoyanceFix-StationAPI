@@ -1,7 +1,5 @@
 package com.github.telvarost.annoyancefix.mixin;
 
-import com.github.telvarost.annoyancefix.Config;
-import com.github.telvarost.annoyancefix.ModHelper;
 import com.google.common.collect.ObjectArrays;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.tool.Pickaxe;
@@ -10,14 +8,9 @@ import net.minecraft.item.tool.ToolMaterial;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Mixin(Pickaxe.class)
 class PickaxeMixin extends ToolBase {
