@@ -33,50 +33,32 @@ public class ToolBaseMixin extends ItemBase {
 
     @Inject(
             method = "getStrengthOnBlock",
-            at = @At("TAIL"),
+            at = @At("HEAD"),
             cancellable = true
     )
     public void annoyanceFix_getStrengthOnBlock(ItemInstance arg, BlockBase arg2, CallbackInfoReturnable<Float> cir) {
+        if (!Config.ConfigFields.woodenSlabFixesEnabled)
+        {
+            return;
+        }
+
         if (ModHelper.BlockTypeEnum.BLOCK_IS_NOT_A_SLAB == ModHelper.ModHelperFields.blockType)
         {
             return;
         }
 
-        if (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_NOT_WOODEN == ModHelper.ModHelperFields.blockType) {
-            if (    (this.id == ItemBase.woodPickaxe.id)
-                || (this.id == ItemBase.stonePickaxe.id)
-                || (this.id == ItemBase.ironPickaxe.id)
-                || (this.id == ItemBase.diamondPickaxe.id)
-                || (this.id == ItemBase.goldPickaxe.id)
-               )
-            {
+        if (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN == ModHelper.ModHelperFields.blockType) {
+            if (    (this.id == ItemBase.woodAxe.id)
+                || (this.id == ItemBase.stoneAxe.id)
+                || (this.id == ItemBase.ironAxe.id)
+                || (this.id == ItemBase.diamondAxe.id)
+                || (this.id == ItemBase.goldAxe.id)
+            ) {
                 cir.setReturnValue(this.field_2713);
-            }
-        }
-        else
-        {
-            if (Config.ConfigFields.woodenSlabFixesEnabled)
-            {
-                if (    (this.id == ItemBase.woodAxe.id)
-                    || (this.id == ItemBase.stoneAxe.id)
-                    || (this.id == ItemBase.ironAxe.id)
-                    || (this.id == ItemBase.diamondAxe.id)
-                    || (this.id == ItemBase.goldAxe.id)
-                ) {
-                    cir.setReturnValue(this.field_2713);
-                }
             }
             else
             {
-                if (    (this.id == ItemBase.woodPickaxe.id)
-                        || (this.id == ItemBase.stonePickaxe.id)
-                        || (this.id == ItemBase.ironPickaxe.id)
-                        || (this.id == ItemBase.diamondPickaxe.id)
-                        || (this.id == ItemBase.goldPickaxe.id)
-                )
-                {
-                    cir.setReturnValue(this.field_2713);
-                }
+                cir.setReturnValue(1.0F);
             }
         }
     }

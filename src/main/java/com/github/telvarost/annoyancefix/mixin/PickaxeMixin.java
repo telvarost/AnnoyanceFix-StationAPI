@@ -23,26 +23,8 @@ import java.util.List;
 class PickaxeMixin extends ToolBase {
     @Shadow private static BlockBase[] effectiveBlocks;
 
-    @Unique private static BlockBase[] newEffectiveBlocks;
-
     public PickaxeMixin(int i, int j, ToolMaterial arg, BlockBase[] args) {
         super(i, j, arg, args);
-    }
-
-    @Inject(
-            method = "isEffectiveOn",
-            at = @At("RETURN"),
-            cancellable = true
-    )
-    public void isEffectiveOn(BlockBase arg, CallbackInfoReturnable<Boolean> cir) {
-        if (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_NOT_WOODEN == ModHelper.ModHelperFields.blockType)
-        {
-            cir.setReturnValue(true);
-        }
-        else
-        {
-            cir.setReturnValue(false);
-        }
     }
 
     @Inject(
@@ -71,22 +53,6 @@ class PickaxeMixin extends ToolBase {
                 , BlockBase.BRICKS
                 , BlockBase.MOB_SPAWNER
         }, BlockBase.class);
-
-        newEffectiveBlocks = new BlockBase[effectiveBlocks.length - 2];
-        int counter = 0;
-
-        for (int i = 0; i < (effectiveBlocks.length - 2); i++)
-        {
-            if (  (BlockBase.STONE_SLAB != effectiveBlocks[i])
-               && (BlockBase.DOUBLE_STONE_SLAB != effectiveBlocks[i])
-               )
-            {
-                newEffectiveBlocks[counter] = effectiveBlocks[i];
-                counter++;
-            }
-        }
-
-        effectiveBlocks = newEffectiveBlocks;
     }
 }
 

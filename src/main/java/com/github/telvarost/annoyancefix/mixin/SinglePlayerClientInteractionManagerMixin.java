@@ -37,6 +37,10 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
             at = @At("HEAD")
     )
     public void annoyanceFix_clickBlock(int i, int j, int k, int l, CallbackInfo ci) {
+        if (!Config.ConfigFields.woodenSlabFixesEnabled) {
+            return;
+        }
+
         int blockId = this.minecraft.level.getTileId(i, j, k);
         int blockMetaData = this.minecraft.level.getTileMeta(i, j, k);
 
