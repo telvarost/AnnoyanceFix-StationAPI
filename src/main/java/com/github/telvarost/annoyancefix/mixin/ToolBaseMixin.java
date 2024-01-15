@@ -1,7 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
-import com.github.telvarost.annoyancefix.ModData;
+import com.github.telvarost.annoyancefix.ModHelper;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
@@ -33,28 +33,32 @@ public class ToolBaseMixin extends ItemBase {
 
     @Inject(
             method = "getStrengthOnBlock",
-            at = @At("TAIL"),
+            at = @At("HEAD"),
             cancellable = true
     )
     public void annoyanceFix_getStrengthOnBlock(ItemInstance arg, BlockBase arg2, CallbackInfoReturnable<Float> cir) {
-        if (  (!Config.ConfigFields.woodenSlabFixesEnabled)
-           || (!ModData.ModDataFields.isBlockMetaDataValue2)
-        ) {
+        if (!Config.ConfigFields.woodenSlabFixesEnabled)
+        {
             return;
         }
 
-        if (  (  (arg2.id == BlockBase.STONE_SLAB.id)
-              || (arg2.id == BlockBase.DOUBLE_STONE_SLAB.id)
-              )
-           && (  (this.id == ItemBase.woodAxe.id)
-              || (this.id == ItemBase.stoneAxe.id)
-              || (this.id == ItemBase.ironAxe.id)
-              || (this.id == ItemBase.diamondAxe.id)
-              || (this.id == ItemBase.goldAxe.id)
-              )
-           )
-        {
-            cir.setReturnValue(this.field_2713);
+        if (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN == ModHelper.ModHelperFields.blockType) {
+            boolean isEffective = false;
+
+            for(int var3 = 0; var3 < this.effectiveBlocksBase.length; ++var3) {
+                if (this.effectiveBlocksBase[var3] == BlockBase.WOOD) {
+                    isEffective = true;
+                }
+            }
+
+            if (isEffective)
+            {
+                cir.setReturnValue(this.field_2713);
+            }
+            else
+            {
+                cir.setReturnValue(1.0F);
+            }
         }
     }
 }
