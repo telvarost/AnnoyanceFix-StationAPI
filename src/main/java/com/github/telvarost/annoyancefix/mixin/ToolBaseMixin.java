@@ -48,12 +48,16 @@ public class ToolBaseMixin extends ItemBase {
         }
 
         if (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN == ModHelper.ModHelperFields.blockType) {
-            if (    (this.id == ItemBase.woodAxe.id)
-                || (this.id == ItemBase.stoneAxe.id)
-                || (this.id == ItemBase.ironAxe.id)
-                || (this.id == ItemBase.diamondAxe.id)
-                || (this.id == ItemBase.goldAxe.id)
-            ) {
+            boolean isEffective = false;
+
+            for(int var3 = 0; var3 < this.effectiveBlocksBase.length; ++var3) {
+                if (this.effectiveBlocksBase[var3] == BlockBase.WOOD) {
+                    isEffective = true;
+                }
+            }
+
+            if (isEffective)
+            {
                 cir.setReturnValue(this.field_2713);
             }
             else
