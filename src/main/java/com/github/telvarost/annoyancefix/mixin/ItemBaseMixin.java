@@ -1,7 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
-import com.github.telvarost.annoyancefix.ModData;
+import com.github.telvarost.annoyancefix.ModHelper;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,16 +22,9 @@ public class ItemBaseMixin {
             return;
         }
 
-        if (!ModData.ModDataFields.isBlockMetaDataValue2) {
-            return;
+        if (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN == ModHelper.ModHelperFields.blockType) {
+            cir.setReturnValue(true);
         }
-
-        boolean isSlab = par1.id == BlockBase.STONE_SLAB.id || par1.id == BlockBase.DOUBLE_STONE_SLAB.id;
-        if (!isSlab) {
-            return;
-        }
-
-        cir.setReturnValue(true);
     }
 
 }

@@ -1,9 +1,10 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
-import com.github.telvarost.annoyancefix.ModData;
+import com.github.telvarost.annoyancefix.ModHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockBase;
 import net.minecraft.client.BaseClientInteractionManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.SinglePlayerClientInteractionManager;
@@ -36,18 +37,24 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
             at = @At("HEAD")
     )
     public void annoyanceFix_clickBlock(int i, int j, int k, int l, CallbackInfo ci) {
-        if (!Config.ConfigFields.woodenSlabFixesEnabled) {
-            return;
-        }
-
+        int blockId = this.minecraft.level.getTileId(i, j, k);
         int blockMetaData = this.minecraft.level.getTileMeta(i, j, k);
 
-        /* Check if the tile's metadata is the metadata of a wooden slab */
-        if (2 == blockMetaData) {
-            ModData.ModDataFields.isBlockMetaDataValue2 = true;
+        /** - Save some information on block type */
+        if (  (BlockBase.STONE_SLAB.id == blockId)
+           || (BlockBase.DOUBLE_STONE_SLAB.id == blockId)
+           )
+        {
+            if (2 == blockMetaData) {
+                ModHelper.ModHelperFields.blockType = ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN;
+            }
+            else {
+                ModHelper.ModHelperFields.blockType = ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_NOT_WOODEN;
+            }
         }
-        else {
-            ModData.ModDataFields.isBlockMetaDataValue2 = false;
+        else
+        {
+            ModHelper.ModHelperFields.blockType = ModHelper.BlockTypeEnum.BLOCK_IS_NOT_A_SLAB;
         }
     }
 }
