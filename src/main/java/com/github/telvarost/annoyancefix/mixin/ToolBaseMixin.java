@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ToolBaseMixin extends ItemBase {
 
     @Shadow private BlockBase[] effectiveBlocksBase;
-    @Shadow private float field_2713 = 4.0F;
+    @Shadow private float field_2713;
     @Shadow private int field_2714;
     @Shadow protected ToolMaterial toolMaterial;
 
