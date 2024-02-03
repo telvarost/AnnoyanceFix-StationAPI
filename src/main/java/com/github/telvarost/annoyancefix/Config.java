@@ -5,7 +5,6 @@ import net.glasslauncher.mods.api.gcapi.api.ConfigCategory;
 import net.glasslauncher.mods.api.gcapi.api.ConfigName;
 import net.glasslauncher.mods.api.gcapi.api.GConfig;
 import net.glasslauncher.mods.api.gcapi.api.MaxLength;
-import net.minecraft.block.BlockBase;
 
 public class Config {
 

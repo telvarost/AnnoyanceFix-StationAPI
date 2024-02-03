@@ -3,7 +3,6 @@ package com.github.telvarost.annoyancefix.mixin;
 import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModHelper;
 import net.minecraft.block.BlockBase;
-import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.FlintAndSteel;
 import net.minecraft.item.ItemBase;
