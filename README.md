@@ -27,7 +27,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Flowing lava now disappears when lava source block is removed
 - Chicken bounding box was increased to modern Minecraft bounding box size
 - Water spring propagation has been fixed: https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1283147-water-spring-propagation-fix
-- Also: most fixes are toggleable!
+- Also: almost all fixes are toggleable!
 
 To use pick block: Look at something and click your scroll wheel. If it's in your inventory, it will automatically be selected.
 

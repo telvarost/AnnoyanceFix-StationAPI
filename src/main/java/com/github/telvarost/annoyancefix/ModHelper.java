@@ -11,5 +11,8 @@ public class ModHelper {
 
         /** @brief - Special data for remembering block type */
         public static BlockTypeEnum blockType = BlockTypeEnum.BLOCK_IS_NOT_A_SLAB;
+
+        /** @brief - Special data for flint and steel fixes */
+        public static Boolean isFireLit = false;
     }
 }
