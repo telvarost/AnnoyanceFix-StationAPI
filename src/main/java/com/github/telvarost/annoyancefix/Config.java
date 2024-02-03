@@ -4,6 +4,7 @@ import blue.endless.jankson.Comment;
 import net.glasslauncher.mods.api.gcapi.api.ConfigCategory;
 import net.glasslauncher.mods.api.gcapi.api.ConfigName;
 import net.glasslauncher.mods.api.gcapi.api.GConfig;
+import net.glasslauncher.mods.api.gcapi.api.MaxLength;
 import net.minecraft.block.BlockBase;
 
 public class Config {
@@ -122,8 +123,13 @@ public class Config {
         @Comment("Options here require restart to take effect")
         public static final RecipesConfig RECIPES_CONFIG = new RecipesConfig();
 
-        @ConfigName("Boat Fixes Enabled")
-        public static Boolean boatFixesEnabled = true;
+        @ConfigName("Boat Drop Fixes Enabled")
+        public static Boolean boatDropFixesEnabled = true;
+
+        @ConfigName("Boat Speed Collision Behavior")
+        @MaxLength(3)
+        @Comment("0 = vanilla, 1 = drop boat, 2 = invincible")
+        public static Integer boatCollisionBehavior = 2;
 
         @ConfigName("Bookshelf Fixes Enabled")
         public static Boolean bookshelfFixesEnabled = true;
