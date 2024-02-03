@@ -1,6 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.ModHelper;
 import net.minecraft.block.BlockBase;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.player.PlayerBase;
@@ -41,7 +42,7 @@ class FlintAndSteelMixin extends ItemBase {
             method = "useOnTile",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/item/ItemInstance;applyDamage(ILnet/minecraft/entity/EntityBase;)V"
+                    target = "Lnet/minecraft/level/Level;getTileId(III)I"
             )
     )
     private void annoyanceFix_useOnTile(ItemInstance arg, PlayerBase arg2, Level arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
@@ -49,9 +50,29 @@ class FlintAndSteelMixin extends ItemBase {
             return;
         }
 
-        if (BlockBase.FIRE.id == arg3.getTileId(i, j, k))
-        {
-            arg.applyDamage(1, arg2);
+        if (BlockBase.FIRE.id == arg3.getTileId(i, j, k)) {
+            ModHelper.ModHelperFields.isFireLit = true;
+        } else {
+            ModHelper.ModHelperFields.isFireLit = false;
+        }
+    }
+
+    @Inject(
+            method = "useOnTile",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/item/ItemInstance;applyDamage(ILnet/minecraft/entity/EntityBase;)V"
+            )
+    )
+    private void annoyanceFix_useOnTileApplyDamage(ItemInstance arg, PlayerBase arg2, Level arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
+        if (!Config.ConfigFields.flintAndSteelFixesEnabled) {
+            return;
+        }
+
+        if (BlockBase.FIRE.id == arg3.getTileId(i, j, k)) {
+            if (!ModHelper.ModHelperFields.isFireLit) {
+                arg.applyDamage(1, arg2);
+            }
         }
     }
 }
