@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
+
 @Mixin(Hatchet.class)
 class HatchetMixin extends ToolBase {
     @Shadow private static BlockBase[] effectiveBlocks;
@@ -46,20 +48,67 @@ class HatchetMixin extends ToolBase {
             )
     )
     private static void annoyanceFix_appendExtraBlocks(CallbackInfo ci) {
-        effectiveBlocks = ObjectArrays.concat(effectiveBlocks, new BlockBase[]
-                { BlockBase.WORKBENCH
-                , BlockBase.NOTEBLOCK
-                , BlockBase.WOOD_DOOR
-                , BlockBase.LADDER
-                , BlockBase.STANDING_SIGN
-                , BlockBase.WALL_SIGN
-                , BlockBase.WOODEN_PRESSURE_PLATE
-                , BlockBase.JUKEBOX
-                , BlockBase.WOOD_STAIRS
-                , BlockBase.FENCE
-                , BlockBase.PUMPKIN
-                , BlockBase.JACK_O_LANTERN
-                , BlockBase.TRAPDOOR
-        }, BlockBase.class);
+
+        ArrayList effectiveBlockList = new ArrayList<BlockBase>();
+
+        if (Config.AxesConfig.enableAxesEffectiveOnWorkbench) {
+            effectiveBlockList.add(BlockBase.WORKBENCH);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnNoteblock) {
+            effectiveBlockList.add(BlockBase.NOTEBLOCK);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnWoodDoor) {
+            effectiveBlockList.add(BlockBase.WOOD_DOOR);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnLadders) {
+            effectiveBlockList.add(BlockBase.LADDER);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnSigns) {
+            effectiveBlockList.add(BlockBase.STANDING_SIGN);
+            effectiveBlockList.add(BlockBase.WALL_SIGN);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnWoodPressurePlate) {
+            effectiveBlockList.add(BlockBase.WOODEN_PRESSURE_PLATE);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnJukebox) {
+            effectiveBlockList.add(BlockBase.JUKEBOX);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnWoodStairs) {
+            effectiveBlockList.add(BlockBase.WOOD_STAIRS);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnFence) {
+            effectiveBlockList.add(BlockBase.FENCE);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnPumpkin) {
+            effectiveBlockList.add(BlockBase.PUMPKIN);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnJackOLantern) {
+            effectiveBlockList.add(BlockBase.JACK_O_LANTERN);
+        }
+
+        if (Config.AxesConfig.enableAxesEffectiveOnTrapdoor) {
+            effectiveBlockList.add(BlockBase.TRAPDOOR);
+        }
+
+        Object[] objectArray = effectiveBlockList.toArray();
+        BlockBase[] blockArray = new BlockBase[objectArray.length];
+
+        for (int objectIndex = 0; objectIndex < objectArray.length; objectIndex++) {
+            blockArray[objectIndex] = (BlockBase) objectArray[objectIndex];
+        }
+
+        if (0 < blockArray.length) {
+            effectiveBlocks = ObjectArrays.concat(effectiveBlocks, blockArray, BlockBase.class);
+        }
     }
 }

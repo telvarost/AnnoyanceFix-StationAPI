@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.events;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.container.slot.ItemUsedInCraftingEvent;
 
@@ -23,27 +24,30 @@ public class ItemUsedInCraftingListener {
            && (true == event.itemCrafted.hasDurability())
            )
         {
-            int craftedItemMaxDurability = event.itemCrafted.getDurability();
-            int durabilityToAdd = event.itemUsed.getDurability() - event.itemUsed.getDamage();
-            int newDurability = craftedItemMaxDurability - event.itemCrafted.getDamage();
-            int damageToSet = 0;
+            if (  (Config.RecipesConfig.recipesRepairArmorEnabled)
+               || (Config.RecipesConfig.recipesRepairToolsEnabled)
+            ) {
+                int craftedItemMaxDurability = event.itemCrafted.getDurability();
+                int durabilityToAdd = event.itemUsed.getDurability() - event.itemUsed.getDamage();
+                int newDurability = craftedItemMaxDurability - event.itemCrafted.getDamage();
+                int damageToSet = 0;
 
-            /** - If this is the first item's durability being added, add a 5% repair buff */
-            if (craftedItemMaxDurability == event.itemCrafted.getDamage())
-            {
-                durabilityToAdd = durabilityToAdd + (int)floor((double)craftedItemMaxDurability / 20);
+                /** - If this is the first item's durability being added, add a 5% repair buff */
+                if (craftedItemMaxDurability == event.itemCrafted.getDamage()) {
+                    durabilityToAdd = durabilityToAdd + (int) floor((double) craftedItemMaxDurability / 20);
+                }
+
+                newDurability = newDurability + durabilityToAdd;
+
+                /** - Only calculate damage if new durability is below max durability
+                 *    Otherwise, new durability is above max durability and damage to set will remain zero
+                 */
+                if (craftedItemMaxDurability > newDurability) {
+                    damageToSet = craftedItemMaxDurability - newDurability;
+                }
+
+                event.itemCrafted.setDamage(damageToSet);
             }
-
-            newDurability = newDurability + durabilityToAdd;
-
-            /** - Only calculate damage if new durability is below max durability
-             *    Otherwise, new durability is above max durability and damage to set will remain zero
-             */
-            if (craftedItemMaxDurability > newDurability) {
-                damageToSet = craftedItemMaxDurability - newDurability;
-            }
-
-            event.itemCrafted.setDamage(damageToSet);
         }
     }
 }
