@@ -62,7 +62,7 @@ abstract class BoatMixin extends EntityBase {
             constant = @Constant(intValue = 3)
     )
     private int annoyanceFix_skipPlanksDropOnCollision(int constant) {
-        if (0 < Config.ConfigFields.boatCollisionBehavior) {
+        if (0 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
             return 0;
         } else {
             return 3;
@@ -78,7 +78,7 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private Item annoyanceFix_skipSticksDropOnCollision(Boat instance, int i, int j, float f) {
-        if (0 < Config.ConfigFields.boatCollisionBehavior) {
+        if (0 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
             return null;
         } else {
             return instance.dropItem(i, j, f);
@@ -93,7 +93,7 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private void annoyanceFix_dropBoatOnCollision(CallbackInfo ci) {
-        if (0 < Config.ConfigFields.boatCollisionBehavior) {
+        if (0 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
             dropItem(ItemBase.boat.id, 1, 0);
         }
     }
@@ -107,7 +107,7 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private boolean annoyanceFix_stopBoatBreaking(Boat instance) {
-        if (1 < Config.ConfigFields.boatCollisionBehavior) {
+        if (1 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
             return false;
         } else {
             return this.field_1624;

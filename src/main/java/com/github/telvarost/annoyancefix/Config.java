@@ -183,11 +183,9 @@ public class Config {
         public static Boolean boatDropFixesEnabled = true;
 
         @ConfigName("Boat Speed Collision Behavior")
-        @Comment("0 = vanilla, 1 = drop boat, 2 = invincible")
-        @MaxLength(3)
         @MultiplayerSynced
-        @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
-        public static Integer boatCollisionBehavior = 2;
+        @ValueOnVanillaServer(integerValue = 0)
+        public static BoatCollisionEnum boatCollisionBehavior = BoatCollisionEnum.INVINCIBLE;
 
         @ConfigName("Bookshelf Fixes Enabled")
         @MultiplayerSynced
