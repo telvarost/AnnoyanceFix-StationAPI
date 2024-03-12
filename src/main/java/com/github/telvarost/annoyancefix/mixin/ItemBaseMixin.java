@@ -18,7 +18,7 @@ public class ItemBaseMixin {
             cancellable = true
     )
     private void annoyanceFix_isEffectiveOn(BlockBase par1, CallbackInfoReturnable<Boolean> cir) {
-        if (!Config.ConfigFields.woodenSlabFixesEnabled) {
+        if (!Config.config.woodenSlabFixesEnabled) {
             return;
         }
 

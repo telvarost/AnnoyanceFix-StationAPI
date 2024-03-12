@@ -14,4 +14,9 @@ public enum BoatCollisionEnum {
     BoatCollisionEnum(String stringValue) {
         this.stringValue = stringValue;
     }
+
+    @Override
+    public String toString() {
+        return stringValue;
+    }
 }

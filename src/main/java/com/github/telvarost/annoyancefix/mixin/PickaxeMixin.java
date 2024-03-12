@@ -36,59 +36,59 @@ class PickaxeMixin extends ToolBase {
 
         ArrayList effectiveBlockList = new ArrayList<BlockBase>();
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnDispenser) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnDispenser) {
             effectiveBlockList.add(BlockBase.DISPENSER);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnNormalRails) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnNormalRails) {
             effectiveBlockList.add(BlockBase.RAIL);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnGoldenRails) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnGoldenRails) {
             effectiveBlockList.add(BlockBase.GOLDEN_RAIL);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnDetectorRails) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnDetectorRails) {
             effectiveBlockList.add(BlockBase.DETECTOR_RAIL);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnFurnace) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnFurnace) {
             effectiveBlockList.add(BlockBase.FURNACE);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnFurnaceLit) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnFurnaceLit) {
             effectiveBlockList.add(BlockBase.FURNACE_LIT);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnCobblestoneStairs) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnCobblestoneStairs) {
             effectiveBlockList.add(BlockBase.COBBLESTONE_STAIRS);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnStonePressurePlate) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnStonePressurePlate) {
             effectiveBlockList.add(BlockBase.STONE_PRESSURE_PLATE);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnIronDoor) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnIronDoor) {
             effectiveBlockList.add(BlockBase.IRON_DOOR);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnRedstoneOre) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnRedstoneOre) {
             effectiveBlockList.add(BlockBase.REDSTONE_ORE);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnRedstoneOreLit) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnRedstoneOreLit) {
             effectiveBlockList.add(BlockBase.REDSTONE_ORE_LIT);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnStoneButton) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnStoneButton) {
             effectiveBlockList.add(BlockBase.BUTTON);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnBricks) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnBricks) {
             effectiveBlockList.add(BlockBase.BRICKS);
         }
 
-        if (Config.PickaxesConfig.enablePickaxesEffectiveOnMobSpawner) {
+        if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnMobSpawner) {
             effectiveBlockList.add(BlockBase.MOB_SPAWNER);
         }
 

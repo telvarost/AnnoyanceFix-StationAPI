@@ -24,7 +24,7 @@ class CobwebMixin extends BlockBase {
 
     @Inject(at = @At("HEAD"), method = "getDropId", cancellable = true)
     public void annoyanceFix_getDropId(int i, Random random, CallbackInfoReturnable<Integer> cir) {
-        if (!Config.ConfigFields.cobwebFixesEnabled) {
+        if (!Config.config.cobwebFixesEnabled) {
             return;
         }
 

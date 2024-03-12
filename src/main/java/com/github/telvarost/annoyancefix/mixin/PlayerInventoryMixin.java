@@ -33,7 +33,7 @@ class PlayerInventoryMixin {
             locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void annoyanceFix_setSelectedItemWithID(int itemID, boolean unused, CallbackInfo ci, int slotWithItem) {
-        if (!Config.ConfigFields.pickBlockFixesEnabled) {
+        if (!Config.config.pickBlockFixesEnabled) {
             return;
         }
 

@@ -25,7 +25,7 @@ abstract class BoatMixin extends EntityBase {
             constant = @Constant(intValue = 3)
     )
     private int annoyanceFix_skipPlanksDrop(int constant) {
-        if (Config.ConfigFields.boatDropFixesEnabled) {
+        if (Config.config.boatDropFixesEnabled) {
             return 0;
         } else {
             return 3;
@@ -37,7 +37,7 @@ abstract class BoatMixin extends EntityBase {
             constant = @Constant(intValue = 2)
     )
     private int annoyanceFix_skipSticksDrop(int constant) {
-        if (Config.ConfigFields.boatDropFixesEnabled) {
+        if (Config.config.boatDropFixesEnabled) {
             return 0;
         } else {
             return 2;
@@ -52,7 +52,7 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private void annoyanceFix_dropBoat(EntityBase attacker, int damage, CallbackInfoReturnable<Boolean> cir) {
-        if (Config.ConfigFields.boatDropFixesEnabled) {
+        if (Config.config.boatDropFixesEnabled) {
             dropItem(ItemBase.boat.id, 1, 0);
         }
     }
@@ -62,7 +62,7 @@ abstract class BoatMixin extends EntityBase {
             constant = @Constant(intValue = 3)
     )
     private int annoyanceFix_skipPlanksDropOnCollision(int constant) {
-        if (0 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
+        if (0 < Config.config.boatCollisionBehavior.ordinal()) {
             return 0;
         } else {
             return 3;
@@ -78,7 +78,7 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private Item annoyanceFix_skipSticksDropOnCollision(Boat instance, int i, int j, float f) {
-        if (0 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
+        if (0 < Config.config.boatCollisionBehavior.ordinal()) {
             return null;
         } else {
             return instance.dropItem(i, j, f);
@@ -93,7 +93,7 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private void annoyanceFix_dropBoatOnCollision(CallbackInfo ci) {
-        if (0 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
+        if (0 < Config.config.boatCollisionBehavior.ordinal()) {
             dropItem(ItemBase.boat.id, 1, 0);
         }
     }
@@ -107,7 +107,7 @@ abstract class BoatMixin extends EntityBase {
             )
     )
     private boolean annoyanceFix_stopBoatBreaking(Boat instance) {
-        if (1 < Config.ConfigFields.boatCollisionBehavior.ordinal()) {
+        if (1 < Config.config.boatCollisionBehavior.ordinal()) {
             return false;
         } else {
             return this.field_1624;

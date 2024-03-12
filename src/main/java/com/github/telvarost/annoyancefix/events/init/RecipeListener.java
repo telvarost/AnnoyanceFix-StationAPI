@@ -17,7 +17,7 @@ public class RecipeListener {
         Identifier type = event.recipeId;
 
         if (type == RecipeRegisterEvent.Vanilla.SMELTING.type()) {
-            if (Config.RecipesConfig.recipesAdditionalWoodFuelsEnabled) {
+            if (Config.config.RECIPES_CONFIG.recipesAdditionalWoodFuelsEnabled) {
                 /** - 60 second fuel duration */
                 FuelRegistry.addFuelItem(ItemBase.boat, 1200);
 
@@ -41,7 +41,7 @@ public class RecipeListener {
         }
 
         if (type == RecipeRegisterEvent.Vanilla.CRAFTING_SHAPELESS.type()) {
-            if (Config.RecipesConfig.recipesRepairArmorEnabled) {
+            if (Config.config.RECIPES_CONFIG.recipesRepairArmorEnabled) {
                 /** - Armour Repair */
                 CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.leatherHelmet.id, 1, ItemBase.leatherHelmet.getDurability()), new ItemInstance(ItemBase.leatherHelmet.id, 1, -1), new ItemInstance(ItemBase.leatherHelmet.id, 1, -1));
                 CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.leatherChestplate.id, 1, ItemBase.leatherChestplate.getDurability()), new ItemInstance(ItemBase.leatherChestplate.id, 1, -1), new ItemInstance(ItemBase.leatherChestplate.id, 1, -1));
@@ -69,7 +69,7 @@ public class RecipeListener {
                 CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.goldBoots.id, 1, ItemBase.goldBoots.getDurability()), new ItemInstance(ItemBase.goldBoots.id, 1, -1), new ItemInstance(ItemBase.goldBoots.id, 1, -1));
             }
 
-            if (Config.RecipesConfig.recipesRepairToolsEnabled) {
+            if (Config.config.RECIPES_CONFIG.recipesRepairToolsEnabled) {
                 /** - Tool Repair */
                 CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.woodAxe.id, 1, ItemBase.woodAxe.getDurability()), new ItemInstance(ItemBase.woodAxe.id, 1, -1), new ItemInstance(ItemBase.woodAxe.id, 1, -1));
                 CraftingRegistry.addShapelessRecipe(new ItemInstance(ItemBase.woodHoe.id, 1, ItemBase.woodHoe.getDurability()), new ItemInstance(ItemBase.woodHoe.id, 1, -1), new ItemInstance(ItemBase.woodHoe.id, 1, -1));
