@@ -5,7 +5,7 @@ import net.glasslauncher.mods.api.gcapi.api.*;
 
 public class Config {
 
-    @GConfig(value = "config", visibleName = "AnnoyanceFix Config")
+    @GConfig(value = "config", visibleName = "AnnoyanceFix")
     public static ConfigFields config = new ConfigFields();
 
     public static class AxesConfig {
@@ -218,6 +218,7 @@ public class Config {
         public Boolean lavaFixesEnabled = true;
 
         @ConfigName("Pick Block Fixes Enabled")
+        @Comment("Only searches hotbar on multiplayer")
         @MultiplayerSynced
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean pickBlockFixesEnabled = true;
