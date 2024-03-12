@@ -16,13 +16,13 @@
     "MinecraftMixin",
     "PickaxeMixin",
     "PigMixin",
-    "PlayerInventoryMixin",
     "StairsMixin",
     "ToolBaseMixin"
   ],
   "server": [
   ],
   "client": [
+    "PlayerInventoryMixin",
     "MultiPlayerClientInteractionManagerMixin",
     "SinglePlayerClientInteractionManagerMixin"
   ],

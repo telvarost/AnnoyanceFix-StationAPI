@@ -37,6 +37,11 @@ class PlayerInventoryMixin {
             return;
         }
 
+        // Don't modify inventory on server (because the server will reject the change)
+        if (player.level.isServerSide) {
+            return;
+        }
+
         // Let vanilla Minecraft (or other injectors) handle cases where it is simply in the hotbar
         if (slotWithItem < 9) {
             return;
