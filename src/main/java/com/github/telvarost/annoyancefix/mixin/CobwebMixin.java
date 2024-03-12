@@ -1,6 +1,5 @@
 package com.github.telvarost.annoyancefix.mixin;
 
-
 import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.Cobweb;
