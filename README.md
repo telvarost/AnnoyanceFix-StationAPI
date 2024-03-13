@@ -3,15 +3,14 @@
 ![stationapi-banner](https://github.com/telvarost/AnnoyanceFix-StationAPI/assets/25235249/f6331228-f1df-4e48-b33d-e94b46dcc703)
 
 **If you're looking for the ModLoader edition, see this repository:** https://github.com/2zqa/AnnoyanceFix
+**If you're looking for skin fixes and inventory fixes:** https://modrinth.com/mod/mojangfix-stationapi-edition
 
-**If you're looking for skin fixes and inventory fixes:** https://modrinth.com/mod/mojangfix/versions
-
-Mod review of the Modloader edition v1.4 by Modification Station/The Zyga (thanks!): https://www.youtube.com/watch?v=m8lX9jv9lhI
+- This version of the mod now supports multiplayer! Use GlassConfigAPI version 2.0+ to set up the config.
 
 The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
 
-- Pickaxes are also effective against: furnaces, cobblestone stairs, bricks, redstone ore, iron doors, rails, dispensers, stone pressure plates and monster spawners
-- Axes are also effective against: crafting tables, wooden slabs (experimental), wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes and noteblocks
+- Pickaxes are also effective against: furnaces, cobblestone stairs, bricks, redstone ore, iron doors, rails, dispensers, stone pressure plates, and monster spawners
+- Axes are also effective against: crafting tables, wooden slabs (experimental), wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes, and noteblocks
 - Fences are placeable like normal and bounding box was minimized when appropriate
 - Stairs drop themselves
 - Boats drop themselves
@@ -31,14 +30,15 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
   - Note: There is currently a bug with GlassConfigAPI where integer settings need to be saved twice
 
 To use pick block: Look at something and click your scroll wheel. If it's in your inventory, it will automatically be selected.
+- On multiplayer pick block can only search the hotbar for the item
 
 ## Installation using Prism Launcher
 
 1. Download an instance of Babric for Prism Launcher: https://github.com/babric/prism-instance
 2. Install Java 17, set the instance to use it, and disable compatibility checks on the instance: https://adoptium.net/temurin/releases/
-3. Add StationAPI to the mod folder for the instance: https://jenkins.glass-launcher.net/job/StationAPI/lastSuccessfulBuild/
-4. (Optional) Add Mod Menu to the mod folder for the instance: https://github.com/calmilamsy/ModMenu/releases
-5. (Optional) Add GlassConfigAPI 1.1.6+ to the mod folder for the instance: https://maven.glass-launcher.net/#/releases/net/glasslauncher/mods/GlassConfigAPI
+3. Add StationAPI to the mod folder for the instance: https://modrinth.com/mod/stationapi
+4. (Optional) Add Mod Menu to the mod folder for the instance: https://modrinth.com/mod/modmenu-beta
+5. (Optional) Add GlassConfigAPI 2.0+ to the mod folder for the instance: https://modrinth.com/mod/glass-config-api
 6. Add this mod to the mod folder for the instance: https://github.com/telvarost/AnnoyanceFix-StationAPI/releases
 7. Run and enjoy! 👍
 
