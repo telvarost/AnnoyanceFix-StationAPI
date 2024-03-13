@@ -41,7 +41,7 @@ class FlowingFluidMixin extends Fluid {
             )
     )
     private Material annoyanceFix_allowLavaToDisappear(FlowingFluid instance) {
-        if (Config.ConfigFields.lavaFixesEnabled) {
+        if (Config.config.lavaFixesEnabled) {
             return Material.WATER;
         } else {
             return instance.material;
@@ -56,7 +56,7 @@ class FlowingFluidMixin extends Fluid {
             )
     )
     private int annoyanceFix_allowWaterSpringPropagation(Level arg, int i, int j, int k) {
-        if (Config.ConfigFields.waterFixesEnabled) {
+        if (Config.config.waterFixesEnabled) {
             return arg.getTileMeta(i, j - 1, k);
         } else {
             return arg.getTileMeta(i, j, k);

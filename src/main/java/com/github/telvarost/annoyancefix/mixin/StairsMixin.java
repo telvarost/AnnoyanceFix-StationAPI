@@ -27,7 +27,7 @@ class StairsMixin extends BlockBase {
             cancellable = true
     )
     private void annoyanceFix_onBlockRemoved(Level level, int i, int j, int k, CallbackInfo ci) {
-        if (Config.ConfigFields.stairFixesEnabled) {
+        if (Config.config.stairFixesEnabled) {
             ci.cancel();
         }
     }
@@ -38,14 +38,14 @@ class StairsMixin extends BlockBase {
             cancellable = true
     )
     private void annoyanceFix_onDestroyedByExplosion(Level level, int i, int j, int k, CallbackInfo ci) {
-        if (Config.ConfigFields.stairFixesEnabled) {
+        if (Config.config.stairFixesEnabled) {
             ci.cancel();
         }
     }
 
     @Inject(at = @At("HEAD"), method = "getDropId", cancellable = true)
     public void annoyanceFix_getDropId(int i, Random random, CallbackInfoReturnable<Integer> cir) {
-        if (Config.ConfigFields.stairFixesEnabled) {
+        if (Config.config.stairFixesEnabled) {
             cir.setReturnValue(id);
         }
     }
@@ -56,7 +56,7 @@ class StairsMixin extends BlockBase {
             cancellable = true
     )
     private void annoyanceFix_beforeDestroyedByExplosion(Level arg, int i, int j, int k, int l, float f, CallbackInfo ci) {
-        if (Config.ConfigFields.stairFixesEnabled) {
+        if (Config.config.stairFixesEnabled) {
             super.beforeDestroyedByExplosion(arg, i, j, k, l, f);
             ci.cancel();
         }

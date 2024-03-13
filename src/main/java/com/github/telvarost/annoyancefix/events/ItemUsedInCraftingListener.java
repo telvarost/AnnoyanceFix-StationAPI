@@ -24,8 +24,8 @@ public class ItemUsedInCraftingListener {
            && (true == event.itemCrafted.hasDurability())
            )
         {
-            if (  (Config.RecipesConfig.recipesRepairArmorEnabled)
-               || (Config.RecipesConfig.recipesRepairToolsEnabled)
+            if (  (Config.config.RECIPES_CONFIG.recipesRepairArmorEnabled)
+               || (Config.config.RECIPES_CONFIG.recipesRepairToolsEnabled)
             ) {
                 int craftedItemMaxDurability = event.itemCrafted.getDurability();
                 int durabilityToAdd = event.itemUsed.getDurability() - event.itemUsed.getDamage();

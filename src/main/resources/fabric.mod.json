@@ -30,6 +30,9 @@
     ],
     "gcapi": [
       "com.github.telvarost.annoyancefix.Config"
+    ],
+    "gcapi:factory_provider": [
+      "com.github.telvarost.annoyancefix.BoatCollisionEnumFactory"
     ]
   },
   "mixins": [

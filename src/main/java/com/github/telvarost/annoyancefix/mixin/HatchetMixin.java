@@ -26,7 +26,7 @@ class HatchetMixin extends ToolBase {
 
     @Override
     public boolean isEffectiveOn(BlockBase arg) {
-        if (  (Config.ConfigFields.woodenSlabFixesEnabled)
+        if (  (Config.config.woodenSlabFixesEnabled)
            && (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN == ModHelper.ModHelperFields.blockType)
            )
         {
@@ -51,52 +51,52 @@ class HatchetMixin extends ToolBase {
 
         ArrayList effectiveBlockList = new ArrayList<BlockBase>();
 
-        if (Config.AxesConfig.enableAxesEffectiveOnWorkbench) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnWorkbench) {
             effectiveBlockList.add(BlockBase.WORKBENCH);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnNoteblock) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnNoteblock) {
             effectiveBlockList.add(BlockBase.NOTEBLOCK);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnWoodDoor) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnWoodDoor) {
             effectiveBlockList.add(BlockBase.WOOD_DOOR);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnLadders) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnLadders) {
             effectiveBlockList.add(BlockBase.LADDER);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnSigns) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnSigns) {
             effectiveBlockList.add(BlockBase.STANDING_SIGN);
             effectiveBlockList.add(BlockBase.WALL_SIGN);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnWoodPressurePlate) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnWoodPressurePlate) {
             effectiveBlockList.add(BlockBase.WOODEN_PRESSURE_PLATE);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnJukebox) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnJukebox) {
             effectiveBlockList.add(BlockBase.JUKEBOX);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnWoodStairs) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnWoodStairs) {
             effectiveBlockList.add(BlockBase.WOOD_STAIRS);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnFence) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnFence) {
             effectiveBlockList.add(BlockBase.FENCE);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnPumpkin) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnPumpkin) {
             effectiveBlockList.add(BlockBase.PUMPKIN);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnJackOLantern) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnJackOLantern) {
             effectiveBlockList.add(BlockBase.JACK_O_LANTERN);
         }
 
-        if (Config.AxesConfig.enableAxesEffectiveOnTrapdoor) {
+        if (Config.config.AXES_CONFIG.enableAxesEffectiveOnTrapdoor) {
             effectiveBlockList.add(BlockBase.TRAPDOOR);
         }
 

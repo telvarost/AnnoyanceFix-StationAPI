@@ -33,7 +33,12 @@ class PlayerInventoryMixin {
             locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void annoyanceFix_setSelectedItemWithID(int itemID, boolean unused, CallbackInfo ci, int slotWithItem) {
-        if (!Config.ConfigFields.pickBlockFixesEnabled) {
+        if (!Config.config.pickBlockFixesEnabled) {
+            return;
+        }
+
+        // Don't modify inventory on server (because the server will reject the change)
+        if (player.level.isServerSide) {
             return;
         }
 

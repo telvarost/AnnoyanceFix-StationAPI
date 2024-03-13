@@ -33,7 +33,7 @@ public abstract class PigMixin extends AnimalBase {
                 this.dropItem(var1, 1);
             }
 
-            if (  (Config.ConfigFields.pigFixesEnabled)
+            if (  (Config.config.pigFixesEnabled)
                && (this.isSaddled())
                )
             {

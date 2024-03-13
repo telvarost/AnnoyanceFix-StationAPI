@@ -58,7 +58,7 @@ class MinecraftMixin {
             index = 1
     )
     private int annoyanceFix_pickBlock(int vanillaItemId) {
-        if (!Config.ConfigFields.pickBlockFixesEnabled) {
+        if (!Config.config.pickBlockFixesEnabled) {
             return vanillaItemId;
         }
 

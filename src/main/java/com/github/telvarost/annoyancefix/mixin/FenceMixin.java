@@ -25,7 +25,7 @@ class FenceMixin extends BlockBase {
             cancellable = true
     )
     private void annoyanceFix_canPlaceAt(Level arg, int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        if (Config.ConfigFields.fenceFixesEnabled) {
+        if (Config.config.fenceFixesEnabled) {
             cir.setReturnValue(true);
         }
     }
@@ -61,7 +61,7 @@ class FenceMixin extends BlockBase {
 
     @Inject(method = "getCollisionShape", at = @At("RETURN"), cancellable = true)
     public void annoyanceFix_getCollisionShape(Level level, int x, int y, int z, CallbackInfoReturnable<Box> cir) {
-        if (Config.ConfigFields.fenceShapeFixesEnabled) {
+        if (Config.config.fenceShapeFixesEnabled) {
             cir.setReturnValue(annoyanceFix_customFenceBox(level, x, y, z, true));
         }
     }
@@ -71,7 +71,7 @@ class FenceMixin extends BlockBase {
 
     @Override
     public Box getOutlineShape(Level level, int x, int y, int z) {
-        if (Config.ConfigFields.fenceShapeFixesEnabled) {
+        if (Config.config.fenceShapeFixesEnabled) {
             FenceMixin.level = level;
             return annoyanceFix_customFenceBox(level, x, y, z, false);
         }
@@ -82,7 +82,7 @@ class FenceMixin extends BlockBase {
 
     @Override
     public void updateBoundingBox(BlockView blockView, int x, int y, int z) {
-        if (Config.ConfigFields.fenceShapeFixesEnabled) {
+        if (Config.config.fenceShapeFixesEnabled) {
             if (level == null)
                 return;
             Box box = annoyanceFix_customFenceBox(level, x, y, z);

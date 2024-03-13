@@ -30,7 +30,7 @@ class FlintAndSteelMixin extends ItemBase {
             constant = @Constant(intValue = 1, ordinal = 1)
     )
     private int annoyanceFix_skipFlintDamage(int constant) {
-        if (Config.ConfigFields.flintAndSteelFixesEnabled) {
+        if (Config.config.flintAndSteelFixesEnabled) {
             return 0;
         } else {
             return 1;
@@ -45,7 +45,7 @@ class FlintAndSteelMixin extends ItemBase {
             )
     )
     private void annoyanceFix_useOnTile(ItemInstance arg, PlayerBase arg2, Level arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
-        if (!Config.ConfigFields.flintAndSteelFixesEnabled) {
+        if (!Config.config.flintAndSteelFixesEnabled) {
             return;
         }
 
@@ -64,7 +64,7 @@ class FlintAndSteelMixin extends ItemBase {
             )
     )
     private void annoyanceFix_useOnTileApplyDamage(ItemInstance arg, PlayerBase arg2, Level arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
-        if (!Config.ConfigFields.flintAndSteelFixesEnabled) {
+        if (!Config.config.flintAndSteelFixesEnabled) {
             return;
         }
 

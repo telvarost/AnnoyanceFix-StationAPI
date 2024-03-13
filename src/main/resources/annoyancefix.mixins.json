@@ -14,17 +14,16 @@
     "HatchetMixin",
     "ItemBaseMixin",
     "MinecraftMixin",
-    "MultiPlayerClientInteractionManagerMixin",
     "PickaxeMixin",
     "PigMixin",
-    "PlayerInventoryMixin",
-    "SinglePlayerClientInteractionManagerMixin",
     "StairsMixin",
     "ToolBaseMixin"
   ],
   "server": [
   ],
   "client": [
+    "PlayerInventoryMixin",
+    "SinglePlayerClientInteractionManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
