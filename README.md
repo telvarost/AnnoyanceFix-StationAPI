@@ -8,6 +8,7 @@
 
 **This version of the mod now supports multiplayer!**
 - Use GlassConfigAPI version 2.0+ to set up the config.
+- The mod showcase video has also been updated: https://www.youtube.com/watch?v=h-NnpTYiuZc
 
 The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
 
