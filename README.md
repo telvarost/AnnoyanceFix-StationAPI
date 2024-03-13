@@ -3,7 +3,9 @@
 ![stationapi-banner](https://github.com/telvarost/AnnoyanceFix-StationAPI/assets/25235249/f6331228-f1df-4e48-b33d-e94b46dcc703)
 
 **If you're looking for the ModLoader edition, see this repository:** https://github.com/2zqa/AnnoyanceFix
+
 **If you're looking for skin fixes and inventory fixes:** https://modrinth.com/mod/mojangfix-stationapi-edition
+
 **This version of the mod now supports multiplayer!** Use GlassConfigAPI version 2.0+ to set up the config.
 
 The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
