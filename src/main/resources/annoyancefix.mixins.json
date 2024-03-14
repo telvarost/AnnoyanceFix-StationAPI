@@ -20,6 +20,7 @@
     "ToolBaseMixin"
   ],
   "server": [
+    "ServerPacketHandlerMixin"
   ],
   "client": [
     "PlayerInventoryMixin",

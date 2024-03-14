@@ -2,6 +2,7 @@ package com.github.telvarost.annoyancefix.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.Boat;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.packet.login.LoginRequest0x1Packet;
 import net.minecraft.packet.play.ChatMessage0x3Packet;
@@ -52,9 +53,6 @@ public abstract class ServerPacketHandlerMixin {
             ServerPlayerPacketHandler var5 = new ServerPlayerPacketHandler(this.server, this.playNetworkHandler, var2);
             var5.send(new LoginRequest0x1Packet("", var2.entityId, var3.getSeed(), (byte)var3.dimension.id));
             var5.send(new SpawnPosition0x6S2CPacket(var4.x, var4.y, var4.z));
-
-            var2.startRiding(var2.vehicle); // <-- Add join vehicle here
-
             this.server.serverPlayerConnectionManager.sendPlayerTime(var2, var3);
             this.server.serverPlayerConnectionManager.sendToAll(new ChatMessage0x3Packet("§e" + var2.name + " joined the game."));
             this.server.serverPlayerConnectionManager.method_569(var2);
@@ -62,8 +60,14 @@ public abstract class ServerPacketHandlerMixin {
             this.server.pendingConnectionManager.method_38(var5);
             var5.send(new TimeUpdate0x4S2CPacket(var3.getLevelTime()));
             var2.method_317();
+
+            /** - For now just force spawn a boat */
+            Boat spawnedBoat = new Boat(var2.level, var2.x, var2.y, var2.z);
+            var2.level.spawnEntity(spawnedBoat);
+            var2.startRiding(spawnedBoat); // <-- Add join vehicle here
         }
 
         this.closed = true;
+        ci.cancel();
     }
 }
