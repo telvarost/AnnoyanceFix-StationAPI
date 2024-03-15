@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.interfaces;
 
+import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.util.Util;
 
 public interface VehicleInterface {
@@ -11,11 +12,11 @@ public interface VehicleInterface {
         Util.assertImpl();
     }
 
-    default String vehicle_getVehicleName() {
+    default CompoundTag vehicle_getVehicle() {
         return Util.assertImpl();
     }
 
-    default void vehicle_setVehicleName(String vehicleName) {
+    default void vehicle_setVehicle(CompoundTag vehicle) {
         Util.assertImpl();
     }
 }

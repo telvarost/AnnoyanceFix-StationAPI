@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.level.Level;
 import net.minecraft.util.io.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,23 +16,19 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerBase.class)
-public class PlayerBaseMixin extends Living implements VehicleInterface {
+public abstract class PlayerBaseMixin extends Living implements VehicleInterface {
+
+    @Shadow public abstract void readCustomDataFromTag(CompoundTag arg);
 
     @Unique
-    public String _vehicleName = null;
-    @Unique
     public boolean _playerInVehicle = false;
+
     @Unique
-    private double _vehicleX = 0;
-    @Unique
-    private double _vehicleY = 70;
-    @Unique
-    private double _vehicleZ = 0;
+    public CompoundTag _vehicleTag = new CompoundTag();
 
     public PlayerBaseMixin(Level arg) {
         super(arg);
     }
-
 
     @Override
     public boolean vehicle_isRiding() {
@@ -44,13 +41,13 @@ public class PlayerBaseMixin extends Living implements VehicleInterface {
     }
 
     @Override
-    public String vehicle_getVehicleName() {
-        return dataTracker.getString(ModHelper.VEHICLE_NAME_ID);
+    public CompoundTag vehicle_getVehicle() {
+        return _vehicleTag;
     }
 
     @Override
-    public void vehicle_setVehicleName(String vehicleName) {
-        this.dataTracker.setInt(ModHelper.VEHICLE_NAME_ID, vehicleName);
+    public void vehicle_setVehicle(CompoundTag vehicleTag) {
+        _vehicleTag = vehicleTag;
     }
 
     @Redirect(
@@ -68,11 +65,8 @@ public class PlayerBaseMixin extends Living implements VehicleInterface {
             this.vehicle_setIsRiding(_playerInVehicle);
 
             if (instance.passenger != null) {
-                this.vehicle_setVehicleName(instance.getClass().toString());
+                //this.vehicle_setVehicleName(instance.getClass().toString());
                 ModHelper.ModHelperFields.vehicleName = instance.getClass().toString();
-                _vehicleX = Math.floor(instance.x);
-                _vehicleY = Math.floor(instance.y);
-                _vehicleZ = Math.floor(instance.z);
             } else {
                 ModHelper.ModHelperFields.vehicleName = "";
             }
@@ -90,12 +84,13 @@ public class PlayerBaseMixin extends Living implements VehicleInterface {
         }
 
         tag.put("PlayerInVehicle", _playerInVehicle);
+        vehicle_setIsRiding(_playerInVehicle);
+
 
         if (_playerInVehicle) {
-            tag.put("VehicleName", ModHelper.ModHelperFields.vehicleName);
-            tag.put("VehicleX", _vehicleX);
-            tag.put("VehicleY", _vehicleY);
-            tag.put("VehicleZ", _vehicleZ);
+            this.vehicle.toTag(_vehicleTag);
+            tag.put("Vehicle", _vehicleTag);
+            vehicle_setVehicle(_vehicleTag);
         }
     }
 
@@ -106,14 +101,22 @@ public class PlayerBaseMixin extends Living implements VehicleInterface {
         }
 
         _playerInVehicle = tag.getBoolean("PlayerInVehicle");
-        //this.vehicle_getIsRiding(_playerInVehicle);
+        this.vehicle_setIsRiding(_playerInVehicle);
+
 
         if (_playerInVehicle) {
-            //this.vehicle_setVehicleName(instance.getClass().toString());
-            ModHelper.ModHelperFields.vehicleName = tag.getString("VehicleName");
-            _vehicleX = tag.getDouble("VehicleX");
-            _vehicleY = tag.getDouble("VehicleY");
-            _vehicleZ = tag.getDouble("VehicleZ");
+            _vehicleTag = tag.getCompoundTag("Vehicle");
+            vehicle_setVehicle(_vehicleTag);
         }
+    }
+
+    @Inject(method = "initDataTracker", at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/entity/Living;initDataTracker()V",
+            shift = At.Shift.AFTER
+    ))
+    private void creative_trackData(CallbackInfo info) {
+        this.dataTracker.startTracking(ModHelper.IS_RIDING_VEHICLE_ID, (byte) 0);
+        this.dataTracker.startTracking(ModHelper.VEHICLE_INFO_ID, new CompoundTag());
     }
 }

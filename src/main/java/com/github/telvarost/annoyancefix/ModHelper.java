@@ -17,7 +17,7 @@ public class ModHelper {
 
     public static final int IS_RIDING_VEHICLE_ID = 20;
 
-    public static final int VEHICLE_NAME_ID = 21;
+    public static final int VEHICLE_INFO_ID = 21;
 
     public static class ModHelperFields {
 

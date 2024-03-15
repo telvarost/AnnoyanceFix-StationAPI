@@ -3,6 +3,8 @@ package com.github.telvarost.annoyancefix.mixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Boat;
+import net.minecraft.entity.EntityBase;
+import net.minecraft.entity.EntityRegistry;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.packet.login.LoginRequest0x1Packet;
 import net.minecraft.packet.play.ChatMessage0x3Packet;
@@ -14,6 +16,7 @@ import net.minecraft.server.network.ClientConnection;
 import net.minecraft.server.network.ServerPacketHandler;
 import net.minecraft.server.network.ServerPlayerPacketHandler;
 import net.minecraft.util.Vec3i;
+import net.minecraft.util.io.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -63,9 +66,14 @@ public abstract class ServerPacketHandlerMixin {
 
             /** - For now just force spawn a boat */
             if (var2.vehicle_isRiding()) {
-                Boat spawnedBoat = new Boat(var2.level, var2.x, var2.y, var2.z);
-                var2.level.spawnEntity(var2.vehicle);
-                var2.startRiding(var2.vehicle); // <-- Add join vehicle here
+                //if (level.isRemote) return; // We are client connected to server, server do all the job
+                CompoundTag vehicleTag = var2.vehicle_getVehicle();
+                if (vehicleTag != null) {
+                    String vehicleName = vehicleTag.getString("vehicleName"); // Or in any other way that you store that data
+                    EntityBase vehicle = EntityRegistry.create(vehicleName, var2.level);
+                    vehicle.fromTag(vehicleTag);
+                    var2.startRiding(vehicle);
+                }
             }
         }
 
