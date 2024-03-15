@@ -5,12 +5,8 @@ import com.github.telvarost.annoyancefix.interfaces.VehicleInterface;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.entity.player.PlayerContainer;
-import net.minecraft.item.ItemInstance;
 import net.minecraft.level.Level;
 import net.minecraft.util.io.CompoundTag;
-import net.modificationstation.stationapi.api.util.Util;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -110,7 +106,7 @@ public class PlayerBaseMixin extends Living implements VehicleInterface {
         }
 
         _playerInVehicle = tag.getBoolean("PlayerInVehicle");
-        vehicle_isRiding(_playerInVehicle);
+        //this.vehicle_getIsRiding(_playerInVehicle);
 
         if (_playerInVehicle) {
             //this.vehicle_setVehicleName(instance.getClass().toString());

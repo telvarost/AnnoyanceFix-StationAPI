@@ -1,11 +1,8 @@
 package com.github.telvarost.annoyancefix.mixin;
 
-import com.github.telvarost.annoyancefix.ModHelper;
-import com.github.telvarost.annoyancefix.interfaces.VehicleInterface;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Boat;
-import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.packet.login.LoginRequest0x1Packet;
 import net.minecraft.packet.play.ChatMessage0x3Packet;
@@ -23,9 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 @Environment(EnvType.SERVER)
