@@ -16,6 +16,7 @@
     "MinecraftMixin",
     "PickaxeMixin",
     "PigMixin",
+    "PlayerBaseMixin",
     "StairsMixin",
     "ToolBaseMixin"
   ],

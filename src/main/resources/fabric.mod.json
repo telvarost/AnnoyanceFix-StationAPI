@@ -41,5 +41,13 @@
 
   "depends": {
     "minecraft": "1.0.0-beta.7.3"
+  },
+
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/class_54": [
+        "com/github/telvarost/annoyancefix/interfaces/VehicleInterface"
+      ]
+    }
   }
 }

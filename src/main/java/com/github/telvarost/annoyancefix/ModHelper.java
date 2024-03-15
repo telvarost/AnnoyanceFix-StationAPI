@@ -7,6 +7,18 @@ public class ModHelper {
         SLAB_BLOCK_IS_WOODEN
     }
 
+    public static byte toByte(boolean value) {
+        return (byte) (value ? 1 : 0);
+    }
+
+    public static boolean toBool(byte value) {
+        return value > 0;
+    }
+
+    public static final int IS_RIDING_VEHICLE_ID = 20;
+
+    public static final int VEHICLE_NAME_ID = 21;
+
     public static class ModHelperFields {
 
         /** @brief - Special data for remembering block type */
@@ -14,5 +26,7 @@ public class ModHelper {
 
         /** @brief - Special data for flint and steel fixes */
         public static Boolean isFireLit = false;
+
+        public static String vehicleName = "";
     }
 }
