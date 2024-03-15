@@ -3,6 +3,7 @@ package com.github.telvarost.annoyancefix.mixin;
 import com.github.telvarost.annoyancefix.ModHelper;
 import com.github.telvarost.annoyancefix.interfaces.VehicleInterface;
 import net.minecraft.entity.EntityBase;
+import net.minecraft.entity.EntityRegistry;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.level.Level;
@@ -65,6 +66,8 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
             this.vehicle_setIsRiding(_playerInVehicle);
 
             if (instance.passenger != null) {
+                this.vehicle.toTag(_vehicleTag);
+                vehicle_setVehicle(_vehicleTag);
                 //this.vehicle_setVehicleName(instance.getClass().toString());
                 ModHelper.ModHelperFields.vehicleName = instance.getClass().toString();
             } else {
@@ -88,9 +91,11 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
 
 
         if (_playerInVehicle) {
-            this.vehicle.toTag(_vehicleTag);
-            tag.put("Vehicle", _vehicleTag);
-            vehicle_setVehicle(_vehicleTag);
+            if (null != this.vehicle) {
+                this.vehicle.toTag(_vehicleTag);
+                tag.put("Vehicle", _vehicleTag);
+                vehicle_setVehicle(_vehicleTag);
+            }
         }
     }
 
@@ -108,6 +113,18 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
             _vehicleTag = tag.getCompoundTag("Vehicle");
             vehicle_setVehicle(_vehicleTag);
         }
+
+        if (level.isServerSide) return; // We are client connected to server, server do all the job
+        _vehicleTag = vehicle_getVehicle();
+        if (_vehicleTag == null) return; // Not riding anything
+        String vehicleName = _vehicleTag.getString("vehicleName"); // Or in any other way that you store that data
+        EntityBase vehicle = EntityRegistry.create(vehicleName, level);
+        if (null != vehicle) {
+            vehicle.setPositionAndAngles(x, y, z, yaw, pitch);
+            vehicle.fromTag(_vehicleTag);
+            level.spawnEntity(vehicle);
+            startRiding(vehicle);
+        }
     }
 
     @Inject(method = "initDataTracker", at = @At(
@@ -117,6 +134,6 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
     ))
     private void creative_trackData(CallbackInfo info) {
         this.dataTracker.startTracking(ModHelper.IS_RIDING_VEHICLE_ID, (byte) 0);
-        this.dataTracker.startTracking(ModHelper.VEHICLE_INFO_ID, new CompoundTag());
+        //this.dataTracker.startTracking(ModHelper.VEHICLE_INFO_ID, new CompoundTag());
     }
 }
