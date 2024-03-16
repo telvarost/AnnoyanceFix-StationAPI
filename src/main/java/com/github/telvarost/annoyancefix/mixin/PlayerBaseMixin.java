@@ -1,8 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
-import com.github.telvarost.annoyancefix.ModHelper;
+import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.interfaces.VehicleInterface;
-import net.minecraft.entity.Boat;
 import net.minecraft.entity.EntityBase;
 import net.minecraft.entity.EntityRegistry;
 import net.minecraft.entity.Living;
@@ -11,7 +10,6 @@ import net.minecraft.level.Level;
 import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.entity.player.PlayerHelper;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -64,7 +62,7 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
     public boolean interactWith(EntityBase instance, PlayerBase playerBase) {
         boolean canInteract = instance.interact(playerBase);
 
-        if (canInteract) {
+        if (Config.config.boatLogoutLoginFixesEnabled && canInteract) {
             /** - Set vehicle data */
             _vehicleName = (instance.passenger != null) ?  EntityRegistry.getStringId(instance) : NULL_AS_STRING;
             if (!_vehicleName.equals(NULL_AS_STRING)) {
@@ -79,7 +77,7 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
 
     @Inject(method = "writeCustomDataToTag", at = @At("HEAD"))
     private void betaTweaks_writeCustomDataToTag(CompoundTag tag, CallbackInfo info) {
-        if (!true) {
+        if (!Config.config.boatLogoutLoginFixesEnabled) {
             return;
         }
 
@@ -93,7 +91,7 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
 
     @Inject(method = "readCustomDataFromTag", at = @At("HEAD"))
     private void betaTweaks_readCustomDataFromTag(CompoundTag tag, CallbackInfo info) {
-        if (!true) {
+        if (!Config.config.boatLogoutLoginFixesEnabled) {
             return;
         }
 

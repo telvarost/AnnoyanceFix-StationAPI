@@ -177,15 +177,20 @@ public class Config {
         @Comment("Options here require restart to take effect")
         public final RecipesConfig RECIPES_CONFIG = new RecipesConfig();
 
+        @ConfigName("Boat Collision Behavior")
+        @MultiplayerSynced
+        @ValueOnVanillaServer(integerValue = 0)
+        public BoatCollisionEnum boatCollisionBehavior = BoatCollisionEnum.INVINCIBLE;
+
         @ConfigName("Boat Drop Fixes Enabled")
         @MultiplayerSynced
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean boatDropFixesEnabled = true;
 
-        @ConfigName("Boat Speed Collision Behavior")
+        @ConfigName("Boat Logout/Login Fixes Enabled")
         @MultiplayerSynced
-        @ValueOnVanillaServer(integerValue = 0)
-        public BoatCollisionEnum boatCollisionBehavior = BoatCollisionEnum.INVINCIBLE;
+        @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
+        public Boolean boatLogoutLoginFixesEnabled = true;
 
         @ConfigName("Bookshelf Fixes Enabled")
         @MultiplayerSynced

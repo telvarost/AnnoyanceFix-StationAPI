@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerHandler;
@@ -31,6 +32,10 @@ public abstract class ServerPlayerConnectionManagerMixin {
             cancellable = true
     )
     public void updateDimension(ServerPlayer arg, CallbackInfo ci) {
+        if (!Config.config.boatLogoutLoginFixesEnabled) {
+            return;
+        }
+
         if (null != arg.vehicle) {
             arg.level.removeEntity(arg.vehicle);
         } else {

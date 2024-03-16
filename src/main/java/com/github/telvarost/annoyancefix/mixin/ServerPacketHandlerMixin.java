@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityBase;
@@ -45,6 +46,10 @@ public abstract class ServerPacketHandlerMixin {
             cancellable = true
     )
     public void complete(LoginRequest0x1Packet arg, CallbackInfo ci) {
+        if (!Config.config.boatLogoutLoginFixesEnabled) {
+            return;
+        }
+
         ServerPlayer var2 = this.server.serverPlayerConnectionManager.connectPlayer(((ServerPacketHandler) (Object)this), arg.username);
         if (var2 != null) {
             this.server.serverPlayerConnectionManager.method_566(var2);
