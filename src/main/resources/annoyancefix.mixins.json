@@ -16,10 +16,13 @@
     "MinecraftMixin",
     "PickaxeMixin",
     "PigMixin",
+    "PlayerBaseMixin",
     "StairsMixin",
     "ToolBaseMixin"
   ],
   "server": [
+    "ServerPacketHandlerMixin",
+    "ServerPlayerConnectionManagerMixin"
   ],
   "client": [
     "PlayerInventoryMixin",

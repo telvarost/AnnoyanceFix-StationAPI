@@ -7,6 +7,14 @@ public class ModHelper {
         SLAB_BLOCK_IS_WOODEN
     }
 
+    public static byte toByte(boolean value) {
+        return (byte) (value ? 1 : 0);
+    }
+
+    public static boolean toBool(byte value) {
+        return value > 0;
+    }
+
     public static class ModHelperFields {
 
         /** @brief - Special data for remembering block type */
