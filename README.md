@@ -16,11 +16,12 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Axes are also effective against: crafting tables, wooden slabs (experimental), wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes, and noteblocks
 - Fences are placeable like normal and bounding box was minimized when appropriate
 - Stairs drop themselves
-- Boats drop themselves
-- Pigs drop their saddles if they have a saddle equipped
 - Bookshelves drop three books
-- Boats don't break due to high velocity
+- Pigs drop their saddles if they have a saddle equipped
+- Boats drop themselves
+- Boats don't break due to high velocity (or drop boat, or vanilla, toggle with config)
 - Never fall through boats anymore when getting out
+- Logout/login with vehicle (no longer exit vehicle upon logout)
 - Pick block (middle mouse button click) works for blocks that are in the player's inventory, but not in their hotbar
 - Pick block also works on: paintings, minecarts (all three types), wooden doors, iron doors, signs, crops, redstone repeaters, redstone wire, beds, piston heads and cake
 - Add missing wooden items as fuel sources in furnace: wooden tools, wooden doors, boats, bowls, signs, and ladders
