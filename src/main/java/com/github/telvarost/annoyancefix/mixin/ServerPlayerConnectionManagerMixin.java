@@ -19,20 +19,13 @@ public abstract class ServerPlayerConnectionManagerMixin {
             )
     )
     public void updateDimension(PlayerHandler instance, PlayerBase playerBase) {
-        if (!Config.config.boatLogoutLoginFixesEnabled) {
-            return;
-        }
-
-        /** - Save vehicle on logout */
-        if (null == playerBase.vehicle) {
-            playerBase.vehicle_setVehicleName("null");
-        }
-
         instance.savePlayer(playerBase);
 
-        /** - Remove vehicle on logout */
-        if (null != playerBase.vehicle) {
-            playerBase.level.removeEntity(playerBase.vehicle);
+        if (Config.config.boatLogoutLoginFixesEnabled) {
+            /** - Remove vehicle on logout */
+            if (null != playerBase.vehicle) {
+                playerBase.level.removeEntity(playerBase.vehicle);
+            }
         }
     }
 }

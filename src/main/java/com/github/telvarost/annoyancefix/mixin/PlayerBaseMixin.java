@@ -85,6 +85,7 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
         _vehicleName = (this.vehicle != null) ?  EntityRegistry.getStringId(this.vehicle) : NULL_AS_STRING;
         tag.put("VehicleName", _vehicleName);
         if (!_vehicleName.equals(NULL_AS_STRING)) {
+            this.vehicle.toTag(_vehicleTag);
             tag.put("VehicleTag", _vehicleTag);
         }
     }

@@ -24,27 +24,25 @@ public abstract class ServerPacketHandlerMixin {
             )
     )
     public void annoyanceFix_completeLoadVehicle(ServerPlayer instance) {
-        if (!Config.config.boatLogoutLoginFixesEnabled) {
-            return;
-        }
-
         instance.method_317();
 
-        /** - Spawn saved vehicle if on multiplayer */
-        String vehicleName = instance.vehicle_getVehicleName();
-        if (!vehicleName.equals("null")) {
-            CompoundTag vehicleTag = instance.vehicle_getVehicleTag();
-            if (vehicleTag != null) {
-                EntityBase vehicle = EntityRegistry.create(vehicleName, instance.level);
-                if (null != vehicle) {
-                    try {
-                        vehicle.fromTag(vehicleTag);
-                    } catch(Exception ex) {
-                        vehicle.setPositionAndAngles(instance.x, instance.y, instance.z, instance.yaw, instance.pitch);
-                        System.out.println("Failed to read vehicle data");
+        if (Config.config.boatLogoutLoginFixesEnabled) {
+            /** - Spawn saved vehicle if on multiplayer */
+            String vehicleName = instance.vehicle_getVehicleName();
+            if (!vehicleName.equals("null")) {
+                CompoundTag vehicleTag = instance.vehicle_getVehicleTag();
+                if (vehicleTag != null) {
+                    EntityBase vehicle = EntityRegistry.create(vehicleName, instance.level);
+                    if (null != vehicle) {
+                        try {
+                            vehicle.fromTag(vehicleTag);
+                        } catch(Exception ex) {
+                            vehicle.setPositionAndAngles(instance.x, instance.y, instance.z, instance.yaw, instance.pitch);
+                            System.out.println("Failed to read vehicle data");
+                        }
+                        instance.level.spawnEntity(vehicle);
+                        instance.startRiding(vehicle);
                     }
-                    instance.level.spawnEntity(vehicle);
-                    instance.startRiding(vehicle);
                 }
             }
         }
