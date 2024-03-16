@@ -2,11 +2,25 @@ package com.github.telvarost.annoyancefix.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.EntityBase;
+import net.minecraft.entity.EntityRegistry;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.packet.login.LoginRequest0x1Packet;
+import net.minecraft.packet.play.ChatMessage0x3Packet;
+import net.minecraft.packet.play.SpawnPosition0x6S2CPacket;
+import net.minecraft.packet.play.TimeUpdate0x4S2CPacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.network.ClientConnection;
 import net.minecraft.server.network.ServerPacketHandler;
+import net.minecraft.server.network.ServerPlayerPacketHandler;
+import net.minecraft.util.Vec3i;
+import net.minecraft.util.io.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.logging.Logger;
 
@@ -25,45 +39,52 @@ public abstract class ServerPacketHandlerMixin {
 
     @Shadow public boolean closed;
 
-//    @Inject(
-//            method = "complete",
-//            at = @At("HEAD"),
-//            cancellable = true
-//    )
-//    public void complete(LoginRequest0x1Packet arg, CallbackInfo ci) {
-//        ServerPlayer var2 = this.server.serverPlayerConnectionManager.connectPlayer(((ServerPacketHandler) (Object)this), arg.username);
-//        if (var2 != null) {
-//            this.server.serverPlayerConnectionManager.method_566(var2);
-//            var2.setLevel(this.server.getLevel(var2.dimensionId));
-//            logger.info(this.getUsernameAndIp() + " logged in with entity id " + var2.entityId + " at (" + var2.x + ", " + var2.y + ", " + var2.z + ")");
-//            ServerLevel var3 = this.server.getLevel(var2.dimensionId);
-//            Vec3i var4 = var3.getSpawnPosition();
-//            ServerPlayerPacketHandler var5 = new ServerPlayerPacketHandler(this.server, this.playNetworkHandler, var2);
-//            var5.send(new LoginRequest0x1Packet("", var2.entityId, var3.getSeed(), (byte)var3.dimension.id));
-//            var5.send(new SpawnPosition0x6S2CPacket(var4.x, var4.y, var4.z));
-//            this.server.serverPlayerConnectionManager.sendPlayerTime(var2, var3);
-//            this.server.serverPlayerConnectionManager.sendToAll(new ChatMessage0x3Packet("§e" + var2.name + " joined the game."));
-//            this.server.serverPlayerConnectionManager.method_569(var2);
-//            var5.method_832(var2.x, var2.y, var2.z, var2.yaw, var2.pitch);
-//            this.server.pendingConnectionManager.method_38(var5);
-//            var5.send(new TimeUpdate0x4S2CPacket(var3.getLevelTime()));
-//            var2.method_317();
-//
-//            /** - For now just force spawn a boat */
-//            if (var2.vehicle_isRiding()) {
-//                //if (level.isRemote) return; // We are client connected to server, server do all the job
-//                CompoundTag vehicleTag = var2.vehicle_getVehicle();
-//                if (vehicleTag != null) {
-//                    String vehicleName = vehicleTag.getString("Vehicle"); // Or in any other way that you store that data
-//                    EntityBase vehicle = EntityRegistry.create(vehicleName, var2.level);
-//                    vehicle.fromTag(vehicleTag);
-//                    var2.level.spawnEntity(vehicle);
-//                    var2.startRiding(vehicle);
-//                }
-//            }
-//        }
-//
-//        this.closed = true;
-//        ci.cancel();
-//    }
+    @Inject(
+            method = "complete",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    public void complete(LoginRequest0x1Packet arg, CallbackInfo ci) {
+        ServerPlayer var2 = this.server.serverPlayerConnectionManager.connectPlayer(((ServerPacketHandler) (Object)this), arg.username);
+        if (var2 != null) {
+            this.server.serverPlayerConnectionManager.method_566(var2);
+            var2.setLevel(this.server.getLevel(var2.dimensionId));
+            logger.info(this.getUsernameAndIp() + " logged in with entity id " + var2.entityId + " at (" + var2.x + ", " + var2.y + ", " + var2.z + ")");
+            ServerLevel var3 = this.server.getLevel(var2.dimensionId);
+            Vec3i var4 = var3.getSpawnPosition();
+            ServerPlayerPacketHandler var5 = new ServerPlayerPacketHandler(this.server, this.playNetworkHandler, var2);
+            var5.send(new LoginRequest0x1Packet("", var2.entityId, var3.getSeed(), (byte)var3.dimension.id));
+            var5.send(new SpawnPosition0x6S2CPacket(var4.x, var4.y, var4.z));
+            this.server.serverPlayerConnectionManager.sendPlayerTime(var2, var3);
+            this.server.serverPlayerConnectionManager.sendToAll(new ChatMessage0x3Packet("§e" + var2.name + " joined the game."));
+            this.server.serverPlayerConnectionManager.method_569(var2);
+            var5.method_832(var2.x, var2.y, var2.z, var2.yaw, var2.pitch);
+            this.server.pendingConnectionManager.method_38(var5);
+            var5.send(new TimeUpdate0x4S2CPacket(var3.getLevelTime()));
+            var2.method_317();
+
+            /** - For now just force spawn a boat */
+            String vehicleName = var2.vehicle_getVehicleName();
+            if (!vehicleName.equals("null")) {
+                //if (level.isRemote) return; // We are client connected to server, server do all the job
+                CompoundTag vehicleTag = var2.vehicle_getVehicleTag();
+                if (vehicleTag != null) {
+                    EntityBase vehicle = EntityRegistry.create(vehicleName, var2.level);
+                    if (null != vehicle) {
+                        try {
+                            vehicle.fromTag(vehicleTag);
+                        } catch(Exception ex) {
+                            vehicle.setPositionAndAngles(var2.x, var2.y, var2.z, var2.yaw, var2.pitch);
+                            System.out.println("Failed to read vehicle data");
+                        }
+                        var2.level.spawnEntity(vehicle);
+                        var2.startRiding(vehicle);
+                    }
+                }
+            }
+        }
+
+        this.closed = true;
+        ci.cancel();
+    }
 }

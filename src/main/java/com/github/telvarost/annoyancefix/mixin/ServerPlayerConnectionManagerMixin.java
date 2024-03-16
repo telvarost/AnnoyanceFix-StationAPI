@@ -33,6 +33,8 @@ public abstract class ServerPlayerConnectionManagerMixin {
     public void updateDimension(ServerPlayer arg, CallbackInfo ci) {
         if (null != arg.vehicle) {
             arg.level.removeEntity(arg.vehicle);
+        } else {
+            arg.vehicle_setVehicleName("null");
         }
         this.field_590.savePlayer(arg);
         this.server.getLevel(arg.dimensionId).removeEntity(arg);

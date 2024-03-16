@@ -15,9 +15,9 @@ public class ModHelper {
         return value > 0;
     }
 
-    public static final int IS_RIDING_VEHICLE_ID = 20;
+    public static final int VEHICLE_NAME_ID = 20;
 
-    public static final int VEHICLE_INFO_ID = 21;
+    //public static final int VEHICLE_INFO_ID = 21;
 
     public static class ModHelperFields {
 
@@ -26,7 +26,5 @@ public class ModHelper {
 
         /** @brief - Special data for flint and steel fixes */
         public static Boolean isFireLit = false;
-
-        public static String vehicleName = "";
     }
 }
