@@ -66,7 +66,6 @@ public abstract class ServerPacketHandlerMixin {
             /** - For now just force spawn a boat */
             String vehicleName = var2.vehicle_getVehicleName();
             if (!vehicleName.equals("null")) {
-                //if (level.isRemote) return; // We are client connected to server, server do all the job
                 CompoundTag vehicleTag = var2.vehicle_getVehicleTag();
                 if (vehicleTag != null) {
                     EntityBase vehicle = EntityRegistry.create(vehicleName, var2.level);

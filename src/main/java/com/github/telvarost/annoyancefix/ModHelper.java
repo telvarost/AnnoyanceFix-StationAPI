@@ -15,10 +15,6 @@ public class ModHelper {
         return value > 0;
     }
 
-    public static final int VEHICLE_NAME_ID = 20;
-
-    //public static final int VEHICLE_INFO_ID = 21;
-
     public static class ModHelperFields {
 
         /** @brief - Special data for remembering block type */
