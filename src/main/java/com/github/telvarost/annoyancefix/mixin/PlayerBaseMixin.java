@@ -101,7 +101,7 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
             _vehicleTag = tag.getCompoundTag("VehicleTag");
         }
 
-        /** - Spawn vehicle if on single player (and remove old vehicle) */
+        /** - Spawn saved vehicle if on single player (and remove old vehicle) */
         if (level.isServerSide)   return;
         PlayerBase singlePlayer = PlayerHelper.getPlayerFromGame();
         if (null == singlePlayer) return;
