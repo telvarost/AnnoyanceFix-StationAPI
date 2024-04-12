@@ -127,12 +127,13 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
                    && (entityToCheck.y == vehicle.y)
                    && (entityToCheck.z == vehicle.z)
                 ) {
-                    level.removeEntity(entityToCheck);
+                    //level.removeEntity(entityToCheck);
+                    startRiding(entityToCheck);
                 }
             }
 
-            level.spawnEntity(vehicle);
-            startRiding(vehicle);
+//            level.spawnEntity(vehicle);
+//            startRiding(vehicle);
         }
     }
 }
