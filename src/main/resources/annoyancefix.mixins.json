@@ -13,6 +13,7 @@
     "FlowingFluidMixin",
     "HatchetMixin",
     "ItemBaseMixin",
+    "LevelMixin",
     "MinecraftMixin",
     "PickaxeMixin",
     "PigMixin",
