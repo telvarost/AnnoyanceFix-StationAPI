@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "com.github.telvarost.annoyancefix.mixin",
   "compatibilityLevel": "JAVA_8",
+  "plugin": "com.github.telvarost.annoyancefix.AnnoyanceFixMixinPlugin",
   "mixins": [
     "BoatMixin",
     "BookshelfMixin",

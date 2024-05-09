@@ -16,6 +16,8 @@ public class ModHelper {
     }
 
     public static class ModHelperFields {
+        /** @brief - Special data for disabling mixins */
+        public static boolean loadMixinConfigs = true;
 
         /** @brief - Special data for remembering block type */
         public static BlockTypeEnum blockType = BlockTypeEnum.BLOCK_IS_NOT_A_SLAB;

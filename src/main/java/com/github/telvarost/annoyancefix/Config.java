@@ -233,6 +233,12 @@ public class Config {
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean pigFixesEnabled = true;
 
+        @ConfigName("Slab Placement Fixes Enabled")
+        @Comment("Restart required for changes to take effect")
+        @MultiplayerSynced
+        @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
+        public Boolean slabPlacementFixesEnabled = true;
+
         @ConfigName("Stair Fixes Enabled")
         @MultiplayerSynced
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
