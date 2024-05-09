@@ -34,7 +34,7 @@ public final class AnnoyanceFixMixinPlugin implements IMixinConfigPlugin {
             }
         }
 
-        if (mixinClassName.equals("com.github.telvarost.annoyancefix.mixin.StoneSlabMixin")) {
+        if (mixinClassName.equals("com.github.telvarost.annoyancefix.mixin.StoneSlabItemMixin")) {
             return Config.config.slabPlacementFixesEnabled;
         } else {
             return true;

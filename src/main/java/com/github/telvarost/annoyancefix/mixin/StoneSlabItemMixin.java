@@ -9,8 +9,8 @@ import net.minecraft.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(StoneSlab.class)
-public class StoneSlabMixin extends Block {
-    public StoneSlabMixin(int i) {
+public class StoneSlabItemMixin extends Block {
+    public StoneSlabItemMixin(int i) {
         super(i);
     }
 

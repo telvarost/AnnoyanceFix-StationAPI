@@ -20,7 +20,8 @@
     "PigMixin",
     "PlayerBaseMixin",
     "StairsMixin",
-    "StoneSlabMixin",
+    "StoneSlabBlockMixin",
+    "StoneSlabItemMixin",
     "ToolBaseMixin"
   ],
   "server": [
