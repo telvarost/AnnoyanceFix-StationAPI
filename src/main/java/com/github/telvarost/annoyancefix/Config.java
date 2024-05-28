@@ -173,15 +173,15 @@ public class Config {
 
     public static class ConfigFields {
 
-        @ConfigCategory("Config: Effective Blocks For Axes")
+        @ConfigCategory("Config: Effectivity List Additions Axes")
         @Comment("Options here require restart to take effect")
         public final AxesConfig AXES_CONFIG = new AxesConfig();
 
-        @ConfigCategory("Config: Effective Blocks For Pickaxes")
+        @ConfigCategory("Config: Effectivity List Additions Pickaxes")
         @Comment("Options here require restart to take effect")
         public final PickaxesConfig PICKAXES_CONFIG = new PickaxesConfig();
 
-        @ConfigCategory("Config: Effective Blocks For Shovels")
+        @ConfigCategory("Config: Effectivity List Additions Shovels")
         @Comment("Options here require restart to take effect")
         public final ShovelsConfig SHOVELS_CONFIG = new ShovelsConfig();
 
