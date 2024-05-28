@@ -19,6 +19,7 @@
     "PickaxeMixin",
     "PigMixin",
     "PlayerBaseMixin",
+    "ShovelMixin",
     "StairsMixin",
     "StoneSlabBlockMixin",
     "StoneSlabItemMixin",

@@ -144,6 +144,14 @@ public class Config {
         public Boolean enablePickaxesEffectiveOnMobSpawner = true;
     }
 
+    public static class ShovelsConfig {
+
+        @ConfigName("Effective On Soul Sand")
+        @MultiplayerSynced
+        @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
+        public Boolean enableShovelsEffectiveOnSoulSand = true;
+    }
+
     public static class RecipesConfig {
 
         @ConfigName("Crafting: Repair Armor")
@@ -165,13 +173,17 @@ public class Config {
 
     public static class ConfigFields {
 
-        @ConfigCategory("Config: Axes Are Effective Against")
+        @ConfigCategory("Config: Effective Blocks For Axes")
         @Comment("Options here require restart to take effect")
         public final AxesConfig AXES_CONFIG = new AxesConfig();
 
-        @ConfigCategory("Config: Pickaxes Are Effective Against")
+        @ConfigCategory("Config: Effective Blocks For Pickaxes")
         @Comment("Options here require restart to take effect")
         public final PickaxesConfig PICKAXES_CONFIG = new PickaxesConfig();
+
+        @ConfigCategory("Config: Effective Blocks For Shovels")
+        @Comment("Options here require restart to take effect")
+        public final ShovelsConfig SHOVELS_CONFIG = new ShovelsConfig();
 
         @ConfigCategory("Config: Recipes/Fuels For Crafting/Furnaces")
         @Comment("Options here require restart to take effect")
