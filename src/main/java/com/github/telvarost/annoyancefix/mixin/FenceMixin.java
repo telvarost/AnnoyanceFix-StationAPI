@@ -1,20 +1,20 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
-import net.minecraft.block.BlockBase;
-import net.minecraft.block.Fence;
+import net.minecraft.block.Block;
+import net.minecraft.block.FenceBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.level.BlockView;
-import net.minecraft.level.Level;
-import net.minecraft.util.maths.Box;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Fence.class)
-class FenceMixin extends BlockBase {
+@Mixin(FenceBlock.class)
+class FenceMixin extends Block {
     public FenceMixin(int i, Material arg) {
         super(i, arg);
     }
@@ -24,25 +24,25 @@ class FenceMixin extends BlockBase {
             at = @At("RETURN"),
             cancellable = true
     )
-    private void annoyanceFix_canPlaceAt(Level arg, int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
+    private void annoyanceFix_canPlaceAt(World arg, int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
         if (Config.config.fenceFixesEnabled) {
             cir.setReturnValue(true);
         }
     }
 
     @Unique
-    private Box annoyanceFix_customFenceBox(Level level, int x, int y, int z) {
-        int fenceId = BlockBase.FENCE.id;
-        boolean posX = level.getTileId(x + 1, y, z) == fenceId;
-        boolean negX = level.getTileId(x - 1, y, z) == fenceId;
-        boolean posZ = level.getTileId(x, y, z + 1) == fenceId;
-        boolean negZ = level.getTileId(x, y, z - 1) == fenceId;
+    private Box annoyanceFix_customFenceBox(World level, int x, int y, int z) {
+        int fenceId = Block.FENCE.id;
+        boolean posX = level.getBlockId(x + 1, y, z) == fenceId;
+        boolean negX = level.getBlockId(x - 1, y, z) == fenceId;
+        boolean posZ = level.getBlockId(x, y, z + 1) == fenceId;
+        boolean negZ = level.getBlockId(x, y, z - 1) == fenceId;
 
         return Box.create(negX ? 0 : 0.375F, 0.F, negZ ? 0.F : 0.375F, posX ? 1.F : 0.625F, 1.F, posZ ? 1.F : 0.625F);
     }
 
     @Unique
-    private Box annoyanceFix_customFenceBox(Level level, int x, int y, int z, boolean collider) {
+    private Box annoyanceFix_customFenceBox(World level, int x, int y, int z, boolean collider) {
         Box box = annoyanceFix_customFenceBox(level, x, y, z);
 
         box.minX += x;
@@ -60,23 +60,23 @@ class FenceMixin extends BlockBase {
     }
 
     @Inject(method = "getCollisionShape", at = @At("RETURN"), cancellable = true)
-    public void annoyanceFix_getCollisionShape(Level level, int x, int y, int z, CallbackInfoReturnable<Box> cir) {
+    public void annoyanceFix_getCollisionShape(World level, int x, int y, int z, CallbackInfoReturnable<Box> cir) {
         if (Config.config.fenceShapeFixesEnabled) {
             cir.setReturnValue(annoyanceFix_customFenceBox(level, x, y, z, true));
         }
     }
 
     @Unique
-    private static Level level;
+    private static World level;
 
     @Override
-    public Box getOutlineShape(Level level, int x, int y, int z) {
+    public Box getBoundingBox(World level, int x, int y, int z) {
         if (Config.config.fenceShapeFixesEnabled) {
             FenceMixin.level = level;
             return annoyanceFix_customFenceBox(level, x, y, z, false);
         }
         else {
-            return super.getOutlineShape(level, x, y, z);
+            return super.getBoundingBox(level, x, y, z);
         }
     }
 

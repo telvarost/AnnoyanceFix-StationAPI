@@ -1,30 +1,30 @@
 package com.github.telvarost.annoyancefix.mixin;
 
-import net.minecraft.block.BlockBase;
-import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.item.Block;
-import net.minecraft.item.ItemInstance;
-import net.minecraft.item.StoneSlab;
-import net.minecraft.level.Level;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.SlabBlockItem;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(StoneSlab.class)
-public class StoneSlabItemMixin extends Block {
+@Mixin(SlabBlockItem.class)
+public class StoneSlabItemMixin extends BlockItem {
     public StoneSlabItemMixin(int i) {
         super(i);
     }
 
     @Override
-    public boolean useOnTile(ItemInstance arg, PlayerBase arg2, Level arg3, int i, int j, int k, int l) {
-        if (arg3.getTileId(i, j, k) == BlockBase.STONE_SLAB.id && arg3.getTileMeta(i, j, k) == arg.getDamage()) {
+    public boolean useOnBlock(ItemStack arg, PlayerEntity arg2, World arg3, int i, int j, int k, int l) {
+        if (arg3.getBlockId(i, j, k) == Block.SLAB.id && arg3.getBlockMeta(i, j, k) == arg.getDamage()) {
             if (arg.count == 0) {
                 return false;
             } else {
-                BlockBase var8 = BlockBase.BY_ID[BlockBase.DOUBLE_STONE_SLAB.id];
-                if (arg3.placeBlockWithMetaData(i, j, k, BlockBase.DOUBLE_STONE_SLAB.id, this.getMetaData(arg.getDamage()))) {
-                    BlockBase.BY_ID[BlockBase.DOUBLE_STONE_SLAB.id].onBlockPlaced(arg3, i, j, k, l);
-                    BlockBase.BY_ID[BlockBase.DOUBLE_STONE_SLAB.id].afterPlaced(arg3, i, j, k, arg2);
-                    arg3.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), var8.sounds.getWalkSound(), (var8.sounds.getVolume() + 1.0F) / 2.0F, var8.sounds.getPitch() * 0.8F);
+                Block var8 = Block.BLOCKS[Block.DOUBLE_SLAB.id];
+                if (arg3.setBlock(i, j, k, Block.DOUBLE_SLAB.id, this.getPlacementMetadata(arg.getDamage()))) {
+                    Block.BLOCKS[Block.DOUBLE_SLAB.id].onPlaced(arg3, i, j, k, l);
+                    Block.BLOCKS[Block.DOUBLE_SLAB.id].onPlaced(arg3, i, j, k, arg2);
+                    arg3.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), var8.soundGroup.getSound(), (var8.soundGroup.getVolume() + 1.0F) / 2.0F, var8.soundGroup.getPitch() * 0.8F);
                     --arg.count;
                 }
 
@@ -32,7 +32,7 @@ public class StoneSlabItemMixin extends Block {
             }
         }
 
-        if (arg3.getTileId(i, j, k) == BlockBase.SNOW.id) {
+        if (arg3.getBlockId(i, j, k) == Block.SNOW.id) {
             l = 0;
         } else {
             if (l == 0) {
@@ -62,14 +62,14 @@ public class StoneSlabItemMixin extends Block {
 
         if (arg.count == 0) {
             return false;
-        } else if (j == 127 && BlockBase.BY_ID[this.id].material.isSolid()) {
+        } else if (j == 127 && Block.BLOCKS[this.id].material.isSolid()) {
             return false;
-        } else if (arg3.canPlaceTile(this.id, i, j, k, false, l)) {
-            BlockBase var8 = BlockBase.BY_ID[this.id];
-            if (arg3.placeBlockWithMetaData(i, j, k, this.id, this.getMetaData(arg.getDamage()))) {
-                BlockBase.BY_ID[this.id].onBlockPlaced(arg3, i, j, k, l);
-                BlockBase.BY_ID[this.id].afterPlaced(arg3, i, j, k, arg2);
-                arg3.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), var8.sounds.getWalkSound(), (var8.sounds.getVolume() + 1.0F) / 2.0F, var8.sounds.getPitch() * 0.8F);
+        } else if (arg3.canPlace(this.id, i, j, k, false, l)) {
+            Block var8 = Block.BLOCKS[this.id];
+            if (arg3.setBlock(i, j, k, this.id, this.getPlacementMetadata(arg.getDamage()))) {
+                Block.BLOCKS[this.id].onPlaced(arg3, i, j, k, l);
+                Block.BLOCKS[this.id].onPlaced(arg3, i, j, k, arg2);
+                arg3.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), var8.soundGroup.getSound(), (var8.soundGroup.getVolume() + 1.0F) / 2.0F, var8.soundGroup.getPitch() * 0.8F);
                 --arg.count;
             }
 

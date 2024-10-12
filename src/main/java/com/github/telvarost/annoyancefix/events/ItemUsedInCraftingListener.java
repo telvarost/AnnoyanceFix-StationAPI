@@ -19,16 +19,16 @@ public class ItemUsedInCraftingListener {
     @EventListener
     public void combineDurability(ItemUsedInCraftingEvent event) {
         if (  (null != event.itemUsed)
-           && (true == event.itemUsed.hasDurability())
+           && (true == event.itemUsed.isDamageable())
            && (null != event.itemCrafted)
-           && (true == event.itemCrafted.hasDurability())
+           && (true == event.itemCrafted.isDamageable())
            )
         {
             if (  (Config.config.RECIPES_CONFIG.recipesRepairArmorEnabled)
                || (Config.config.RECIPES_CONFIG.recipesRepairToolsEnabled)
             ) {
-                int craftedItemMaxDurability = event.itemCrafted.getDurability();
-                int durabilityToAdd = event.itemUsed.getDurability() - event.itemUsed.getDamage();
+                int craftedItemMaxDurability = event.itemCrafted.getMaxDamage();
+                int durabilityToAdd = event.itemUsed.getMaxDamage() - event.itemUsed.getDamage();
                 int newDurability = craftedItemMaxDurability - event.itemCrafted.getDamage();
                 int damageToSet = 0;
 

@@ -2,10 +2,6 @@ package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
 import com.google.common.collect.ObjectArrays;
-import net.minecraft.block.BlockBase;
-import net.minecraft.item.tool.Shovel;
-import net.minecraft.item.tool.ToolBase;
-import net.minecraft.item.tool.ToolMaterial;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,12 +10,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import net.minecraft.block.Block;
+import net.minecraft.item.ShovelItem;
+import net.minecraft.item.ToolItem;
+import net.minecraft.item.ToolMaterial;
 
-@Mixin(Shovel.class)
-class ShovelMixin extends ToolBase {
-    @Shadow private static BlockBase[] effectiveBlocks;
+@Mixin(ShovelItem.class)
+class ShovelMixin extends ToolItem {
+    @Shadow private static Block[] shovelEffectiveBlocks;
 
-    public ShovelMixin(int i, int j, ToolMaterial arg, BlockBase[] args) {
+    public ShovelMixin(int i, int j, ToolMaterial arg, Block[] args) {
         super(i, j, arg, args);
     }
 
@@ -27,28 +27,28 @@ class ShovelMixin extends ToolBase {
             method = "<clinit>",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/item/tool/Shovel;effectiveBlocks:[Lnet/minecraft/block/BlockBase;",
+                    target = "Lnet/minecraft/item/ShovelItem;shovelEffectiveBlocks:[Lnet/minecraft/block/Block;",
                     opcode = Opcodes.PUTSTATIC,
                     shift = At.Shift.AFTER
             )
     )
     private static void annoyanceFix_appendExtraBlocks(CallbackInfo ci) {
 
-        ArrayList effectiveBlockList = new ArrayList<BlockBase>();
+        ArrayList effectiveBlockList = new ArrayList<Block>();
 
         if (Config.config.SHOVELS_CONFIG.enableShovelsEffectiveOnSoulSand) {
-            effectiveBlockList.add(BlockBase.SOUL_SAND);
+            effectiveBlockList.add(Block.SOUL_SAND);
         }
 
         Object[] objectArray = effectiveBlockList.toArray();
-        BlockBase[] blockArray = new BlockBase[objectArray.length];
+        Block[] blockArray = new Block[objectArray.length];
 
         for (int objectIndex = 0; objectIndex < objectArray.length; objectIndex++) {
-            blockArray[objectIndex] = (BlockBase) objectArray[objectIndex];
+            blockArray[objectIndex] = (Block) objectArray[objectIndex];
         }
 
         if (0 < blockArray.length) {
-            effectiveBlocks = ObjectArrays.concat(effectiveBlocks, blockArray, BlockBase.class);
+            shovelEffectiveBlocks = ObjectArrays.concat(shovelEffectiveBlocks, blockArray, Block.class);
         }
     }
 }

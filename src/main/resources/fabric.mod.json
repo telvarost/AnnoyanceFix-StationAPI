@@ -40,7 +40,13 @@
   ],
 
   "depends": {
-    "minecraft": "1.0.0-beta.7.3"
+    "minecraft": "1.0.0-beta.7.3",
+    "gcapi": "*",
+    "stationapi": "*"
+  },
+
+  "recommends": {
+    "modmenu": "*"
   },
 
   "custom": {

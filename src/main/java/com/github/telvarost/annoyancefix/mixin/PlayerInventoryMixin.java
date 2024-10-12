@@ -1,9 +1,9 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
-import net.minecraft.entity.player.PlayerBase;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemInstance;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 class PlayerInventoryMixin {
 
     @Shadow
-    public PlayerBase player;
+    public PlayerEntity player;
 
     /**
      * Checks if the item is in the players inventory except the hotbar. If so, it moves it to the players currently
@@ -28,7 +28,7 @@ class PlayerInventoryMixin {
      * @param ci the callback info
      */
     @Inject(
-            method = "setSelectedItemWithID",
+            method = "setHeldItem",
             at = @At("RETURN"),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
@@ -38,7 +38,7 @@ class PlayerInventoryMixin {
         }
 
         // Don't modify inventory on server (because the server will reject the change)
-        if (player.level.isServerSide) {
+        if (player.world.isRemote) {
             return;
         }
 
@@ -51,22 +51,22 @@ class PlayerInventoryMixin {
 
         // Player has item in the rest of its inventory somewhere; find slot to place item in
         int slot;
-        if (player.getHeldItem() == null) {
-            slot = player.inventory.selectedHotbarSlot;
+        if (player.getHand() == null) {
+            slot = player.inventory.selectedSlot;
         } else {
             slot = annoyanceFix_getEmptyHotbarSlot(inventory.main);
         }
 
         if (slot != -1) {
-            inventory.selectedHotbarSlot = slot;
+            inventory.selectedSlot = slot;
             inventory.main[slot] = inventory.main[slotWithItem];
             inventory.main[slotWithItem] = null;
             return;
         }
 
         // No room in hotbar, swap item with currently held item
-        ItemInstance tempItem = player.getHeldItem();
-        inventory.main[inventory.selectedHotbarSlot] = inventory.main[slotWithItem];
+        ItemStack tempItem = player.getHand();
+        inventory.main[inventory.selectedSlot] = inventory.main[slotWithItem];
         inventory.main[slotWithItem] = tempItem;
     }
 
@@ -77,7 +77,7 @@ class PlayerInventoryMixin {
      * @return the index of the first empty slot, or -1 if there is no empty slot
      */
     @Unique
-    private int annoyanceFix_getEmptyHotbarSlot(ItemInstance[] mainInventory) {
+    private int annoyanceFix_getEmptyHotbarSlot(ItemStack[] mainInventory) {
         for (int i = 0; i < 9; i++) {
             if (mainInventory[i] == null) {
                 return i;

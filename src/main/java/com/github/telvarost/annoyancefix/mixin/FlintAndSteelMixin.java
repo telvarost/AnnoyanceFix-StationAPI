@@ -2,12 +2,12 @@ package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModHelper;
-import net.minecraft.block.BlockBase;
-import net.minecraft.entity.player.PlayerBase;
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FlintAndSteel;
-import net.minecraft.item.ItemBase;
-import net.minecraft.item.ItemInstance;
-import net.minecraft.level.Level;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -16,17 +16,17 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FlintAndSteel.class)
-class FlintAndSteelMixin extends ItemBase {
+class FlintAndSteelMixin extends Item {
 
     public FlintAndSteelMixin(int i) {
         super(i);
-        this.maxStackSize = 1;
-        this.setDurability(64);
+        this.maxCount = 1;
+        this.setMaxDamage(64);
     }
 
 
     @ModifyConstant(
-            method = "useOnTile",
+            method = "useOnBlock",
             constant = @Constant(intValue = 1, ordinal = 1)
     )
     private int annoyanceFix_skipFlintDamage(int constant) {
@@ -38,18 +38,18 @@ class FlintAndSteelMixin extends ItemBase {
     }
 
     @Inject(
-            method = "useOnTile",
+            method = "useOnBlock",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/level/Level;getTileId(III)I"
+                    target = "Lnet/minecraft/world/World;getBlockId(III)I"
             )
     )
-    private void annoyanceFix_useOnTile(ItemInstance arg, PlayerBase arg2, Level arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
+    private void annoyanceFix_useOnTile(ItemStack arg, PlayerEntity arg2, World arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
         if (!Config.config.flintAndSteelFixesEnabled) {
             return;
         }
 
-        if (BlockBase.FIRE.id == arg3.getTileId(i, j, k)) {
+        if (Block.FIRE.id == arg3.getBlockId(i, j, k)) {
             ModHelper.ModHelperFields.isFireLit = true;
         } else {
             ModHelper.ModHelperFields.isFireLit = false;
@@ -57,20 +57,20 @@ class FlintAndSteelMixin extends ItemBase {
     }
 
     @Inject(
-            method = "useOnTile",
+            method = "useOnBlock",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/item/ItemInstance;applyDamage(ILnet/minecraft/entity/EntityBase;)V"
+                    target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/Entity;)V"
             )
     )
-    private void annoyanceFix_useOnTileApplyDamage(ItemInstance arg, PlayerBase arg2, Level arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
+    private void annoyanceFix_useOnTileApplyDamage(ItemStack arg, PlayerEntity arg2, World arg3, int i, int j, int k, int l, CallbackInfoReturnable<Boolean> cir) {
         if (!Config.config.flintAndSteelFixesEnabled) {
             return;
         }
 
-        if (BlockBase.FIRE.id == arg3.getTileId(i, j, k)) {
+        if (Block.FIRE.id == arg3.getBlockId(i, j, k)) {
             if (!ModHelper.ModHelperFields.isFireLit) {
-                arg.applyDamage(1, arg2);
+                arg.damage(1, arg2);
             }
         }
     }

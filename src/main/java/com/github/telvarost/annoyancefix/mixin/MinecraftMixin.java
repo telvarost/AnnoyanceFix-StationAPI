@@ -3,16 +3,16 @@ package com.github.telvarost.annoyancefix.mixin;
 import com.github.telvarost.annoyancefix.Config;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
-import net.minecraft.block.BlockBase;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Boat;
-import net.minecraft.entity.EntityBase;
-import net.minecraft.entity.Minecart;
-import net.minecraft.entity.Painting;
-import net.minecraft.item.ItemBase;
-import net.minecraft.level.Level;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.decoration.painting.PaintingEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.MinecartEntity;
+import net.minecraft.item.Item;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.hit.HitType;
+import net.minecraft.util.hit.HitResultType;
+import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.util.Util;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,23 +23,23 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Minecraft.class)
 class MinecraftMixin {
+
+    @Shadow public HitResult crosshairTarget;
+    @Shadow public World world;
+
     @Unique
     private final Int2IntMap annoyanceFix_pickBlockLookupMap = Util.make(new Int2IntOpenHashMap(), map -> {
-        map.put(BlockBase.REDSTONE_DUST.id, ItemBase.redstoneDust.id);
-        map.put(BlockBase.REDSTONE_REPEATER.id, ItemBase.redstoneRepeater.id);
-        map.put(BlockBase.REDSTONE_REPEATER_LIT.id, ItemBase.redstoneRepeater.id);
-        map.put(BlockBase.WOOD_DOOR.id, ItemBase.woodDoor.id);
-        map.put(BlockBase.IRON_DOOR.id, ItemBase.ironDoor.id);
-        map.put(BlockBase.STANDING_SIGN.id, ItemBase.sign.id);
-        map.put(BlockBase.WALL_SIGN.id, ItemBase.sign.id);
-        map.put(BlockBase.CROPS.id, ItemBase.seeds.id);
-        map.put(BlockBase.BED.id, ItemBase.bed.id);
-        map.put(BlockBase.CAKE.id, ItemBase.cake.id);
+        map.put(Block.REDSTONE_WIRE.id, Item.REDSTONE.id);
+        map.put(Block.REPEATER.id, Item.REPEATER.id);
+        map.put(Block.POWERED_REPEATER.id, Item.REPEATER.id);
+        map.put(Block.DOOR.id, Item.WOODEN_DOOR.id);
+        map.put(Block.IRON_DOOR.id, Item.IRON_DOOR.id);
+        map.put(Block.SIGN.id, Item.SIGN.id);
+        map.put(Block.WALL_SIGN.id, Item.SIGN.id);
+        map.put(Block.WHEAT.id, Item.SEEDS.id);
+        map.put(Block.BED.id, Item.BED.id);
+        map.put(Block.CAKE.id, Item.CAKE.id);
     });
-
-
-    @Shadow public HitResult hitResult;
-    @Shadow public Level level;
 
     /**
      * Adds functionality for picking blocks that are not in the hotbar.
@@ -49,10 +49,10 @@ class MinecraftMixin {
      * @return the selected id
      */
     @ModifyVariable(
-            method = "method_2103",
+            method = "handlePickBlock",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/client/Minecraft;player:Lnet/minecraft/entity/player/AbstractClientPlayer;",
+                    target = "Lnet/minecraft/client/Minecraft;player:Lnet/minecraft/entity/player/ClientPlayerEntity;",
                     opcode = Opcodes.GETFIELD
             ),
             index = 1
@@ -64,14 +64,14 @@ class MinecraftMixin {
 
         int itemID = 0;
         // field_790 means "Entity"
-        if (this.hitResult.type == HitType.field_790) {
-            itemID = annoyanceFix_getItemIDFromEntity(hitResult.field_1989);
+        if (this.crosshairTarget.type == HitResultType.ENTITY) {
+            itemID = annoyanceFix_getItemIDFromEntity(crosshairTarget.entity);
         }
 
         // field_789 means "Tile"
-        if (this.hitResult.type == HitType.field_789) {
-            int tileDamage = this.level.getTileMeta(hitResult.x, hitResult.y, hitResult.z);
-            int tileID = this.level.getTileId(hitResult.x, hitResult.y, hitResult.z);
+        if (this.crosshairTarget.type == HitResultType.BLOCK) {
+            int tileDamage = this.world.getBlockMeta(crosshairTarget.blockX, crosshairTarget.blockY, crosshairTarget.blockZ);
+            int tileID = this.world.getBlockId(crosshairTarget.blockX, crosshairTarget.blockY, crosshairTarget.blockZ);
             itemID = annoyanceFix_getItemIDFromTileID(tileID, tileDamage);
         }
 
@@ -93,13 +93,13 @@ class MinecraftMixin {
     @Unique
     private int annoyanceFix_getItemIDFromTileID(int tileID, int tileDamage) {
         // Special cases
-        if (tileID == BlockBase.PISTON_HEAD.id) {
+        if (tileID == Block.PISTON_HEAD.id) {
             // 0-5 damage = normal piston
             // 8-13 damage = sticky piston
             if (tileDamage < 8) {
-                return BlockBase.PISTON.id;
+                return Block.PISTON.id;
             } else {
-                return BlockBase.STICKY_PISTON.id;
+                return Block.STICKY_PISTON.id;
             }
         }
 
@@ -117,20 +117,20 @@ class MinecraftMixin {
      * @return the corresponding item ID
      */
     @Unique
-    private int annoyanceFix_getItemIDFromEntity(EntityBase entity) {
-        if (entity instanceof Painting) {
-            return ItemBase.painting.id;
+    private int annoyanceFix_getItemIDFromEntity(Entity entity) {
+        if (entity instanceof PaintingEntity) {
+            return Item.PAINTING.id;
         }
 
-        if (entity instanceof Boat) {
-            return ItemBase.boat.id;
+        if (entity instanceof BoatEntity) {
+            return Item.BOAT.id;
         }
 
-        if (entity instanceof Minecart minecart) {
+        if (entity instanceof MinecartEntity minecart) {
             return switch (minecart.type) {
-                case 1 -> ItemBase.minecartChest.id;
-                case 2 -> ItemBase.minecartFurnace.id;
-                default -> ItemBase.minecart.id;
+                case 1 -> Item.CHEST_MINECART.id;
+                case 2 -> Item.FURNACE_MINECART.id;
+                default -> Item.MINECART.id;
             };
         }
 

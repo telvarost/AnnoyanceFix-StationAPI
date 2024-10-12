@@ -2,10 +2,6 @@ package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
 import com.google.common.collect.ObjectArrays;
-import net.minecraft.block.BlockBase;
-import net.minecraft.item.tool.Pickaxe;
-import net.minecraft.item.tool.ToolBase;
-import net.minecraft.item.tool.ToolMaterial;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,12 +10,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import net.minecraft.block.Block;
+import net.minecraft.item.PickaxeItem;
+import net.minecraft.item.ToolItem;
+import net.minecraft.item.ToolMaterial;
 
-@Mixin(Pickaxe.class)
-class PickaxeMixin extends ToolBase {
-    @Shadow private static BlockBase[] effectiveBlocks;
+@Mixin(PickaxeItem.class)
+class PickaxeMixin extends ToolItem {
+    @Shadow private static Block[] pickaxeEffectiveBlocks;
 
-    public PickaxeMixin(int i, int j, ToolMaterial arg, BlockBase[] args) {
+    public PickaxeMixin(int i, int j, ToolMaterial arg, Block[] args) {
         super(i, j, arg, args);
     }
 
@@ -27,80 +27,80 @@ class PickaxeMixin extends ToolBase {
             method = "<clinit>",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/item/tool/Pickaxe;effectiveBlocks:[Lnet/minecraft/block/BlockBase;",
+                    target = "Lnet/minecraft/item/PickaxeItem;pickaxeEffectiveBlocks:[Lnet/minecraft/block/Block;",
                     opcode = Opcodes.PUTSTATIC,
                     shift = At.Shift.AFTER
             )
     )
     private static void annoyanceFix_appendExtraBlocks(CallbackInfo ci) {
 
-        ArrayList effectiveBlockList = new ArrayList<BlockBase>();
+        ArrayList effectiveBlockList = new ArrayList<Block>();
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnDispenser) {
-            effectiveBlockList.add(BlockBase.DISPENSER);
+            effectiveBlockList.add(Block.DISPENSER);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnNormalRails) {
-            effectiveBlockList.add(BlockBase.RAIL);
+            effectiveBlockList.add(Block.RAIL);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnGoldenRails) {
-            effectiveBlockList.add(BlockBase.GOLDEN_RAIL);
+            effectiveBlockList.add(Block.POWERED_RAIL);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnDetectorRails) {
-            effectiveBlockList.add(BlockBase.DETECTOR_RAIL);
+            effectiveBlockList.add(Block.DETECTOR_RAIL);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnFurnace) {
-            effectiveBlockList.add(BlockBase.FURNACE);
+            effectiveBlockList.add(Block.FURNACE);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnFurnaceLit) {
-            effectiveBlockList.add(BlockBase.FURNACE_LIT);
+            effectiveBlockList.add(Block.LIT_FURNACE);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnCobblestoneStairs) {
-            effectiveBlockList.add(BlockBase.COBBLESTONE_STAIRS);
+            effectiveBlockList.add(Block.COBBLESTONE_STAIRS);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnStonePressurePlate) {
-            effectiveBlockList.add(BlockBase.STONE_PRESSURE_PLATE);
+            effectiveBlockList.add(Block.WOODEN_PRESSURE_PLATE);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnIronDoor) {
-            effectiveBlockList.add(BlockBase.IRON_DOOR);
+            effectiveBlockList.add(Block.IRON_DOOR);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnRedstoneOre) {
-            effectiveBlockList.add(BlockBase.REDSTONE_ORE);
+            effectiveBlockList.add(Block.REDSTONE_ORE);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnRedstoneOreLit) {
-            effectiveBlockList.add(BlockBase.REDSTONE_ORE_LIT);
+            effectiveBlockList.add(Block.LIT_REDSTONE_ORE);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnStoneButton) {
-            effectiveBlockList.add(BlockBase.BUTTON);
+            effectiveBlockList.add(Block.BUTTON);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnBricks) {
-            effectiveBlockList.add(BlockBase.BRICKS);
+            effectiveBlockList.add(Block.BRICKS);
         }
 
         if (Config.config.PICKAXES_CONFIG.enablePickaxesEffectiveOnMobSpawner) {
-            effectiveBlockList.add(BlockBase.MOB_SPAWNER);
+            effectiveBlockList.add(Block.SPAWNER);
         }
 
         Object[] objectArray = effectiveBlockList.toArray();
-        BlockBase[] blockArray = new BlockBase[objectArray.length];
+        Block[] blockArray = new Block[objectArray.length];
 
         for (int objectIndex = 0; objectIndex < objectArray.length; objectIndex++) {
-            blockArray[objectIndex] = (BlockBase) objectArray[objectIndex];
+            blockArray[objectIndex] = (Block) objectArray[objectIndex];
         }
 
         if (0 < blockArray.length) {
-            effectiveBlocks = ObjectArrays.concat(effectiveBlocks, blockArray, BlockBase.class);
+            pickaxeEffectiveBlocks = ObjectArrays.concat(pickaxeEffectiveBlocks, blockArray, Block.class);
         }
     }
 }

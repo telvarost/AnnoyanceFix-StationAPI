@@ -1,6 +1,6 @@
 package com.github.telvarost.annoyancefix.interfaces;
 
-import net.minecraft.util.io.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.modificationstation.stationapi.api.util.Util;
 
 public interface VehicleInterface {
@@ -12,11 +12,11 @@ public interface VehicleInterface {
         Util.assertImpl();
     }
 
-    default CompoundTag vehicle_getVehicleTag() {
+    default NbtCompound vehicle_getVehicleTag() {
         return Util.assertImpl();
     }
 
-    default void vehicle_setVehicleTag(CompoundTag vehicleTag) {
+    default void vehicle_setVehicleTag(NbtCompound vehicleTag) {
         Util.assertImpl();
     }
 }

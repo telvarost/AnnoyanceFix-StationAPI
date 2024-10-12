@@ -1,17 +1,17 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
-import net.minecraft.block.FlowingFluid;
-import net.minecraft.block.Fluid;
+import net.minecraft.block.FlowingLiquidBlock;
+import net.minecraft.block.LiquidBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.level.Level;
+import net.minecraft.world.World;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(FlowingFluid.class)
-class FlowingFluidMixin extends Fluid {
+@Mixin(FlowingLiquidBlock.class)
+class FlowingFluidMixin extends LiquidBlock {
     public FlowingFluidMixin(int i, Material arg) {
         super(i, arg);
     }
@@ -32,15 +32,15 @@ class FlowingFluidMixin extends Fluid {
      * @return - replaces the material to allow block updates on the flowing fluid when fix is active
      */
     @Redirect(
-            method = "onScheduledTick",
+            method = "onTick",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/block/FlowingFluid;material:Lnet/minecraft/block/material/Material;",
+                    target = "Lnet/minecraft/block/FlowingLiquidBlock;material:Lnet/minecraft/block/material/Material;",
                     opcode = Opcodes.GETFIELD,
                     ordinal = 3
             )
     )
-    private Material annoyanceFix_allowLavaToDisappear(FlowingFluid instance) {
+    private Material annoyanceFix_allowLavaToDisappear(FlowingLiquidBlock instance) {
         if (Config.config.lavaFixesEnabled) {
             return Material.WATER;
         } else {
@@ -49,17 +49,17 @@ class FlowingFluidMixin extends Fluid {
     }
 
     @Redirect(
-            method = "onScheduledTick",
+            method = "onTick",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/level/Level;getTileMeta(III)I"
+                    target = "Lnet/minecraft/world/World;getBlockMeta(III)I"
             )
     )
-    private int annoyanceFix_allowWaterSpringPropagation(Level arg, int i, int j, int k) {
+    private int annoyanceFix_allowWaterSpringPropagation(World arg, int i, int j, int k) {
         if (Config.config.waterFixesEnabled) {
-            return arg.getTileMeta(i, j - 1, k);
+            return arg.getBlockMeta(i, j - 1, k);
         } else {
-            return arg.getTileMeta(i, j, k);
+            return arg.getBlockMeta(i, j, k);
         }
     }
 }

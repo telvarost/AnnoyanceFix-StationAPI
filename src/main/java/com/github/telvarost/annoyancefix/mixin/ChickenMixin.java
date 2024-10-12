@@ -1,27 +1,24 @@
 package com.github.telvarost.annoyancefix.mixin;
 
-import net.minecraft.entity.animal.AnimalBase;
-import net.minecraft.entity.animal.Chicken;
-import net.minecraft.level.Level;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Chicken.class)
-public class ChickenMixin extends AnimalBase {
+@Mixin(ChickenEntity.class)
+public class ChickenMixin extends AnimalEntity {
     @Shadow
-    int field_2165;
+    int eggLayTime;
 
-    public ChickenMixin(Level arg) {
+    public ChickenMixin(World arg) {
         super(arg);
         this.texture = "/mob/chicken.png";
-        this.setSize(0.3F, 0.4F);
+        this.setBoundingBoxSpacing(0.3F, 0.4F);
         this.health = 4;
-        this.field_2165 = this.rand.nextInt(6000) + 6000;
+        this.eggLayTime = this.random.nextInt(6000) + 6000;
     }
 
     @ModifyConstant(

@@ -1,22 +1,22 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
-import net.minecraft.entity.Boat;
-import net.minecraft.entity.EntityBase;
-import net.minecraft.entity.Item;
-import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.item.ItemBase;
-import net.minecraft.level.Level;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.item.Item;
+import net.minecraft.world.World;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Boat.class)
-abstract class BoatMixin extends EntityBase {
+@Mixin(BoatEntity.class)
+abstract class BoatMixin extends Entity {
 
-    public BoatMixin(Level level) {
+    public BoatMixin(World level) {
         super(level);
     }
 
@@ -48,12 +48,12 @@ abstract class BoatMixin extends EntityBase {
             method = "damage",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/Boat;remove()V"
+                    target = "Lnet/minecraft/entity/vehicle/BoatEntity;markDead()V"
             )
     )
-    private void annoyanceFix_dropBoat(EntityBase attacker, int damage, CallbackInfoReturnable<Boolean> cir) {
+    private void annoyanceFix_dropBoat(Entity attacker, int damage, CallbackInfoReturnable<Boolean> cir) {
         if (Config.config.boatDropFixesEnabled) {
-            dropItem(ItemBase.boat.id, 1, 0);
+            dropItem(Item.BOAT.id, 1, 0);
         }
     }
 
@@ -73,11 +73,11 @@ abstract class BoatMixin extends EntityBase {
             method = "tick",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/Boat;dropItem(IIF)Lnet/minecraft/entity/Item;",
+                    target = "Lnet/minecraft/entity/vehicle/BoatEntity;dropItem(IIF)Lnet/minecraft/entity/ItemEntity;",
                     ordinal = 1
             )
     )
-    private Item annoyanceFix_skipSticksDropOnCollision(Boat instance, int i, int j, float f) {
+    private ItemEntity annoyanceFix_skipSticksDropOnCollision(BoatEntity instance, int i, int j, float f) {
         if (0 < Config.config.boatCollisionBehavior.ordinal()) {
             return null;
         } else {
@@ -89,12 +89,12 @@ abstract class BoatMixin extends EntityBase {
             method = "tick",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/Boat;remove()V"
+                    target = "Lnet/minecraft/entity/vehicle/BoatEntity;markDead()V"
             )
     )
     private void annoyanceFix_dropBoatOnCollision(CallbackInfo ci) {
         if (0 < Config.config.boatCollisionBehavior.ordinal()) {
-            dropItem(ItemBase.boat.id, 1, 0);
+            dropItem(Item.BOAT.id, 1, 0);
         }
     }
 
@@ -102,15 +102,15 @@ abstract class BoatMixin extends EntityBase {
             method = "tick",
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/entity/Boat;field_1624:Z",
+                    target = "Lnet/minecraft/entity/vehicle/BoatEntity;horizontalCollision:Z",
                     opcode = Opcodes.GETFIELD
             )
     )
-    private boolean annoyanceFix_stopBoatBreaking(Boat instance) {
+    private boolean annoyanceFix_stopBoatBreaking(BoatEntity instance) {
         if (1 < Config.config.boatCollisionBehavior.ordinal()) {
             return false;
         } else {
-            return this.field_1624;
+            return this.horizontalCollision;
         }
     }
 
@@ -118,11 +118,11 @@ abstract class BoatMixin extends EntityBase {
             method = "interact",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/player/PlayerBase;startRiding(Lnet/minecraft/entity/EntityBase;)V",
+                    target = "Lnet/minecraft/entity/player/PlayerEntity;setVehicle(Lnet/minecraft/entity/Entity;)V",
                     shift = At.Shift.AFTER
             )
     )
-    private void annoyanceFix_compensateForFloatingPointErrors(PlayerBase player, CallbackInfoReturnable<Boolean> cir) {
+    private void annoyanceFix_compensateForFloatingPointErrors(PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
         // If player is not riding anything after interacting with the boat, it must have unmounted
         if (player.vehicle == null) {
             // Compensate for floating point errors

@@ -3,12 +3,12 @@ package com.github.telvarost.annoyancefix.mixin;
 import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModHelper;
 import com.github.telvarost.annoyancefix.interfaces.VehicleInterface;
-import net.minecraft.entity.EntityBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityRegistry;
-import net.minecraft.entity.Living;
-import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.level.Level;
-import net.minecraft.util.io.CompoundTag;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.entity.player.PlayerHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PlayerBase.class)
-public abstract class PlayerBaseMixin extends Living implements VehicleInterface {
+@Mixin(PlayerEntity.class)
+public abstract class PlayerBaseMixin extends LivingEntity implements VehicleInterface {
 
     @Unique
     private static String NULL_AS_STRING = "null";
@@ -27,9 +27,9 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
     public String _vehicleName = NULL_AS_STRING;
 
     @Unique
-    public CompoundTag _vehicleTag = new CompoundTag();
+    public NbtCompound _vehicleTag = new NbtCompound();
 
-    public PlayerBaseMixin(Level arg) {
+    public PlayerBaseMixin(World arg) {
         super(arg);
     }
 
@@ -44,30 +44,30 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
     }
 
     @Override
-    public CompoundTag vehicle_getVehicleTag() {
+    public NbtCompound vehicle_getVehicleTag() {
         return _vehicleTag;
     }
 
     @Override
-    public void vehicle_setVehicleTag(CompoundTag vehicleTag) {
+    public void vehicle_setVehicleTag(NbtCompound vehicleTag) {
         _vehicleTag = vehicleTag;
     }
 
     @Redirect(
-            method = "interactWith",
+            method = "interact",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/entity/EntityBase;interact(Lnet/minecraft/entity/player/PlayerBase;)Z"
+                    target = "Lnet/minecraft/entity/Entity;interact(Lnet/minecraft/entity/player/PlayerEntity;)Z"
             )
     )
-    public boolean interactWith(EntityBase instance, PlayerBase playerBase) {
+    public boolean interactWith(Entity instance, PlayerEntity playerBase) {
         boolean canInteract = instance.interact(playerBase);
 
         if (Config.config.boatLogoutLoginFixesEnabled && canInteract) {
             /** - Set vehicle data */
-            _vehicleName = (instance.passenger != null) ?  EntityRegistry.getStringId(instance) : NULL_AS_STRING;
+            _vehicleName = (instance.passenger != null) ?  EntityRegistry.getId(instance) : NULL_AS_STRING;
             if (!_vehicleName.equals(NULL_AS_STRING)) {
-                instance.toTag(_vehicleTag);
+                instance.write(_vehicleTag);
             }
         }
 
@@ -76,23 +76,23 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
 
 
 
-    @Inject(method = "writeCustomDataToTag", at = @At("HEAD"))
-    private void betaTweaks_writeCustomDataToTag(CompoundTag tag, CallbackInfo info) {
+    @Inject(method = "writeNbt", at = @At("HEAD"))
+    private void betaTweaks_writeCustomDataToTag(NbtCompound tag, CallbackInfo info) {
         if (!Config.config.boatLogoutLoginFixesEnabled) {
             return;
         }
 
         /** - Save vehicle data */
-        _vehicleName = (this.vehicle != null) ?  EntityRegistry.getStringId(this.vehicle) : NULL_AS_STRING;
-        tag.put("VehicleName", _vehicleName);
+        _vehicleName = (this.vehicle != null) ?  EntityRegistry.getId(this.vehicle) : NULL_AS_STRING;
+        tag.putString("VehicleName", _vehicleName);
         if (!_vehicleName.equals(NULL_AS_STRING)) {
-            this.vehicle.toTag(_vehicleTag);
+            this.vehicle.write(_vehicleTag);
             tag.put("VehicleTag", _vehicleTag);
         }
     }
 
-    @Inject(method = "readCustomDataFromTag", at = @At("HEAD"))
-    private void betaTweaks_readCustomDataFromTag(CompoundTag tag, CallbackInfo info) {
+    @Inject(method = "readNbt", at = @At("HEAD"))
+    private void betaTweaks_readCustomDataFromTag(NbtCompound tag, CallbackInfo info) {
         if (!Config.config.boatLogoutLoginFixesEnabled) {
             return;
         }
@@ -100,24 +100,24 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
         /** - Get vehicle data */
         _vehicleName = tag.getString("VehicleName");
         if (!_vehicleName.equals(NULL_AS_STRING)) {
-            _vehicleTag = tag.getCompoundTag("VehicleTag");
+            _vehicleTag = tag.getCompound("VehicleTag");
         }
 
         /** - Find saved vehicle if on single player */
-        if (level.isServerSide)   return;
-        PlayerBase singlePlayer = PlayerHelper.getPlayerFromGame();
+        if (world.isRemote)   return;
+        PlayerEntity singlePlayer = PlayerHelper.getPlayerFromGame();
         if (null == singlePlayer) return;
         if (null == _vehicleTag)  return;
         if (_vehicleName.equals(NULL_AS_STRING)) return;
-        EntityBase vehicle = EntityRegistry.create(_vehicleName, level);
+        Entity vehicle = EntityRegistry.create(_vehicleName, world);
         if (null != vehicle) {
             ModHelper.ModHelperFields.isVehicleSaved = true;
-            EntityBase savedVehicle = null;
+            Entity savedVehicle = null;
 
             try {
-                vehicle.fromTag(_vehicleTag);
+                vehicle.read(_vehicleTag);
             } catch(Exception ex) {
-                vehicle.setPositionAndAngles(x, y, z, yaw, pitch);
+                vehicle.setPositionAndAnglesKeepPrevAngles(x, y, z, yaw, pitch);
                 System.out.println("Failed to read vehicle data");
             }
 
@@ -127,8 +127,8 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
             ModHelper.ModHelperFields.savedVehicleZ = vehicle.z;
 
             /** - Search for vehicle */
-            for (int entityIndex = 0; entityIndex < level.entities.size(); entityIndex++) {
-                EntityBase entityToCheck = (EntityBase)level.entities.get(entityIndex);
+            for (int entityIndex = 0; entityIndex < world.entities.size(); entityIndex++) {
+                Entity entityToCheck = (Entity)world.entities.get(entityIndex);
 
                 if (  (entityToCheck.getClass().equals(ModHelper.ModHelperFields.savedVehicleClass))
                    && (1 > Math.abs(entityToCheck.x - vehicle.x))
@@ -140,7 +140,7 @@ public abstract class PlayerBaseMixin extends Living implements VehicleInterface
             }
 
             if (null != savedVehicle) {
-                startRiding(savedVehicle);
+                setVehicle(savedVehicle);
                 ModHelper.ModHelperFields.isVehicleSaved = false;
             }
         }

@@ -4,18 +4,18 @@ import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockBase;
-import net.minecraft.client.BaseClientInteractionManager;
+import net.minecraft.block.Block;
+import net.minecraft.client.InteractionManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.SinglePlayerClientInteractionManager;
+import net.minecraft.client.SingleplayerInteractionManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@Mixin(SinglePlayerClientInteractionManager.class)
-public class SinglePlayerClientInteractionManagerMixin extends BaseClientInteractionManager {
+@Mixin(SingleplayerInteractionManager.class)
+public class SinglePlayerClientInteractionManagerMixin extends InteractionManager {
 
     public SinglePlayerClientInteractionManagerMixin(Minecraft minecraft) {
         super(minecraft);
@@ -33,7 +33,7 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
      * @param ci - callback info to allow cancelling the method
      */
     @Inject(
-            method = "method_1707",
+            method = "attackBlock",
             at = @At("HEAD")
     )
     public void annoyanceFix_clickBlock(int i, int j, int k, int l, CallbackInfo ci) {
@@ -41,12 +41,12 @@ public class SinglePlayerClientInteractionManagerMixin extends BaseClientInterac
             return;
         }
 
-        int blockId = this.minecraft.level.getTileId(i, j, k);
-        int blockMetaData = this.minecraft.level.getTileMeta(i, j, k);
+        int blockId = this.minecraft.world.getBlockId(i, j, k);
+        int blockMetaData = this.minecraft.world.getBlockMeta(i, j, k);
 
         /** - Save some information on block type */
-        if (  (BlockBase.STONE_SLAB.id == blockId)
-           || (BlockBase.DOUBLE_STONE_SLAB.id == blockId)
+        if (  (Block.SLAB.id == blockId)
+           || (Block.DOUBLE_SLAB.id == blockId)
            )
         {
             if (2 == blockMetaData) {
