@@ -1,171 +1,231 @@
 package com.github.telvarost.annoyancefix;
 
 import blue.endless.jankson.Comment;
-import net.glasslauncher.mods.api.gcapi.api.*;
+import net.glasslauncher.mods.gcapi3.api.*;
 
 public class Config {
 
-    @GConfig(value = "config", visibleName = "AnnoyanceFix")
+    @ConfigRoot(value = "config", visibleName = "AnnoyanceFix")
     public static ConfigFields config = new ConfigFields();
 
     public static class AxesConfig {
 
-        @ConfigName("Effective On Workbench")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Workbench",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnWorkbench = true;
 
-        @ConfigName("Effective On Noteblock")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Noteblock",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnNoteblock = true;
 
-        @ConfigName("Effective On Wood Door")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Wood Door",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnWoodDoor = true;
 
-        @ConfigName("Effective On Ladders")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Ladders",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnLadders = true;
 
-        @ConfigName("Effective On Signs")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Signs",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnSigns = true;
 
-        @ConfigName("Effective On Wood Pressure Plate")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Wood Pressure Plate",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnWoodPressurePlate = true;
 
-        @ConfigName("Effective On Jukebox")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Jukebox",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnJukebox = true;
 
-        @ConfigName("Effective On Wood Stairs")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Wood Stairs",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnWoodStairs = true;
 
-        @ConfigName("Effective On Fence")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Fence",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnFence = true;
 
-        @ConfigName("Effective On Pumpkin")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Pumpkin",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnPumpkin = true;
 
-        @ConfigName("Effective On Jack o Lantern")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Jack o Lantern",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnJackOLantern = true;
 
-        @ConfigName("Effective On Trapdoor")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Trapdoor",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableAxesEffectiveOnTrapdoor = true;
     }
 
     public static class PickaxesConfig {
 
-        @ConfigName("Effective On Dispenser")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Dispenser",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnDispenser = true;
 
-        @ConfigName("Effective On Normal Rails")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Normal Rails",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnNormalRails = true;
 
-        @ConfigName("Effective On Detector Rails")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Detector Rails",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnDetectorRails = true;
 
-        @ConfigName("Effective On Golden Rails")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Golden Rails",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnGoldenRails = true;
 
-        @ConfigName("Effective On Furnace")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Furnace",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnFurnace = true;
 
-        @ConfigName("Effective On Furnace Lit")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Furnace Lit",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnFurnaceLit = true;
 
-        @ConfigName("Effective On Cobblestone Stairs")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Cobblestone Stairs",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnCobblestoneStairs = true;
 
-        @ConfigName("Effective On Stone Pressure Plate")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Stone Pressure Plate",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnStonePressurePlate = true;
 
-        @ConfigName("Effective On Iron Door")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Iron Door",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnIronDoor = true;
 
-        @ConfigName("Effective On Redstone Ore")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Redstone Ore",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnRedstoneOre = true;
 
-        @ConfigName("Effective On Redstone Ore Lit")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Redstone Ore Lit",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnRedstoneOreLit = true;
 
-        @ConfigName("Effective On Stone Button")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Stone Button",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnStoneButton = true;
 
-        @ConfigName("Effective On Bricks")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Bricks",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnBricks = true;
 
-        @ConfigName("Effective On Mob Spawner")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Mob Spawner",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enablePickaxesEffectiveOnMobSpawner = true;
     }
 
     public static class ShovelsConfig {
 
-        @ConfigName("Effective On Soul Sand")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Effective On Soul Sand",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean enableShovelsEffectiveOnSoulSand = true;
     }
 
     public static class RecipesConfig {
 
-        @ConfigName("Crafting: Repair Armor")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Crafting: Repair Armor",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean recipesRepairArmorEnabled = true;
 
-        @ConfigName("Crafting: Repair Tools")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Crafting: Repair Tools",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean recipesRepairToolsEnabled = true;
 
-        @ConfigName("Furnace: Add More Wood Items As Fuel")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Furnace: Add More Wood Items As Fuel",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean recipesAdditionalWoodFuelsEnabled = true;
 
@@ -173,97 +233,135 @@ public class Config {
 
     public static class ConfigFields {
 
-        @ConfigCategory("Config: Effectivity List Additions For Axes")
-        @Comment("Options here require restart to take effect")
+        @ConfigCategory(
+                name = "Config: Effectivity List Additions For Axes",
+                description = "Options here require restart to take effect"
+        )
         public final AxesConfig AXES_CONFIG = new AxesConfig();
 
-        @ConfigCategory("Config: Effectivity List Additions For Pickaxes")
-        @Comment("Options here require restart to take effect")
+        @ConfigCategory(
+                name = "Config: Effectivity List Additions For Pickaxes",
+                description = "Options here require restart to take effect"
+        )
         public final PickaxesConfig PICKAXES_CONFIG = new PickaxesConfig();
 
-        @ConfigCategory("Config: Effectivity List Additions For Shovels")
-        @Comment("Options here require restart to take effect")
+        @ConfigCategory(
+                name = "Config: Effectivity List Additions For Shovels",
+                description = "Options here require restart to take effect"
+        )
         public final ShovelsConfig SHOVELS_CONFIG = new ShovelsConfig();
 
-        @ConfigCategory("Config: Recipes/Fuels For Crafting/Furnaces")
-        @Comment("Options here require restart to take effect")
+        @ConfigCategory(
+                name = "Config: Recipes/Fuels For Crafting/Furnaces",
+                description = "Options here require restart to take effect"
+        )
         public final RecipesConfig RECIPES_CONFIG = new RecipesConfig();
 
-        @ConfigName("Boat Collision Behavior")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Boat Collision Behavior",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(integerValue = 0)
         public BoatCollisionEnum boatCollisionBehavior = BoatCollisionEnum.INVINCIBLE;
 
-        @ConfigName("Boat Drop Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Boat Drop Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean boatDropFixesEnabled = true;
 
-        @ConfigName("Boat Logout/Login Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Boat Logout/Login Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean boatLogoutLoginFixesEnabled = true;
 
-        @ConfigName("Bookshelf Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Bookshelf Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean bookshelfFixesEnabled = true;
 
-        @ConfigName("Cobweb Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Cobweb Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean cobwebFixesEnabled = true;
 
-        @ConfigName("Fence Placement Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Fence Placement Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean fenceFixesEnabled = true;
 
-        @ConfigName("Fence Shape Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Fence Shape Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean fenceShapeFixesEnabled = true;
 
-        @ConfigName("Flint and Steel Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Flint and Steel Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean flintAndSteelFixesEnabled = true;
 
-        @ConfigName("Lava Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Lava Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean lavaFixesEnabled = true;
 
-        @ConfigName("Pick Block Fixes Enabled")
-        @Comment("Only searches hotbar on multiplayer")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Pick Block Fixes Enabled",
+                description = "Only searches hotbar on multiplayer",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean pickBlockFixesEnabled = true;
 
-        @ConfigName("Pig Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Pig Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean pigFixesEnabled = true;
 
-        @ConfigName("Slab Placement Fixes Enabled")
-        @Comment("Restart required for changes to take effect")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Slab Placement Fixes Enabled",
+                description = "Restart required for changes to take effect",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean slabPlacementFixesEnabled = true;
 
-        @ConfigName("Stair Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Stair Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean stairFixesEnabled = true;
 
-        @ConfigName("Water Fixes Enabled")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Water Fixes Enabled",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean waterFixesEnabled = true;
 
-        @ConfigName("Wood Slab Fixes Enabled (Experimental)")
-        @Comment("Does not work in multiplayer")
-        @MultiplayerSynced
+        @ConfigEntry(
+                name = "Wood Slab Fixes Enabled (Experimental)",
+                description = "Does not work in multiplayer",
+                multiplayerSynced = true
+        )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean woodenSlabFixesEnabled = false;
     }
