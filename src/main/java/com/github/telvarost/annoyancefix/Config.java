@@ -1,6 +1,5 @@
 package com.github.telvarost.annoyancefix;
 
-import blue.endless.jankson.Comment;
 import net.glasslauncher.mods.gcapi3.api.*;
 
 public class Config {
