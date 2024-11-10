@@ -1,8 +1,7 @@
 package com.github.telvarost.annoyancefix;
 
-import blue.endless.jankson.Jankson;
-import blue.endless.jankson.JsonObject;
-import blue.endless.jankson.api.SyntaxError;
+import net.fabricmc.loader.api.FabricLoader;
+import net.glasslauncher.mods.gcapi3.impl.GlassYamlFile;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -12,45 +11,26 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public final class AnnoyanceFixMixinPlugin implements IMixinConfigPlugin {
-
-    @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (ModHelper.ModHelperFields.loadMixinConfigs) {
-            ModHelper.ModHelperFields.loadMixinConfigs = false;
-
-            try {
-                JsonObject configObject = Jankson
-                        .builder()
-                        .build()
-                        .load(new File("config/annoyancefix", "config.json"));
-
-                Config.config.slabPlacementFixesEnabled = configObject.getBoolean("slabPlacementFixesEnabled", true);
-            } catch (IOException ex) {
-                System.out.println("Couldn't read the config file" + ex.toString());
-            } catch (SyntaxError error) {
-                System.out.println("Couldn't read the config file" + error.getMessage());
-                System.out.println(error.getLineMessage());
-            }
-        }
-
-        if (mixinClassName.equals("com.github.telvarost.annoyancefix.mixin.StoneSlabItemMixin")) {
-            return Config.config.slabPlacementFixesEnabled;
-        } else {
-            return true;
-        }
-    }
-
-    // Boilerplate
+public class AnnoyanceFixMixinPlugin implements IMixinConfigPlugin {
+    public static GlassYamlFile config;
 
     @Override
     public void onLoad(String mixinPackage) {
+        File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), "annoyancefix/config.yml");
 
+        config = new GlassYamlFile();
+        try {
+            config.load(file);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            //noinspection CallToPrintStackTrace
+            e.printStackTrace();
+        }
     }
 
     @Override
     public String getRefMapperConfig() {
-        return null;
+        return null; // null = default behaviour
     }
 
     @Override
@@ -60,7 +40,7 @@ public final class AnnoyanceFixMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
-        return null;
+        return null; // null = I don't wish to append any mixin
     }
 
     @Override
@@ -71,5 +51,16 @@ public final class AnnoyanceFixMixinPlugin implements IMixinConfigPlugin {
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 
+    }
+
+    @Override
+    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        Config.config.slabPlacementFixesEnabled = config.getBoolean("slabPlacementFixesEnabled", true);
+
+        if (mixinClassName.equals("com.github.telvarost.annoyancefix.mixin.StoneSlabItemMixin")) {
+            return Config.config.slabPlacementFixesEnabled;
+        } else {
+            return true;
+        }
     }
 }

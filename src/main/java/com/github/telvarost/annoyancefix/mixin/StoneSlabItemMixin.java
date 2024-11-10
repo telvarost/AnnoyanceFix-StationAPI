@@ -15,62 +15,65 @@ public class StoneSlabItemMixin extends BlockItem {
     }
 
     @Override
-    public boolean useOnBlock(ItemStack arg, PlayerEntity arg2, World arg3, int i, int j, int k, int l) {
-        if (arg3.getBlockId(i, j, k) == Block.SLAB.id && arg3.getBlockMeta(i, j, k) == arg.getDamage()) {
-            if (arg.count == 0) {
+    public boolean useOnBlock(ItemStack stack, PlayerEntity user, World world, int x, int y, int z, int side) {
+        if (  side == 1
+           && world.getBlockId(x, y, z)   == Block.SLAB.id
+           && world.getBlockMeta(x, y, z) == stack.getDamage()
+        ) {
+            if (stack.count == 0) {
                 return false;
             } else {
                 Block var8 = Block.BLOCKS[Block.DOUBLE_SLAB.id];
-                if (arg3.setBlock(i, j, k, Block.DOUBLE_SLAB.id, this.getPlacementMetadata(arg.getDamage()))) {
-                    Block.BLOCKS[Block.DOUBLE_SLAB.id].onPlaced(arg3, i, j, k, l);
-                    Block.BLOCKS[Block.DOUBLE_SLAB.id].onPlaced(arg3, i, j, k, arg2);
-                    arg3.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), var8.soundGroup.getSound(), (var8.soundGroup.getVolume() + 1.0F) / 2.0F, var8.soundGroup.getPitch() * 0.8F);
-                    --arg.count;
+                if (world.setBlock(x, y, z, Block.DOUBLE_SLAB.id, this.getPlacementMetadata(stack.getDamage()))) {
+                    Block.BLOCKS[Block.DOUBLE_SLAB.id].onPlaced(world, x, y, z, side);
+                    Block.BLOCKS[Block.DOUBLE_SLAB.id].onPlaced(world, x, y, z, user);
+                    world.playSound((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), var8.soundGroup.getSound(), (var8.soundGroup.getVolume() + 1.0F) / 2.0F, var8.soundGroup.getPitch() * 0.8F);
+                    --stack.count;
                 }
 
                 return true;
             }
         }
 
-        if (arg3.getBlockId(i, j, k) == Block.SNOW.id) {
-            l = 0;
+        if (world.getBlockId(x, y, z) == Block.SNOW.id) {
+            side = 0;
         } else {
-            if (l == 0) {
-                --j;
+            if (side == 0) {
+                --y;
             }
 
-            if (l == 1) {
-                ++j;
+            if (side == 1) {
+                ++y;
             }
 
-            if (l == 2) {
-                --k;
+            if (side == 2) {
+                --z;
             }
 
-            if (l == 3) {
-                ++k;
+            if (side == 3) {
+                ++z;
             }
 
-            if (l == 4) {
-                --i;
+            if (side == 4) {
+                --x;
             }
 
-            if (l == 5) {
-                ++i;
+            if (side == 5) {
+                ++x;
             }
         }
 
-        if (arg.count == 0) {
+        if (stack.count == 0) {
             return false;
-        } else if (j == 127 && Block.BLOCKS[this.id].material.isSolid()) {
+        } else if (y == 127 && Block.BLOCKS[this.id].material.isSolid()) {
             return false;
-        } else if (arg3.canPlace(this.id, i, j, k, false, l)) {
+        } else if (world.canPlace(this.id, x, y, z, false, side)) {
             Block var8 = Block.BLOCKS[this.id];
-            if (arg3.setBlock(i, j, k, this.id, this.getPlacementMetadata(arg.getDamage()))) {
-                Block.BLOCKS[this.id].onPlaced(arg3, i, j, k, l);
-                Block.BLOCKS[this.id].onPlaced(arg3, i, j, k, arg2);
-                arg3.playSound((double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), var8.soundGroup.getSound(), (var8.soundGroup.getVolume() + 1.0F) / 2.0F, var8.soundGroup.getPitch() * 0.8F);
-                --arg.count;
+            if (world.setBlock(x, y, z, this.id, this.getPlacementMetadata(stack.getDamage()))) {
+                Block.BLOCKS[this.id].onPlaced(world, x, y, z, side);
+                Block.BLOCKS[this.id].onPlaced(world, x, y, z, user);
+                world.playSound((double)((float)x + 0.5F), (double)((float)y + 0.5F), (double)((float)z + 0.5F), var8.soundGroup.getSound(), (var8.soundGroup.getVolume() + 1.0F) / 2.0F, var8.soundGroup.getPitch() * 0.8F);
+                --stack.count;
             }
 
             return true;
