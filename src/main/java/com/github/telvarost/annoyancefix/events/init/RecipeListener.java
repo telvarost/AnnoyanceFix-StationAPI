@@ -35,6 +35,9 @@ public class RecipeListener {
                 FuelRegistry.addFuelItem(Item.SIGN, 200);
                 FuelRegistry.addFuelItem(Item.WOODEN_DOOR, 200);
 
+                /** - 7.5 second fuel duration */
+                FuelRegistry.addFuelItem(Block.SLAB.asItem(), 2, 150);
+
                 /** - 5 second fuel duration */
                 FuelRegistry.addFuelItem(Item.BOWL, 100);
             }
