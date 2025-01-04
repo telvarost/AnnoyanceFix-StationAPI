@@ -22,7 +22,8 @@
   "entrypoints": {
     "stationapi:event_bus": [
       "com.github.telvarost.annoyancefix.events.init.RecipeListener",
-      "com.github.telvarost.annoyancefix.events.ItemUsedInCraftingListener"
+      "com.github.telvarost.annoyancefix.events.ItemUsedInCraftingListener",
+      "com.github.telvarost.annoyancefix.events.MiningListener"
     ],
     "stationapi:event_bus_client": [
     ],
@@ -38,6 +39,7 @@
   "mixins": [
     "annoyancefix.mixins.json"
   ],
+  "accessWidener": "annoyancefix.accesswidener",
 
   "depends": {
     "minecraft": "1.0.0-beta.7.3",

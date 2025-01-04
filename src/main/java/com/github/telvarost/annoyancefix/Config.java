@@ -357,11 +357,10 @@ public class Config {
         public Boolean waterFixesEnabled = true;
 
         @ConfigEntry(
-                name = "Wood Slab Fixes Enabled (Experimental)",
-                description = "Does not work in multiplayer",
+                name = "Wooden Slab Fixes Enabled",
                 multiplayerSynced = true
         )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
-        public Boolean woodenSlabFixesEnabled = false;
+        public Boolean woodenSlabFixesEnabled = true;
     }
 }

@@ -1,0 +1,4 @@
+accessWidener v2 named
+
+accessible field net/minecraft/item/ToolItem toolMaterial Lnet/minecraft/item/ToolMaterial;
+accessible field net/minecraft/item/ToolItem miningSpeed F

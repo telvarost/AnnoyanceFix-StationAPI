@@ -14,6 +14,7 @@ group = project.maven_group
 loom {
 	customMinecraftManifest.set("https://babric.github.io/manifest-polyfill/${minecraft_version}.json")
 	intermediaryUrl.set("https://maven.glass-launcher.net/babric/babric/intermediary/%1\$s/intermediary-%1\$s-v2.jar")
+	accessWidenerPath = file("src/main/resources/annoyancefix.accesswidener")
 }
 
 repositories {
@@ -69,12 +70,11 @@ dependencies {
 	mappings "net.glasslauncher:biny:${project.yarn_mappings}:v2"
 	modImplementation "babric:fabric-loader:${project.loader_version}"
 
+	implementation "com.google.guava:guava:33.2.1-jre"
+	implementation "com.google.code.gson:gson:2.9.0"
 	implementation "org.slf4j:slf4j-api:1.8.0-beta4"
 	implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.17.2'
 	implementation(include("me.carleslc:Simple-Yaml:1.8.4") as Dependency)
-	implementation("io.github.llamalad7:mixinextras-fabric:${project.properties["mixinextras_version"]}")
-
-	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
 	// Optional, but convenient mods for mod creators and users alike.
 	modImplementation("net.glasslauncher.mods:ModMenu:${project.modmenu_version}") {
@@ -89,25 +89,29 @@ dependencies {
 		transitive false
 	}
 
+	modImplementation("com.github.matthewperiut:retrocommands:${project.retrocommands_version}") {
+		transitive false
+	}
+
+	// StationAPI dependency
+	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
+
+	// StationAPI development mods
 	modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${project.alwaysmoreitems_version}") {
 		transitive false
 	}
 
-	modImplementation("com.github.matthewperiut:retrocommands:${project.retrocommands_version}") {
-		transitive false
-	}
+//	modImplementation("com.github.paulevsGitch:BHCreative:${project.bhcreative_version}"){
+//		transitive false
+//	}
 
 	modImplementation("net.danygames2014:spawneggs:${project.spawneggs_version}") {
 		transitive false
 	}
 
-	modImplementation("com.github.paulevsGitch:BHCreative:${project.bhcreative_version}"){
+	modRuntimeOnly ("maven.modrinth:fast-stapi-intro:${project.stapi_fast_intro_version}") {
 		transitive false
 	}
-
-//	modRuntimeOnly ("com.github.matthewperiut:stapi-fast-intro:17a7ed0") {
-//		transitive false
-//	}
 }
 
 processResources {

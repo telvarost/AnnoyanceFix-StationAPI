@@ -13,7 +13,6 @@
     "FlintAndSteelMixin",
     "FlowingFluidMixin",
     "HatchetMixin",
-    "ItemBaseMixin",
     "LevelMixin",
     "MinecraftMixin",
     "PickaxeMixin",
@@ -23,15 +22,13 @@
     "StairsMixin",
     "StoneSlabBlockMixin",
     "StoneSlabItemMixin",
-    "ToolBaseMixin"
   ],
   "server": [
     "ServerPacketHandlerMixin",
     "ServerPlayerConnectionManagerMixin"
   ],
   "client": [
-    "PlayerInventoryMixin",
-    "SinglePlayerClientInteractionManagerMixin"
+    "PlayerInventoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

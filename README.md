@@ -7,14 +7,14 @@
 **If you're looking for skin fixes and inventory fixes:** https://modrinth.com/mod/mojangfix-stationapi-edition
 
 **This version of the mod now supports multiplayer!**
-- Use GlassConfigAPI version 2.0+ to set up the config.
+- Use GlassConfigAPI version 3.0+ to set up the config.
 - The mod showcase video has also been updated: https://www.youtube.com/watch?v=h-NnpTYiuZc
 
 The aim of this mod is to fix (major) annoyances or backport useful features that do not affect gameplay. List of fixes:
 
 - Shovels are also effective against: soul sand
 - Pickaxes are also effective against: furnaces, cobblestone stairs, bricks, redstone ore, iron doors, rails, dispensers, stone pressure plates, and monster spawners
-- Axes are also effective against: crafting tables, wooden slabs (experimental), wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes, and noteblocks
+- Axes are also effective against: crafting tables, wooden slabs, wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes, and noteblocks
 - Fences are placeable like normal and bounding box was minimized when appropriate
 - Slabs can now be placed to create double slabs like modern
 - Stairs drop themselves
@@ -40,13 +40,14 @@ To use pick block: Look at something and click your scroll wheel. If it's in you
 
 ## Installation using Prism Launcher
 
-1. Download an instance of Babric for Prism Launcher: https://github.com/babric/prism-instance
-2. Install Java 17, set the instance to use it, and disable compatibility checks on the instance: https://adoptium.net/temurin/releases/
-3. Add StationAPI to the mod folder for the instance: https://modrinth.com/mod/stationapi
-4. Add Mod Menu to the mod folder for the instance: https://modrinth.com/mod/modmenu-beta
-5. Add GlassConfigAPI 2.0+ to the mod folder for the instance: https://modrinth.com/mod/glass-config-api
-6. Add this mod to the mod folder for the instance: https://github.com/telvarost/AnnoyanceFix-StationAPI/releases
-7. Run and enjoy! 👍
+1. Download an instance of Babric for Prism Launcher: https://github.com/Glass-Series/babric-prism-instance
+2. Install Java 17 and set the instance to use it: https://adoptium.net/temurin/releases/
+3. Add GlassConfigAPI 3.0.2+ to the mod folder for the instance: https://modrinth.com/mod/glass-config-api
+4. Add Glass Networking to the mod folder for the instance: https://modrinth.com/mod/glass-networking
+5. Add StationAPI to the mod folder for the instance: https://modrinth.com/mod/stationapi
+6. (Optional) Add Mod Menu to the mod folder for the instance: https://modrinth.com/mod/modmenu-beta
+7. Add this mod to the mod folder for the instance: https://github.com/telvarost/BetaTweaks-StationAPI/releases
+8. Run and enjoy! 👍
 
 ## Feedback
 

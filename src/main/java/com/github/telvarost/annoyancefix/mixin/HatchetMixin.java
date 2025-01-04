@@ -24,20 +24,6 @@ class HatchetMixin extends ToolItem {
         super(i, j, arg, args);
     }
 
-    @Override
-    public boolean isSuitableFor(Block arg) {
-        if (  (Config.config.woodenSlabFixesEnabled)
-           && (ModHelper.BlockTypeEnum.SLAB_BLOCK_IS_WOODEN == ModHelper.ModHelperFields.blockType)
-           )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     @Inject(
             method = "<clinit>",
             at = @At(
