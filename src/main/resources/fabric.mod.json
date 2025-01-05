@@ -33,7 +33,8 @@
       "com.github.telvarost.annoyancefix.Config"
     ],
     "gcapi3:factory_provider": [
-      "com.github.telvarost.annoyancefix.BoatCollisionEnumFactory"
+      "com.github.telvarost.annoyancefix.BoatCollisionEnumFactory",
+      "com.github.telvarost.annoyancefix.PickBlockEnumFactory"
     ]
   },
   "mixins": [

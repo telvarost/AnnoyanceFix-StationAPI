@@ -328,6 +328,13 @@ public class Config {
         public Boolean pickBlockFixesEnabled = true;
 
         @ConfigEntry(
+                name = "Pick Block Behavior",
+                multiplayerSynced = true
+        )
+        @ValueOnVanillaServer(integerValue = 0)
+        public PickBlockEnum pickBlockBehavior = PickBlockEnum.CHECK_META;
+
+        @ConfigEntry(
                 name = "Pig Fixes Enabled",
                 multiplayerSynced = true
         )

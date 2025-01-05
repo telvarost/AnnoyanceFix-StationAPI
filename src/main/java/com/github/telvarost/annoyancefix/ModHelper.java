@@ -14,6 +14,9 @@ public class ModHelper {
         /** @brief - Special data for disabling mixins */
         public static boolean loadMixinConfigs = true;
 
+        /** @brief - Special data for picking the correct block */
+        public static Integer pickBlockMeta = 0;
+
         /** @brief - Special data for flint and steel fixes */
         public static Boolean isFireLit = false;
 

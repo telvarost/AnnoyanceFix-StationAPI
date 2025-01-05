@@ -1,6 +1,9 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.ModHelper;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -17,6 +20,34 @@ class PlayerInventoryMixin {
 
     @Shadow
     public PlayerEntity player;
+
+    @Shadow
+    public ItemStack[] main;
+
+    @WrapOperation(
+            method = "setHeldItem",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/entity/player/PlayerInventory;indexOf(I)I"
+            )
+    )
+    private int annoyanceFix_setHeldItemCheckMeta(PlayerInventory instance, int itemId, Operation<Integer> original) {
+        if (0 < Config.config.pickBlockBehavior.ordinal()) {
+
+            for(int var2 = 0; var2 < this.main.length; ++var2) {
+                if (  this.main[var2] != null
+                   && this.main[var2].itemId == itemId
+                   && this.main[var2].getDamage() == ModHelper.ModHelperFields.pickBlockMeta
+                ) {
+                    return var2;
+                }
+            }
+
+            return -1;
+        } else {
+            return original.call(instance, itemId);
+        }
+    }
 
     /**
      * Checks if the item is in the players inventory except the hotbar. If so, it moves it to the players currently

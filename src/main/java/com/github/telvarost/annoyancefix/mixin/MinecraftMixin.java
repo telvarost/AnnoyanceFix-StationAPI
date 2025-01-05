@@ -1,6 +1,7 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.ModHelper;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.block.Block;
@@ -73,6 +74,22 @@ class MinecraftMixin {
             int tileDamage = this.world.getBlockMeta(crosshairTarget.blockX, crosshairTarget.blockY, crosshairTarget.blockZ);
             int tileID = this.world.getBlockId(crosshairTarget.blockX, crosshairTarget.blockY, crosshairTarget.blockZ);
             itemID = annoyanceFix_getItemIDFromTileID(tileID, tileDamage);
+
+            if (  Block.LOG.id     == tileID
+               || Block.LEAVES.id  == tileID
+               || Block.SAPLING.id == tileID
+            ) {
+                ModHelper.ModHelperFields.pickBlockMeta = tileDamage & 3;
+            } else if (  Block.WOOL.id        == tileID
+                      || Block.SLAB.id        == tileID
+                      || Block.DOUBLE_SLAB.id == tileID
+            ) {
+                ModHelper.ModHelperFields.pickBlockMeta = tileDamage;
+            } else {
+                ModHelper.ModHelperFields.pickBlockMeta = 0;
+            }
+        } else {
+            ModHelper.ModHelperFields.pickBlockMeta = 0;
         }
 
         if (itemID == 0) {
@@ -104,7 +121,21 @@ class MinecraftMixin {
         }
 
         if (!annoyanceFix_pickBlockLookupMap.containsKey(tileID)) {
-            return 0;
+            if (  (1 < Config.config.pickBlockBehavior.ordinal())
+               && (Block.GRASS_BLOCK.id == tileID)
+            ) {
+                return Block.GRASS_BLOCK.asItem().id;
+            } else if (  (1 < Config.config.pickBlockBehavior.ordinal())
+                      && (Block.BEDROCK.id == tileID)
+            ) {
+                return Block.BEDROCK.asItem().id;
+            } else if (Block.LIT_FURNACE.id == tileID) {
+                return Block.FURNACE.asItem().id;
+            } else if (Block.REDSTONE_TORCH.id == tileID) {
+                return Block.LIT_REDSTONE_TORCH.asItem().id;
+            } else {
+                return 0;
+            }
         }
         return annoyanceFix_pickBlockLookupMap.get(tileID);
     }
