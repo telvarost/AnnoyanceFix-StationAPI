@@ -77,22 +77,24 @@ public abstract class PlayerBaseMixin extends LivingEntity implements VehicleInt
 
 
     @Inject(method = "writeNbt", at = @At("HEAD"))
-    private void betaTweaks_writeCustomDataToTag(NbtCompound tag, CallbackInfo info) {
+    private void annoyanceFix_writeCustomDataToTag(NbtCompound tag, CallbackInfo info) {
         if (!Config.config.boatLogoutLoginFixesEnabled) {
             return;
         }
 
         /** - Save vehicle data */
-        _vehicleName = (this.vehicle != null) ?  EntityRegistry.getId(this.vehicle) : NULL_AS_STRING;
-        tag.putString("VehicleName", _vehicleName);
-        if (!_vehicleName.equals(NULL_AS_STRING)) {
-            this.vehicle.write(_vehicleTag);
-            tag.put("VehicleTag", _vehicleTag);
+        _vehicleName = (this.vehicle != null) ? EntityRegistry.getId(this.vehicle) : NULL_AS_STRING;
+        if (null != _vehicleName) {
+            tag.putString("VehicleName", _vehicleName);
+            if (!_vehicleName.equals(NULL_AS_STRING)) {
+                this.vehicle.write(_vehicleTag);
+                tag.put("VehicleTag", _vehicleTag);
+            }
         }
     }
 
     @Inject(method = "readNbt", at = @At("HEAD"))
-    private void betaTweaks_readCustomDataFromTag(NbtCompound tag, CallbackInfo info) {
+    private void annoyanceFix_readCustomDataFromTag(NbtCompound tag, CallbackInfo info) {
         if (!Config.config.boatLogoutLoginFixesEnabled) {
             return;
         }
