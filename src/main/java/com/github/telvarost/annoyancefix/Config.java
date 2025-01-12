@@ -270,6 +270,7 @@ public class Config {
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
         public Boolean boatDropFixesEnabled = true;
 
+        // Should rename to "Vehicle Logout/Login Fixes Enabled"
         @ConfigEntry(
                 name = "Boat Logout/Login Fixes Enabled",
                 multiplayerSynced = true
