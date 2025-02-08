@@ -49,6 +49,11 @@ repositories {
 		name = 'Jitpack'
 		url = 'https://jitpack.io'
 	}
+	// Used for SpawnEggs
+	maven {
+		name = "NyaRepo"
+		url = "https://maven.fildand.cz/releases"
+	}
 	// Used for another StationAPI dependency
 	exclusiveContent {
 		forRepository {
