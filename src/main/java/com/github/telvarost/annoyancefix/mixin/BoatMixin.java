@@ -1,6 +1,8 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -69,7 +71,7 @@ abstract class BoatMixin extends Entity {
         }
     }
 
-    @Redirect(
+    @WrapOperation(
             method = "tick",
             at = @At(
                     value = "INVOKE",
@@ -77,11 +79,11 @@ abstract class BoatMixin extends Entity {
                     ordinal = 1
             )
     )
-    private ItemEntity annoyanceFix_skipSticksDropOnCollision(BoatEntity instance, int i, int j, float f) {
+    private ItemEntity annoyanceFix_skipSticksDropOnCollision(BoatEntity instance, int i, int j, float f, Operation<ItemEntity> original) {
         if (0 < Config.config.boatCollisionBehavior.ordinal()) {
             return null;
         } else {
-            return instance.dropItem(i, j, f);
+            return original.call(instance, i, j, f);
         }
     }
 

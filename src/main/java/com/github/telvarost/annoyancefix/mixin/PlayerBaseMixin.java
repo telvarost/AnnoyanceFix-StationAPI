@@ -3,6 +3,8 @@ package com.github.telvarost.annoyancefix.mixin;
 import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModHelper;
 import com.github.telvarost.annoyancefix.interfaces.VehicleInterface;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityRegistry;
 import net.minecraft.entity.LivingEntity;
@@ -14,7 +16,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
@@ -53,15 +54,15 @@ public abstract class PlayerBaseMixin extends LivingEntity implements VehicleInt
         _vehicleTag = vehicleTag;
     }
 
-    @Redirect(
+    @WrapOperation(
             method = "interact",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/entity/Entity;interact(Lnet/minecraft/entity/player/PlayerEntity;)Z"
             )
     )
-    public boolean interactWith(Entity instance, PlayerEntity playerBase) {
-        boolean canInteract = instance.interact(playerBase);
+    public boolean interactWith(Entity instance, PlayerEntity playerEntity, Operation<Boolean> original) {
+        boolean canInteract = original.call(instance, playerEntity);
 
         if (Config.config.boatLogoutLoginFixesEnabled && canInteract) {
             /** - Set vehicle data */

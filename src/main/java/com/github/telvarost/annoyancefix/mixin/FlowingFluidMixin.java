@@ -1,6 +1,8 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.block.FlowingLiquidBlock;
 import net.minecraft.block.LiquidBlock;
 import net.minecraft.block.material.Material;
@@ -48,18 +50,18 @@ class FlowingFluidMixin extends LiquidBlock {
         }
     }
 
-    @Redirect(
+    @WrapOperation(
             method = "onTick",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/World;getBlockMeta(III)I"
             )
     )
-    private int annoyanceFix_allowWaterSpringPropagation(World arg, int i, int j, int k) {
+    private int annoyanceFix_allowWaterSpringPropagation(World instance, int x, int y, int z, Operation<Integer> original) {
         if (Config.config.waterFixesEnabled) {
-            return arg.getBlockMeta(i, j - 1, k);
+            return original.call(instance, x, y - 1, z);
         } else {
-            return arg.getBlockMeta(i, j, k);
+            return original.call(instance, x, y, z);
         }
     }
 }

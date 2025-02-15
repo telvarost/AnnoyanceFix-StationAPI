@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "com.github.telvarost.annoyancefix.AnnoyanceFixMixinPlugin",
   "mixins": [
+    "BlockItemMixin",
     "BoatMixin",
     "BookshelfMixin",
     "ChickenMixin",
@@ -21,7 +22,7 @@
     "ShovelMixin",
     "StairsMixin",
     "StoneSlabBlockMixin",
-    "StoneSlabItemMixin",
+    "StoneSlabItemMixin"
   ],
   "server": [
     "ServerPacketHandlerMixin",

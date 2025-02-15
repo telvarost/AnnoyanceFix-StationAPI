@@ -1,6 +1,8 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -10,21 +12,20 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerLoginNetworkHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Environment(EnvType.SERVER)
 @Mixin(ServerLoginNetworkHandler.class)
 public abstract class ServerPacketHandlerMixin {
 
-    @Redirect(
+    @WrapOperation(
             method = "accept",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/entity/player/ServerPlayerEntity;initScreenHandler()V"
             )
     )
-    public void annoyanceFix_completeLoadVehicle(ServerPlayerEntity instance) {
-        instance.initScreenHandler();
+    public void annoyanceFix_completeLoadVehicle(ServerPlayerEntity instance, Operation<Void> original) {
+        original.call(instance);
 
         if (Config.config.boatLogoutLoginFixesEnabled) {
             /** - Spawn saved vehicle if on multiplayer */

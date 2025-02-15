@@ -17,6 +17,7 @@ The aim of this mod is to fix (major) annoyances or backport useful features tha
 - Axes are also effective against: crafting tables, wooden slabs, wooden stairs, fences, wooden doors, ladders, signs, pumpkins, wooden pressure plates, jukeboxes, and noteblocks
 - Fences are placeable like normal and bounding box was minimized when appropriate
 - Slabs can now be placed to create double slabs like modern
+- Placing a block on tall grass, ferns, and dead bushes will now replace the plant block with the block placed
 - Stairs drop themselves
 - Bookshelves drop three books
 - Pigs drop their saddles if they have a saddle equipped
