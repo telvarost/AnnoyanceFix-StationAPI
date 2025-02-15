@@ -343,11 +343,11 @@ public class Config {
         public Boolean pigFixesEnabled = true;
 
         @ConfigEntry(
-                name = "Plant Placement Fixes Enabled",
+                name = "Plant Replacement Fixes Enabled",
                 multiplayerSynced = true
         )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
-        public Boolean plantPlacementFixesEnabled = true;
+        public Boolean plantReplacementFixesEnabled = true;
 
         @ConfigEntry(
                 name = "Slab Placement Fixes Enabled",

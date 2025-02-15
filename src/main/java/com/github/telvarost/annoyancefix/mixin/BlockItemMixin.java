@@ -28,7 +28,7 @@ public class BlockItemMixin {
         if (  Block.GRASS.id == blockId
            || Block.DEAD_BUSH.id == blockId
         ) {
-            if (Config.config.plantPlacementFixesEnabled) {
+            if (Config.config.plantReplacementFixesEnabled) {
                 blockId = Block.SNOW.id;
                 replaceBlock = true;
             }

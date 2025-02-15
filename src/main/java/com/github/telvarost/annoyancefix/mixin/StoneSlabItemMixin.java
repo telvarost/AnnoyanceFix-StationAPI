@@ -1,5 +1,6 @@
 package com.github.telvarost.annoyancefix.mixin;
 
+import com.github.telvarost.annoyancefix.Config;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -35,7 +36,17 @@ public class StoneSlabItemMixin extends BlockItem {
             }
         }
 
-        if (world.getBlockId(x, y, z) == Block.SNOW.id) {
+        int blockId = world.getBlockId(x, y, z);
+        boolean replaceBlock = false;
+
+        if (  (Config.config.plantReplacementFixesEnabled)
+           && (  Block.GRASS.id     == blockId
+              || Block.DEAD_BUSH.id == blockId
+              )
+        ) {
+            side = 0;
+            replaceBlock = true;
+        } else if (Block.SNOW.id == blockId) {
             side = 0;
         } else {
             if (side == 0) {
@@ -67,7 +78,7 @@ public class StoneSlabItemMixin extends BlockItem {
             return false;
         } else if (y == 127 && Block.BLOCKS[this.id].material.isSolid()) {
             return false;
-        } else if (world.canPlace(this.id, x, y, z, false, side)) {
+        } else if (world.canPlace(this.id, x, y, z, false, side) || replaceBlock) {
             Block var8 = Block.BLOCKS[this.id];
             if (world.setBlock(x, y, z, this.id, this.getPlacementMetadata(stack.getDamage()))) {
                 Block.BLOCKS[this.id].onPlaced(world, x, y, z, side);
