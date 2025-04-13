@@ -100,7 +100,7 @@ abstract class BoatMixin extends Entity {
         }
     }
 
-    @Redirect(
+    @WrapOperation(
             method = "tick",
             at = @At(
                     value = "FIELD",
@@ -108,11 +108,11 @@ abstract class BoatMixin extends Entity {
                     opcode = Opcodes.GETFIELD
             )
     )
-    private boolean annoyanceFix_stopBoatBreaking(BoatEntity instance) {
+    private boolean annoyanceFix_stopBoatBreaking(BoatEntity instance, Operation<Boolean> original) {
         if (1 < Config.config.boatCollisionBehavior.ordinal()) {
             return false;
         } else {
-            return this.horizontalCollision;
+            return original.call(instance);
         }
     }
 

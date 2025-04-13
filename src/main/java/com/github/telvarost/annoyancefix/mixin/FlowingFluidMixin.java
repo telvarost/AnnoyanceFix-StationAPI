@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(FlowingLiquidBlock.class)
 class FlowingFluidMixin extends LiquidBlock {
@@ -33,7 +32,7 @@ class FlowingFluidMixin extends LiquidBlock {
      * @param instance - instance of the flowing fluid block
      * @return - replaces the material to allow block updates on the flowing fluid when fix is active
      */
-    @Redirect(
+    @WrapOperation(
             method = "onTick",
             at = @At(
                     value = "FIELD",
@@ -42,11 +41,11 @@ class FlowingFluidMixin extends LiquidBlock {
                     ordinal = 3
             )
     )
-    private Material annoyanceFix_allowLavaToDisappear(FlowingLiquidBlock instance) {
+    private Material annoyanceFix_allowLavaToDisappear(FlowingLiquidBlock instance, Operation<Material> original) {
         if (Config.config.lavaFixesEnabled) {
             return Material.WATER;
         } else {
-            return instance.material;
+            return original.call(instance);
         }
     }
 
