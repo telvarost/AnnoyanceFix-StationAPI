@@ -94,7 +94,7 @@ dependencies {
 		transitive false
 	}
 
-	modImplementation("com.github.matthewperiut:retrocommands:${project.retrocommands_version}") {
+	modImplementation("maven.modrinth:retrocommands:${project.retrocommands_version}") {
 		transitive false
 	}
 
@@ -102,7 +102,7 @@ dependencies {
 	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
 	// StationAPI development mods
-	modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${project.alwaysmoreitems_version}") {
+	modRuntimeOnly ("maven.modrinth:fast-stapi-intro:${project.stapi_fast_intro_version}") {
 		transitive false
 	}
 
@@ -110,11 +110,11 @@ dependencies {
 		transitive false
 	}
 
-	modImplementation("net.danygames2014:spawneggs:${project.spawneggs_version}") {
+	modImplementation("net.glasslauncher.mods:AlwaysMoreItems:${project.alwaysmoreitems_version}") {
 		transitive false
 	}
 
-	modRuntimeOnly ("maven.modrinth:fast-stapi-intro:${project.stapi_fast_intro_version}") {
+	modImplementation("net.danygames2014:spawneggs:${project.spawneggs_version}") {
 		transitive false
 	}
 }
