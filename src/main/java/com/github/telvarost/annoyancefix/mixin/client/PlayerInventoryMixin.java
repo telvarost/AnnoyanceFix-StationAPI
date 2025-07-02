@@ -1,4 +1,4 @@
-package com.github.telvarost.annoyancefix.mixin;
+package com.github.telvarost.annoyancefix.mixin.client;
 
 import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModHelper;

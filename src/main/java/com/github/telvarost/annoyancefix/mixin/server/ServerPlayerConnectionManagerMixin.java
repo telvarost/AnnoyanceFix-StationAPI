@@ -1,4 +1,4 @@
-package com.github.telvarost.annoyancefix.mixin;
+package com.github.telvarost.annoyancefix.mixin.server;
 
 import com.github.telvarost.annoyancefix.Config;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

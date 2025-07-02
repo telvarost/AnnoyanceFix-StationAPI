@@ -10,6 +10,7 @@
     "BookshelfMixin",
     "ChickenMixin",
     "CobwebMixin",
+    "CraftingRecipeManagerMixin",
     "FenceMixin",
     "FlintAndSteelMixin",
     "FlowingFluidMixin",
@@ -25,11 +26,11 @@
     "StoneSlabItemMixin"
   ],
   "server": [
-    "ServerPacketHandlerMixin",
-    "ServerPlayerConnectionManagerMixin"
+    "server.ServerPacketHandlerMixin",
+    "server.ServerPlayerConnectionManagerMixin"
   ],
   "client": [
-    "PlayerInventoryMixin"
+    "client.PlayerInventoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

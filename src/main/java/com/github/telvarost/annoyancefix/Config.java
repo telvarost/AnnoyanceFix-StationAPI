@@ -208,18 +208,11 @@ public class Config {
     public static class RecipesConfig {
 
         @ConfigEntry(
-                name = "Crafting: Repair Armor",
+                name = "Crafting: Repair Items",
                 multiplayerSynced = true
         )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
-        public Boolean recipesRepairArmorEnabled = true;
-
-        @ConfigEntry(
-                name = "Crafting: Repair Tools",
-                multiplayerSynced = true
-        )
-        @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
-        public Boolean recipesRepairToolsEnabled = true;
+        public Boolean recipesRepairItemsEnabled = true;
 
         @ConfigEntry(
                 name = "Furnace: Add More Wood Items As Fuel",
