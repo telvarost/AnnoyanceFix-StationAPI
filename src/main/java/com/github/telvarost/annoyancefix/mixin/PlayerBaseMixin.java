@@ -67,7 +67,7 @@ public abstract class PlayerBaseMixin extends LivingEntity implements VehicleInt
         if (Config.config.boatLogoutLoginFixesEnabled && canInteract) {
             /** - Set vehicle data */
             _vehicleName = (instance.passenger != null) ?  EntityRegistry.getId(instance) : NULL_AS_STRING;
-            if (!_vehicleName.equals(NULL_AS_STRING)) {
+            if (_vehicleName != null && !_vehicleName.equals(NULL_AS_STRING)) {
                 instance.write(_vehicleTag);
             }
         }
@@ -102,7 +102,7 @@ public abstract class PlayerBaseMixin extends LivingEntity implements VehicleInt
 
         /** - Get vehicle data */
         _vehicleName = tag.getString("VehicleName");
-        if (!_vehicleName.equals(NULL_AS_STRING)) {
+        if (_vehicleName != null && !_vehicleName.equals(NULL_AS_STRING)) {
             _vehicleTag = tag.getCompound("VehicleTag");
         }
 
@@ -111,7 +111,7 @@ public abstract class PlayerBaseMixin extends LivingEntity implements VehicleInt
         PlayerEntity singlePlayer = PlayerHelper.getPlayerFromGame();
         if (null == singlePlayer) return;
         if (null == _vehicleTag)  return;
-        if (_vehicleName.equals(NULL_AS_STRING)) return;
+        if (_vehicleName == null || _vehicleName.equals(NULL_AS_STRING)) return;
         Entity vehicle = EntityRegistry.create(_vehicleName, world);
         if (null != vehicle) {
             ModHelper.ModHelperFields.isVehicleSaved = true;
