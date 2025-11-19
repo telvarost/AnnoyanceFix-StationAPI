@@ -343,6 +343,13 @@ public class Config {
         public Boolean plantReplacementFixesEnabled = true;
 
         @ConfigEntry(
+                name = "Pumpkin Placement Fixes Enabled",
+                multiplayerSynced = true
+        )
+        @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
+        public Boolean pumpkinFixesEnabled = true;
+
+        @ConfigEntry(
                 name = "Slab Placement Fixes Enabled",
                 description = "Restart required for changes to take effect",
                 multiplayerSynced = true

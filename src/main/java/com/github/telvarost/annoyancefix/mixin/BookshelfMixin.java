@@ -35,7 +35,7 @@ class BookshelfMixin extends Block {
         if (Config.config.bookshelfFixesEnabled) {
             return Item.BOOK.id;
         } else {
-            return this.id;
+            return this.asItem().id;
         }
     }
 }

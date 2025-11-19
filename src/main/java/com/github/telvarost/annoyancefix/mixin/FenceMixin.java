@@ -24,9 +24,10 @@ class FenceMixin extends Block {
             at = @At("RETURN"),
             cancellable = true
     )
-    private void annoyanceFix_canPlaceAt(World arg, int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
+    private void annoyanceFix_canPlaceAt(World world, int x, int y, int z, CallbackInfoReturnable<Boolean> cir) {
         if (Config.config.fenceFixesEnabled) {
-            cir.setReturnValue(true);
+            int blockId = world.getBlockId(x, y, z);
+            cir.setReturnValue(blockId == 0 || BLOCKS[blockId].material.isReplaceable());
         }
     }
 
