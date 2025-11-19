@@ -43,7 +43,7 @@ To use pick block: Look at something and click your scroll wheel. If it's in you
 
 ## Installation using Prism Launcher
 
-1. Download an instance of Babric for Prism Launcher: https://github.com/Glass-Series/babric-prism-instance
+1. Download an instance of Babric for Prism Launcher: https://github.com/babric/prism-instance
 2. Install Java 17 and set the instance to use it: https://adoptium.net/temurin/releases/
 3. Add GlassConfigAPI 3.0.2+ to the mod folder for the instance: https://modrinth.com/mod/glass-config-api
 4. Add Glass Networking to the mod folder for the instance: https://modrinth.com/mod/glass-networking
