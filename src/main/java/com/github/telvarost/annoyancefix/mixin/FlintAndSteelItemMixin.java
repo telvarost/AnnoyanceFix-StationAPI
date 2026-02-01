@@ -4,7 +4,7 @@ import com.github.telvarost.annoyancefix.Config;
 import com.github.telvarost.annoyancefix.ModHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FlintAndSteel;
+import net.minecraft.item.FlintAndSteelItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(FlintAndSteel.class)
-class FlintAndSteelMixin extends Item {
+@Mixin(FlintAndSteelItem.class)
+class FlintAndSteelItemMixin extends Item {
 
-    public FlintAndSteelMixin(int i) {
+    public FlintAndSteelItemMixin(int i) {
         super(i);
         this.maxCount = 1;
         this.setMaxDamage(64);

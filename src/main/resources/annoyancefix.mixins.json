@@ -12,7 +12,7 @@
     "CobwebMixin",
     "CraftingRecipeManagerMixin",
     "FenceMixin",
-    "FlintAndSteelMixin",
+    "FlintAndSteelItemMixin",
     "FlowingFluidMixin",
     "HatchetMixin",
     "LevelMixin",
