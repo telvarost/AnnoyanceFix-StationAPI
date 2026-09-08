@@ -1,7 +1,10 @@
 package com.github.telvarost.annoyancefix.mixin;
 
 import com.github.telvarost.annoyancefix.Config;
+import com.github.telvarost.annoyancefix.ModHelper;
+import com.github.telvarost.annoyancefix.compat.FarnNameTagCompat;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipeManager;
@@ -18,22 +21,41 @@ public class CraftingRecipeManagerMixin {
 
     @Inject(method = "craft", at = @At(value = "HEAD"), cancellable = true)
     public void combineDurability(CraftingInventory inventory, CallbackInfoReturnable<ItemStack> cir) {
-        if (Config.config.RECIPES_CONFIG.recipesRepairItemsEnabled)
+        if (Config.config.RECIPES_CONFIG.recipesRepairItemsEnabled || Config.config.RECIPES_CONFIG.recipesRepairArmorEnabled)
         {
             ItemStack stack1 = null;
             ItemStack stack2 = null;
+            int craftingStacks = 0;
 
             for (ItemStack stack : inventory.stacks) {
-                if (stack != null && stack.getItem().isDamageable()) {
-                    if (stack1 != null && stack1.getItem() == stack.getItem()) {
-                        stack2 = stack;
-                    } else {
-                        stack1 = stack;
+                if (stack != null) {
+                    craftingStacks++;
+
+                    if (stack.getItem().isDamageable()) {
+                        Item stackItem = stack.getItem();
+
+                        if (stackItem instanceof ArmorItem) {
+                            if (Config.config.RECIPES_CONFIG.recipesRepairArmorEnabled) {
+                                if (stack1 != null && stack1.getItem() == stack.getItem()) {
+                                    stack2 = stack;
+                                } else {
+                                    stack1 = stack;
+                                }
+                            }
+                        } else {
+                            if (Config.config.RECIPES_CONFIG.recipesRepairItemsEnabled) {
+                                if (stack1 != null && stack1.getItem() == stack.getItem()) {
+                                    stack2 = stack;
+                                } else {
+                                    stack1 = stack;
+                                }
+                            }
+                        }
                     }
                 }
             }
 
-            if(stack1 != null && stack2 != null) {
+            if(stack1 != null && stack2 != null && craftingStacks == 2) {
                 Item item = stack1.getItem();
 
                 int item1durability = item.getMaxDamage() - stack1.getDamage();
@@ -44,7 +66,14 @@ public class CraftingRecipeManagerMixin {
                     resultDurability = 0;
                 }
 
-                cir.setReturnValue(new ItemStack(item, 1, resultDurability));
+                ItemStack result = new ItemStack(item, 1, resultDurability);
+
+                // Farn's Nametags compat
+                if (ModHelper.ModHelperFields.isFarnNameTagLoaded) {
+                    FarnNameTagCompat.checkForCustomNametagAndAddToResult(stack1, stack2, result);
+                }
+
+                cir.setReturnValue(result);
             }
         }
     }

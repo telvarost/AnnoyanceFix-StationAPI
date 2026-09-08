@@ -215,7 +215,15 @@ public class Config {
         public Boolean recipesRepairItemsEnabled = true;
 
         @ConfigEntry(
+                name = "Crafting: Repair Armor",
+                multiplayerSynced = true
+        )
+        @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
+        public Boolean recipesRepairArmorEnabled = true;
+
+        @ConfigEntry(
                 name = "Furnace: Add More Wood Items As Fuel",
+                description = "Restart required for changes to take effect",
                 multiplayerSynced = true
         )
         @ValueOnVanillaServer(booleanValue = TriBoolean.FALSE)
@@ -244,8 +252,7 @@ public class Config {
         public final ShovelsConfig SHOVELS_CONFIG = new ShovelsConfig();
 
         @ConfigCategory(
-                name = "Config: Recipes/Fuels For Crafting/Furnaces",
-                description = "Options here require restart to take effect"
+                name = "Config: Recipes/Fuels For Crafting/Furnaces"
         )
         public final RecipesConfig RECIPES_CONFIG = new RecipesConfig();
 

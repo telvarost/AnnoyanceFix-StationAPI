@@ -17,6 +17,7 @@ public class AnnoyanceFixMixinPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
         File file = new File(FabricLoader.getInstance().getConfigDir().toFile(), "annoyancefix/config.yml");
+        ModHelper.ModHelperFields.isFarnNameTagLoaded = FabricLoader.getInstance().isModLoaded("farnnametag");
 
         config = new GlassYamlFile();
         try {

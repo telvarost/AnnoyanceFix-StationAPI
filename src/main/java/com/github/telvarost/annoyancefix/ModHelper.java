@@ -26,5 +26,8 @@ public class ModHelper {
         public static Double savedVehicleX = 0.0D;
         public static Double savedVehicleY = 0.0D;
         public static Double savedVehicleZ = 0.0D;
+
+        /** @brief - Compat with Farn's Name Tags */
+        public static Boolean isFarnNameTagLoaded = false;
     }
 }
