@@ -56,17 +56,17 @@ public class CraftingRecipeManagerMixin {
             }
 
             if(stack1 != null && stack2 != null && craftingStacks == 2) {
-                Item item = stack1.getItem();
+                Item stackItem = stack1.getItem();
 
-                int item1durability = item.getMaxDamage() - stack1.getDamage();
-                int item2durability = item.getMaxDamage() - stack2.getDamage();
-                int addedDurability = item1durability + item2durability + item.getMaxDamage() * 10 / 100;
-                int resultDurability = item.getMaxDamage() - addedDurability;
+                int item1durability = stackItem.getMaxDamage() - stack1.getDamage();
+                int item2durability = stackItem.getMaxDamage() - stack2.getDamage();
+                int addedDurability = item1durability + item2durability + stackItem.getMaxDamage() * 10 / 100;
+                int resultDurability = stackItem.getMaxDamage() - addedDurability;
                 if (resultDurability < 0) {
                     resultDurability = 0;
                 }
 
-                ItemStack result = new ItemStack(item, 1, resultDurability);
+                ItemStack result = new ItemStack(stackItem, 1, resultDurability);
 
                 // Farn's Nametags compat
                 if (ModHelper.ModHelperFields.isFarnNameTagLoaded) {
